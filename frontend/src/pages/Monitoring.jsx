@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { BarChart3, AlertTriangle, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { useToast } from '../components/ui/Toast';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Monitoring() {
   const { user, authFetch } = useAuth();
@@ -99,6 +101,12 @@ export default function Monitoring() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="monitoring" steps={[
+      'Select a deployed model to monitor.',
+      'Log predictions and actual outcomes.',
+      'View drift detection alerts.',
+      'Click \'Retrain\' if performance degrades.'
+      ]} />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Model Monitoring & Drift Detection</h1>
@@ -114,7 +122,7 @@ export default function Monitoring() {
         {['overview', 'alerts'].map(t => (
           <button key={t} onClick={() => setTab(t)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === t ? 'bg-purple-500/20 text-purple-300' : 'text-purple-300/50 hover:text-dark-200'}`}>
-            {t === 'overview' ? '📊 Overview' : `🚨 Alerts (${alerts.length})`}
+            {t === 'overview' ? <><BarChart3 className="w-4 h-4 inline mr-1" /> Overview</> : <><AlertTriangle className="w-4 h-4 inline mr-1" /> Alerts ({alerts.length})</>}
           </button>
         ))}
       </div>
@@ -130,7 +138,7 @@ export default function Monitoring() {
               ))}
             </select>
             <button onClick={handleRetrain} className="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg hover:bg-red-500/20 text-sm">
-              🔄 Trigger Retrain
+              <RefreshCw className="w-4 h-4 inline mr-1" /> Trigger Retrain
             </button>
           </div>
 
@@ -203,7 +211,7 @@ export default function Monitoring() {
             </div>
           ) : (
             <div className="text-center py-16 text-purple-300/50">
-              <p className="text-4xl mb-4">📊</p>
+              <BarChart3 className="w-10 h-10 text-purple-400 mx-auto mb-4" />
               <p>No monitoring data yet. Simulate some data to get started.</p>
             </div>
           )}
@@ -214,7 +222,7 @@ export default function Monitoring() {
         <div className="space-y-3">
           {alerts.length === 0 ? (
             <div className="text-center py-16 text-purple-300/50">
-              <p className="text-4xl mb-4">✅</p>
+              <CheckCircle2 className="w-10 h-10 text-green-400 mx-auto mb-4" />
               <p>No alerts. All models performing within thresholds.</p>
             </div>
           ) : (

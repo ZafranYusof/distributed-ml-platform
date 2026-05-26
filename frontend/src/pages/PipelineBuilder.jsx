@@ -11,23 +11,31 @@ import {
   Position
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
+import { FolderOpen, Wrench, Brain, Rocket, BarChart3, Save, Trash2, Loader, Play, ClipboardList, CheckCircle2 } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 const nodeStyles = {
-  'data-source': { bg: 'bg-blue-500/20', border: 'border-blue-500/40', icon: '📁', color: '#3b82f6' },
-  'preprocessing': { bg: 'bg-purple-500/20', border: 'border-purple-500/40', icon: '🔧', color: '#a855f7' },
-  'model': { bg: 'bg-primary-500/20', border: 'border-primary-500/40', icon: '🧠', color: '#06b6d4' },
-  'training': { bg: 'bg-yellow-500/20', border: 'border-yellow-500/40', icon: '🚀', color: '#06b6d4' },
-  'evaluation': { bg: 'bg-green-500/20', border: 'border-green-500/40', icon: '📊', color: '#22c55e' },
-  'export': { bg: 'bg-orange-500/20', border: 'border-orange-500/40', icon: '💾', color: '#f97316' },
+  'data-source': { bg: 'bg-blue-500/20', border: 'border-blue-500/40', icon: FolderOpen, color: '#3b82f6' },
+  'preprocessing': { bg: 'bg-purple-500/20', border: 'border-purple-500/40', icon: Wrench, color: '#a855f7' },
+  'model': { bg: 'bg-primary-500/20', border: 'border-primary-500/40', icon: Brain, color: '#06b6d4' },
+  'training': { bg: 'bg-yellow-500/20', border: 'border-yellow-500/40', icon: Rocket, color: '#06b6d4' },
+  'evaluation': { bg: 'bg-green-500/20', border: 'border-green-500/40', icon: BarChart3, color: '#22c55e' },
+  'export': { bg: 'bg-orange-500/20', border: 'border-orange-500/40', icon: Save, color: '#f97316' },
 };
 
 function PipelineNode({ data }) {
   const style = nodeStyles[data.nodeType] || nodeStyles['model'];
   return (
     <div className={`px-4 py-3 rounded-lg border ${style.bg} ${style.border} min-w-[160px]`}>
+      <HowToUse pageId="pipeline-builder" steps={[
+      'Drag nodes from the palette onto the canvas.',
+      'Connect nodes to define data flow.',
+      'Configure each node\'s parameters.',
+      'Click \'Execute\' to run the pipeline.'
+      ]} />
       <Handle type="target" position={Position.Left} className="!bg-dark-400 !w-3 !h-3 !border-2 !border-purple-500/30" />
       <div className="flex items-center gap-2">
-        <span className="text-lg">{style.icon}</span>
+        <span className="text-lg">{style.icon && <style.icon className="w-5 h-5" style={{ color: style.color }} />}</span>
         <div>
           <p className="text-sm font-medium text-white">{data.label}</p>
           <p className="text-xs text-purple-300/50">{data.description || data.nodeType}</p>
@@ -191,7 +199,7 @@ export default function PipelineBuilder() {
         <div className="flex gap-2">
           {selectedNode && (
             <button onClick={deleteSelected} className="px-3 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded-lg text-sm hover:bg-red-500/20 transition-colors">
-              🗑️ Delete Node
+              <Trash2 className="w-4 h-4 inline mr-1" /> Delete Node
             </button>
           )}
           <button
@@ -199,7 +207,7 @@ export default function PipelineBuilder() {
             disabled={executing}
             className="btn-primary flex items-center gap-2"
           >
-            {executing ? <><span className="animate-spin">⏳</span> Executing...</> : <><span>▶️</span> Execute Pipeline</>}
+            {executing ? <><Loader className="w-4 h-4 animate-spin" /> Executing...</> : <><Play className="w-4 h-4" /> Execute Pipeline</>}
           </button>
         </div>
       </div>
@@ -214,7 +222,7 @@ export default function PipelineBuilder() {
               onClick={() => addNode(type)}
               className={`px-3 py-2 rounded-lg border ${style.bg} ${style.border} text-sm text-dark-200 hover:opacity-80 transition-opacity flex items-center gap-2`}
             >
-              <span>{style.icon}</span>
+              <span>{style.icon && <style.icon className="w-4 h-4" />}</span>
               <span className="capitalize">{type.replace('-', ' ')}</span>
             </button>
           ))}
@@ -248,12 +256,12 @@ export default function PipelineBuilder() {
       {/* Execution Log */}
       {executionLog.length > 0 && (
         <div className="card">
-          <h3 className="text-lg font-semibold text-white mb-4">📋 Execution Log</h3>
+          <h3 className="text-lg font-semibold text-white mb-4"><ClipboardList className="w-5 h-5 inline mr-1" /> Execution Log</h3>
           <div className="space-y-2">
             {executionLog.map((log, i) => (
               <div key={i} className="flex items-center gap-3 bg-dark-800/40 rounded-lg px-4 py-2 border border-purple-500/30">
                 <span className="text-lg">
-                  {log.status === 'running' ? '⏳' : '✅'}
+                  {log.status === 'running' ? <Loader className="w-5 h-5 animate-spin text-yellow-400" /> : <CheckCircle2 className="w-5 h-5 text-green-400" />}
                 </span>
                 <div className="flex-1">
                   <p className="text-sm text-dark-200">{log.label}</p>

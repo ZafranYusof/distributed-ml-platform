@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Legend, Cell } from 'recharts';
 import { useToast } from '../components/ui/Toast';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Ensemble() {
   const { user, authFetch } = useAuth();
@@ -114,6 +115,12 @@ export default function Ensemble() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="ensemble" steps={[
+      'Select multiple trained models.',
+      'Choose ensemble method (Bagging/Boosting/Stacking).',
+      'Or use Auto-Ensemble to pick top N.',
+      'Compare ensemble vs individual performance.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Ensemble Methods</h1>
         <p className="text-purple-300/50 mt-1">Combine multiple models for better predictions</p>

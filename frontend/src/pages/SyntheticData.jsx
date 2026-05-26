@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { X, Download } from 'lucide-react';
 import { useToast } from '../components/ui/Toast';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function SyntheticData() {
   const { authFetch } = useAuth();
@@ -114,6 +116,13 @@ export default function SyntheticData() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="synthetic-data" steps={[
+      'Configure number of rows and columns.',
+      'Set distribution per column (normal, uniform, etc).',
+      'Set correlations between columns.',
+      'Add anomalies if needed.',
+      'Preview and export as CSV.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Synthetic Data Generator</h1>
         <p className="text-purple-300/50 mt-1">Generate realistic datasets with configurable distributions and privacy</p>
@@ -186,7 +195,7 @@ export default function SyntheticData() {
                 <input value={col.categories.join(',')} onChange={e => updateColumn(i, 'categories', e.target.value.split(','))}
                   className="flex-1 px-2 py-1 bg-dark-800/40 border border-purple-500/30 rounded text-white text-sm" placeholder="cat1,cat2,cat3" />
               )}
-              <button onClick={() => removeColumn(i)} className="text-red-400 hover:text-red-300 text-sm">✕</button>
+              <button onClick={() => removeColumn(i)} className="text-red-400 hover:text-red-300 text-sm"><X className="w-4 h-4" /></button>
             </div>
           ))}
         </div>
@@ -200,7 +209,7 @@ export default function SyntheticData() {
           </button>
           {generatedData && (
             <button onClick={exportCSV} className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-              📥 Export CSV
+              <Download className="w-4 h-4 inline mr-1" /> Export CSV
             </button>
           )}
         </div>

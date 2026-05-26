@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ScatterChart, Scatter, Cell } from 'recharts';
 import { CheckCircle2, XCircle } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function DebugStudio() {
   const [modelConfig, setModelConfig] = useState({ layers: [4, 16, 8, 3], activation: 'relu' });
@@ -111,6 +112,12 @@ export default function DebugStudio() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="debug-studio" steps={[
+      'Load a trained model and test dataset.',
+      'Step through predictions one by one.',
+      'Inspect layer activations.',
+      'View confusion matrix and error analysis.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Model Debugging Studio</h1>
         <p className="text-purple-300/50 mt-1">Step through predictions, inspect activations, and analyze failures</p>

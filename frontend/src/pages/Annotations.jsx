@@ -6,6 +6,7 @@ import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import { Trash2, Download } from 'lucide-react';
 import { Tag, MousePointer } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Annotations() {
   const { user, authFetch } = useAuth();
@@ -147,6 +148,13 @@ export default function Annotations() {
 
   return (
     <div className="space-y-6">
+      <HowToUse pageId="annotations" steps={[
+      'Upload raw data (CSV).',
+      'Define label categories.',
+      'Label rows one by one.',
+      'View inter-annotator agreement.',
+      'Export final labeled dataset.'
+      ]} />
       {ConfirmDialog}
       <div className="flex items-center justify-between">
         <div>

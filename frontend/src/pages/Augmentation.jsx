@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { BarChart3, Image, Dice5, Scale, Target, RotateCw, FlipHorizontal, ZoomIn, Save } from 'lucide-react';
+import { BarChart3, Image, Dice5, Scale, Target, RotateCw, FlipHorizontal, ZoomIn, Save, Play } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Augmentation() {
   const [dataType, setDataType] = useState('tabular');
@@ -127,6 +128,12 @@ export default function Augmentation() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="augmentation" steps={[
+      'Select a dataset.',
+      'Choose augmentation techniques (noise, SMOTE, rotation).',
+      'Preview augmented samples.',
+      'Apply to create new augmented dataset.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Data Augmentation</h1>
         <p className="text-purple-300/50 mt-1">Augment datasets with noise, SMOTE, rotation, and more</p>
@@ -220,7 +227,7 @@ export default function Augmentation() {
 
         <div className="flex items-center gap-3 mt-4">
           <button onClick={applyAugmentation} disabled={!sampleData} className="px-4 py-2 bg-gradient-btn text-white rounded-lg text-sm font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors">
-            ▶ Preview Augmentation
+            <Play className="w-3 h-3 inline" /> Preview Augmentation
           </button>
           <div className="flex items-center gap-2 ml-auto">
             <input type="text" value={pipelineName} onChange={(e) => setPipelineName(e.target.value)} placeholder="Pipeline name..." className="bg-dark-900 border border-purple-500/30 text-dark-200 rounded-lg px-3 py-2 text-sm" />

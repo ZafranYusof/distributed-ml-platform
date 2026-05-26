@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function NAS() {
   const [config, setConfig] = useState({ populationSize: 20, generations: 10, inputSize: 4, outputSize: 3 });
@@ -156,6 +157,13 @@ export default function NAS() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="nas" steps={[
+      'Select a dataset.',
+      'Configure population size and generations.',
+      'Click \'Start Evolution\' to begin architecture search.',
+      'Watch fitness improve over generations.',
+      'Select the best architecture for training.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Neural Architecture Search</h1>
         <p className="text-purple-300/50 mt-1">Evolutionary algorithm to discover optimal network architectures</p>

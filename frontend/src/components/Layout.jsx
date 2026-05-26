@@ -127,6 +127,12 @@ export default function Layout() {
         { path: '/analytics', label: 'Analytics', icon: TrendingUp },
       ]
     },
+    {
+      label: 'Help',
+      items: [
+        { path: '/docs', label: 'Docs', icon: BookOpen },
+      ]
+    },
   ];
 
   const handleLogout = () => {

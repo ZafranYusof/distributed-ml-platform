@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
 import Papa from 'papaparse';
 import { useToast } from '../components/ui/Toast';
-import { FolderOpen, Upload, Flower2, Home, TrendingUp, BarChart3, Search, Loader, CheckCircle2, Trophy, ClipboardList } from 'lucide-react';
+import { FolderOpen, Upload, Flower2, Home, TrendingUp, BarChart3, Search, Loader, CheckCircle2, Trophy, ClipboardList, Square } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function AutoML() {
   const toast = useToast();
@@ -206,6 +207,12 @@ export default function AutoML() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="automl" steps={[
+      'Select a dataset and target column.',
+      'Click \'Start Search\' to begin hyperparameter optimization.',
+      'View results ranked by performance.',
+      'Click \'Use Config\' to apply the best configuration.'
+      ]} />
       <div>
         <h2 className="text-2xl font-bold text-dark-50">AutoML</h2>
         <p className="text-purple-300/50 mt-1">Automatic hyperparameter search to find the best model configuration</p>
@@ -278,7 +285,7 @@ export default function AutoML() {
                   </button>
                 ) : (
                   <button onClick={stopSearch} className="w-full bg-red-500/20 text-red-400 border border-red-500/30 font-medium px-4 py-2 rounded-lg hover:bg-red-500/30 transition-colors">
-                    ⏹ Stop Search
+                    <Square className="w-4 h-4 inline" /> Stop Search
                   </button>
                 )}
               </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Search, Loader, Monitor, CheckCircle2, AlertTriangle, Settings, Gamepad2, Gauge, Rocket } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function GPUAcceleration() {
   const [gpuAvailable, setGpuAvailable] = useState(null);
@@ -126,6 +127,12 @@ export default function GPUAcceleration() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="gpu-acceleration" steps={[
+      'Check if WebGPU is available on your device.',
+      'Toggle between CPU and GPU mode.',
+      'Run benchmark to compare speeds.',
+      'Use GPU mode for faster training.'
+      ]} />
       <div>
         <h2 className="text-2xl font-bold text-dark-50">GPU Acceleration</h2>
         <p className="text-purple-300/50 mt-1">Detect WebGPU availability and compare CPU vs GPU performance</p>

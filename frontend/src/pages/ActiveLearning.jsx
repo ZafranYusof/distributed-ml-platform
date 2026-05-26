@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
 import { CheckCircle2 } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function ActiveLearning() {
   const { user } = useAuth();
@@ -119,6 +120,13 @@ export default function ActiveLearning() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="active-learning" steps={[
+      'Upload a partially labeled dataset.',
+      'Train initial model.',
+      'Model identifies uncertain samples.',
+      'Label suggested samples.',
+      'Retrain and repeat.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Active Learning</h1>
         <p className="text-purple-300/50 mt-1">Iteratively label the most informative samples to maximize model performance</p>

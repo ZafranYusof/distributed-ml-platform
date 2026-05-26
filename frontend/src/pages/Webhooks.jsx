@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
+import { Bell, MessageSquare, Gamepad2, Link2, CheckCircle2 } from 'lucide-react';
 import { useConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import { Webhook } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Webhooks() {
   const { authFetch } = useAuth();
@@ -103,6 +105,12 @@ export default function Webhooks() {
   if (loading) {
     return (
       <div className="space-y-6">
+      <HowToUse pageId="webhooks" steps={[
+      'Add a webhook URL (Slack/Discord/custom).',
+      'Select events to notify (training done, drift, deploy).',
+      'Click \'Test\' to verify.',
+      'Toggle active/inactive.'
+      ]} />
         <div>
           <h1 className="text-2xl font-bold text-white">Webhooks</h1>
           <p className="text-purple-300/50 text-sm mt-1">Configure Slack, Discord, or custom webhook notifications</p>
@@ -117,7 +125,7 @@ export default function Webhooks() {
       {ConfirmDialog}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-2xl" aria-hidden="true">🔔</span>
+          <Bell className="w-6 h-6 text-purple-400" aria-hidden="true" />
           <div>
             <h1 className="text-2xl font-bold text-white">Webhooks</h1>
             <p className="text-purple-300/50 text-sm">Configure Slack, Discord, or custom webhook notifications</p>
@@ -226,7 +234,7 @@ export default function Webhooks() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <span className="text-lg" aria-hidden="true">
-                    {webhook.type === 'slack' ? '💬' : webhook.type === 'discord' ? '🎮' : '🔗'}
+                    {webhook.type === 'slack' ? <MessageSquare className="w-5 h-5 text-purple-400" /> : webhook.type === 'discord' ? <Gamepad2 className="w-5 h-5 text-purple-400" /> : <Link2 className="w-5 h-5 text-purple-400" />}
                   </span>
                   <div>
                     <p className="text-sm font-medium text-white">{webhook.name}</p>
@@ -244,7 +252,7 @@ export default function Webhooks() {
                     }`}
                     aria-label={`Test ${webhook.name}`}
                   >
-                    {testing === webhook._id ? '✓ Sent!' : 'Test'}
+                    {testing === webhook._id ? <><CheckCircle2 className="w-3 h-3 inline mr-1" /> Sent!</> : 'Test'}
                   </button>
                   <button
                     onClick={() => handleDelete(webhook._id)}

@@ -7,6 +7,7 @@ import { History as HistoryIcon, CheckCircle2, RefreshCw, XCircle, Loader, BarCh
 import { TableSkeleton } from '../components/ui/SkeletonLoader';
 import EmptyState from '../components/ui/EmptyState';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function History() {
   const { authFetch } = useAuth();
@@ -110,6 +111,12 @@ export default function History() {
   if (loading) {
     return (
       <div className="space-y-6">
+      <HowToUse pageId="history" steps={[
+      'Browse past training sessions.',
+      'Click any session to view details.',
+      'Select multiple sessions to compare.',
+      'Use filters to find specific runs.'
+      ]} />
         <div>
           <h2 className="text-2xl font-bold text-dark-50">Training History</h2>
           <p className="text-purple-300/50 mt-1">View past training sessions and compare results</p>

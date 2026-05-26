@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { Skull, PlusCircle, MinusCircle, RefreshCw, Monitor, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function GPUCluster() {
   const [clusterConfig, setClusterConfig] = useState({ machines: 4, workersPerMachine: 2 });
@@ -200,6 +201,12 @@ export default function GPUCluster() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="gpu-cluster" steps={[
+      'Configure cluster (machines and workers per machine).',
+      'Start distributed training.',
+      'Simulate faults to test recovery.',
+      'Add/remove nodes elastically.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">GPU Cluster Simulation</h1>
         <p className="text-purple-300/50 mt-1">Simulate distributed training with fault tolerance and elastic scaling</p>

@@ -4,6 +4,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import Papa from 'papaparse';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
+import HowToUse from '../components/ui/HowToUse';
+import { RefreshCw, CheckCircle2, Loader, Save, Wand2, HardHat, TrendingDown, BarChart3 } from 'lucide-react';
 
 export default function Training() {
   const { sessionId } = useParams();
@@ -356,13 +358,20 @@ export default function Training() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="training" steps={[
+      'Upload a dataset or select a sample dataset.',
+      'Configure model architecture (Linear/NN/CNN/RNN).',
+      'Set hyperparameters (learning rate, epochs, batch size).',
+      'Choose number of workers for distributed training.',
+      'Click \'Start Training\' and watch real-time progress.'
+      ]} />
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-dark-50">Training Session</h2>
           <p className="text-purple-300/50 mt-1">
-            {status === 'training' && '🔄 Training in progress...'}
-            {status === 'completed' && '✅ Training completed!'}
-            {status === 'initializing' && '⏳ Initializing workers...'}
+            {status === 'training' && <><RefreshCw className="w-4 h-4 inline mr-1 animate-spin" /> Training in progress...</>}
+            {status === 'completed' && <><CheckCircle2 className="w-4 h-4 inline mr-1 text-green-400" /> Training completed!</>}
+            {status === 'initializing' && <><Loader className="w-4 h-4 inline mr-1 animate-spin" /> Initializing workers...</>}
           </p>
         </div>
         <div className="flex gap-3">
@@ -372,13 +381,13 @@ export default function Training() {
               disabled={saved}
               className={`btn-secondary flex items-center gap-2 ${saved ? 'opacity-50' : ''}`}
             >
-              <span>{saved ? '✅' : '💾'}</span>
+              <span>{saved ? <CheckCircle2 className="w-4 h-4 text-green-400" /> : <Save className="w-4 h-4" />}</span>
               <span>{saved ? 'Saved' : 'Save to History'}</span>
             </button>
           )}
           {status === 'completed' && (
             <button onClick={() => navigate('/inference')} className="btn-primary">
-              🔮 Go to Inference
+              <Wand2 className="w-4 h-4 inline mr-1" /> Go to Inference
             </button>
           )}
         </div>
@@ -410,7 +419,7 @@ export default function Training() {
 
       {/* Worker Progress */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-white mb-4">👷 Worker Progress</h3>
+        <h3 className="text-lg font-semibold text-white mb-4"><HardHat className="w-5 h-5 inline mr-1" /> Worker Progress</h3>
         <div className="space-y-3">
           {Array.from({ length: numWorkers }, (_, i) => (
             <div key={i} className="space-y-1">
@@ -437,7 +446,7 @@ export default function Training() {
       {/* Loss Chart */}
       {aggregatedLoss.length > 0 && (
         <div className="card">
-          <h3 className="text-lg font-semibold text-white mb-4">📉 Loss Curve</h3>
+          <h3 className="text-lg font-semibold text-white mb-4"><TrendingDown className="w-5 h-5 inline mr-1" /> Loss Curve</h3>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={aggregatedLoss}>
@@ -478,7 +487,7 @@ export default function Training() {
       {/* Per-Worker Metrics */}
       {metrics.length > 0 && (
         <div className="card">
-          <h3 className="text-lg font-semibold text-white mb-4">📊 Training Metrics</h3>
+          <h3 className="text-lg font-semibold text-white mb-4"><BarChart3 className="w-5 h-5 inline mr-1" /> Training Metrics</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>

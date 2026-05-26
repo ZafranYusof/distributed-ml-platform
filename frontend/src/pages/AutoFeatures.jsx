@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { Calculator } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function AutoFeatures() {
   const { user } = useAuth();
@@ -178,6 +179,12 @@ export default function AutoFeatures() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="auto-features" steps={[
+      'Select a dataset and target column.',
+      'Choose feature generation methods (polynomial, interactions, binning).',
+      'View generated features ranked by correlation.',
+      'Select top K features to keep.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">AutoFeature Engineering</h1>
         <p className="text-purple-300/50 mt-1">Automatically generate and rank features from your dataset</p>

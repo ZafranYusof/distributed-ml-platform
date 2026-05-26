@@ -8,6 +8,7 @@ import { Database } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
 import SearchFilterBar from '../components/ui/SearchFilterBar';
 import KaggleImport from '../components/KaggleImport';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Datasets() {
   const { user, authFetch } = useAuth();
@@ -121,6 +122,12 @@ export default function Datasets() {
 
   return (
     <div className="space-y-6">
+      <HowToUse pageId="datasets" steps={[
+      'Drag & drop a CSV file or click to browse.',
+      'Or select a sample dataset (Iris, Housing, Sine Wave).',
+      'Tag and organize datasets.',
+      'Use version control to track changes.'
+      ]} />
       {ConfirmDialog}
       <div className="flex items-center justify-between">
         <div>

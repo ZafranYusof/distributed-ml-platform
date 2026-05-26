@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
+import { Clock, Loader, Calendar, Trash2 } from 'lucide-react';
 
 export default function Schedules() {
   const { authFetch } = useAuth();
@@ -108,14 +109,14 @@ export default function Schedules() {
           <p className="text-purple-300/50 mt-1">Set up recurring training jobs with cron expressions</p>
         </div>
         <button onClick={() => setShowCreate(!showCreate)} className="btn-primary flex items-center gap-2">
-          <span>⏰</span> New Schedule
+          <Clock className="w-4 h-4" /> New Schedule
         </button>
       </div>
 
       {/* Create Form */}
       {showCreate && (
         <div className="card border-primary-500/20">
-          <h3 className="text-lg font-semibold text-white mb-4">⏰ Create Schedule</h3>
+          <h3 className="text-lg font-semibold text-white mb-4"><Clock className="w-5 h-5 inline mr-1" /> Create Schedule</h3>
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -219,12 +220,12 @@ export default function Schedules() {
       {/* Schedules List */}
       {loading ? (
         <div className="text-center py-12">
-          <div className="text-4xl animate-pulse">⏳</div>
+          <Loader className="w-10 h-10 animate-pulse text-purple-400" />
           <p className="text-purple-300/50 mt-2">Loading schedules...</p>
         </div>
       ) : schedules.length === 0 ? (
         <div className="card text-center py-12">
-          <div className="text-4xl mb-3">📅</div>
+          <Calendar className="w-10 h-10 text-purple-400 mb-3" />
           <p className="text-purple-200/70 font-medium">No scheduled training jobs</p>
           <p className="text-purple-300/40 text-sm mt-1">Create a schedule to automate retraining</p>
         </div>
@@ -258,7 +259,7 @@ export default function Schedules() {
                     onClick={() => deleteSchedule(schedule._id)}
                     className="text-purple-300/40 hover:text-red-400 transition-colors"
                   >
-                    🗑️
+                    <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
               </div>

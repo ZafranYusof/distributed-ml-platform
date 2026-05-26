@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
+import { Upload, Download } from 'lucide-react';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import EmptyState from '../components/ui/EmptyState';
 import { Store } from 'lucide-react';
 import SearchFilterBar from '../components/ui/SearchFilterBar';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Marketplace() {
   const { user, authFetch } = useAuth();
@@ -106,6 +108,12 @@ export default function Marketplace() {
 
   return (
     <div className="space-y-6">
+      <HowToUse pageId="marketplace" steps={[
+      'Browse community models.',
+      'Search by name or tags.',
+      'Click \'Download\' to use a model.',
+      'Publish your own models for others.'
+      ]} />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-dark-50">Model Marketplace</h1>
@@ -113,7 +121,7 @@ export default function Marketplace() {
         </div>
         {user && (
           <button onClick={() => setShowPublish(!showPublish)} className="btn-primary flex items-center gap-2" aria-label="Publish a model">
-            <span aria-hidden="true">📤</span> Publish Model
+            <Upload className="w-4 h-4" /> Publish Model
           </button>
         )}
       </div>
@@ -121,7 +129,7 @@ export default function Marketplace() {
       {/* Publish Form */}
       {showPublish && (
         <div className="card border-primary-500/20 animate-fade-in">
-          <h2 className="text-lg font-semibold text-white mb-4">📤 Publish a Model</h2>
+          <h2 className="text-lg font-semibold text-white mb-4"><Upload className="w-5 h-5 inline mr-1" /> Publish a Model</h2>
           <form onSubmit={handlePublish} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -271,7 +279,7 @@ export default function Marketplace() {
               </div>
 
               <div className="flex items-center justify-between pt-3 border-t border-purple-500/20">
-                <span className="text-xs text-purple-300/40">⬇️ {model.downloads} downloads</span>
+                <span className="text-xs text-purple-300/40"><Download className="w-3 h-3 inline mr-1" />{model.downloads} downloads</span>
                 <button
                   onClick={() => handleDownload(model._id)}
                   className="text-xs bg-purple-500/10 text-purple-300 border border-primary-500/20 px-3 py-1 rounded-lg hover:bg-primary-500/20 transition-colors"

@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Map, Target, TrendingUp, Play, Bot, Square } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 const ENVIRONMENTS = {
-  gridworld: { name: 'Grid World', icon: '🗺️', description: 'Navigate to goal in a grid', gridSize: 5 },
-  cartpole: { name: 'Cart Pole', icon: '🎯', description: 'Balance a pole on a cart', stateSize: 4 },
-  trading: { name: 'Trading Sim', icon: '📈', description: 'Buy/sell/hold to maximize profit', stateSize: 3 }
+  gridworld: { name: 'Grid World', icon: Map, description: 'Navigate to goal in a grid', gridSize: 5 },
+  cartpole: { name: 'Cart Pole', icon: Target, description: 'Balance a pole on a cart', stateSize: 4 },
+  trading: { name: 'Trading Sim', icon: TrendingUp, description: 'Buy/sell/hold to maximize profit', stateSize: 3 }
 };
 
 const ALGORITHMS = {
@@ -255,6 +257,12 @@ export default function RLPlayground() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="rl-playground" steps={[
+      'Choose an environment (Grid World, Cart Pole, Trading).',
+      'Select algorithm (Q-Learning, DQN, REINFORCE).',
+      'Configure hyperparameters.',
+      'Click \'Train\' and watch the agent learn.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Reinforcement Learning Playground</h1>
         <p className="text-purple-300/50 mt-1">Train agents in custom environments with visual feedback</p>
@@ -268,7 +276,7 @@ export default function RLPlayground() {
             {Object.entries(ENVIRONMENTS).map(([key, val]) => (
               <button key={key} onClick={() => setEnv(key)} disabled={training}
                 className={`p-3 rounded-lg border text-center ${env === key ? 'border-primary-500 bg-primary-500/10' : 'border-purple-500/30 bg-dark-900'} hover:border-primary-500/50`}>
-                <span className="text-2xl">{val.icon}</span>
+                <span className="text-2xl">{val.icon && <val.icon className="w-6 h-6 text-purple-400 mx-auto" />}</span>
                 <p className="text-xs text-white mt-1">{val.name}</p>
               </button>
             ))}
@@ -319,7 +327,7 @@ export default function RLPlayground() {
         </div>
         <button onClick={startTraining} disabled={training}
           className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50">
-          {training ? `Training... Episode ${episode}/${config.episodes}` : '▶ Start Training'}
+          {training ? `Training... Episode ${episode}/${config.episodes}` : <><Play className="w-4 h-4 inline mr-1" /> Start Training</>}
         </button>
       </div>
 
@@ -341,14 +349,14 @@ export default function RLPlayground() {
                   isPath ? 'bg-yellow-500/20 border-yellow-500/50' :
                   'bg-dark-900 border-purple-500/30'
                 }`} style={qVal && !isGoal && !isAgent ? { backgroundColor: `rgba(6, 182, 212, ${Math.min(1, qVal.value / 10) * 0.3})` } : {}}>
-                  {isGoal ? '🎯' : isAgent ? '🤖' : isPath ? '·' : ''}
+                  {isGoal ? <Target className="w-4 h-4 text-green-400" /> : isAgent ? <Bot className="w-4 h-4 text-blue-400" /> : isPath ? '·' : ''}
                   {qVal && !isGoal && !isAgent && <span className="text-xs text-purple-300/50">{qVal.value.toFixed(1)}</span>}
                 </div>
               );
             })}
           </div>
           <div className="flex gap-4 mt-3 justify-center text-xs text-purple-300/50">
-            <span>🤖 Agent</span><span>🎯 Goal</span><span className="text-purple-400">■ Q-value intensity</span>
+            <span><Bot className="w-4 h-4 inline mr-1" /> Agent</span><span><Target className="w-4 h-4 inline mr-1" /> Goal</span><span className="text-purple-400"><Square className="w-3 h-3 inline mr-1" /> Q-value intensity</span>
           </div>
         </div>
       )}

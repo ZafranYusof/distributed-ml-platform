@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useToast } from '../components/ui/Toast';
+import { Package, FlaskConical, Construction, Rocket, Radio, CheckCircle2, XCircle, Undo2, ArrowUpCircle } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function MLOpsCICD() {
   const { authFetch } = useAuth();
@@ -88,15 +90,22 @@ export default function MLOpsCICD() {
   };
 
   const pipelineStages = [
-    { name: 'Version', icon: '📦', status: 'success' },
-    { name: 'Test', icon: '🧪', status: 'success' },
-    { name: 'Gate', icon: '🚧', status: 'success' },
-    { name: 'Deploy', icon: '🚀', status: 'active' },
-    { name: 'Monitor', icon: '📡', status: 'pending' },
+    { name: 'Version', icon: Package, status: 'success' },
+    { name: 'Test', icon: FlaskConical, status: 'success' },
+    { name: 'Gate', icon: Construction, status: 'success' },
+    { name: 'Deploy', icon: Rocket, status: 'active' },
+    { name: 'Monitor', icon: Radio, status: 'pending' },
   ];
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="mlops-cicd" steps={[
+      'Set quality gates (accuracy thresholds).',
+      'Deploy models that pass gates.',
+      'Monitor deployed models.',
+      'Auto-rollback if performance drops.',
+      'View audit trail.'
+      ]} />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">MLOps CI/CD Pipeline</h1>
@@ -126,7 +135,7 @@ export default function MLOpsCICD() {
                   stage.status === 'active' ? 'border-primary-500 bg-primary-500/10 animate-pulse' :
                   'border-purple-500/30 bg-dark-900'
                 }`}>
-                  {stage.icon}
+                  {<stage.icon className="w-6 h-6" />}
                 </div>
                 <span className="text-xs mt-2">{stage.name}</span>
               </div>
@@ -190,8 +199,8 @@ export default function MLOpsCICD() {
                 <span className="text-xs text-purple-300/50">
                   Gate: acc ≥ {newDeploy.accThreshold} & loss ≤ {newDeploy.lossThreshold} →{' '}
                   {newDeploy.accuracy >= newDeploy.accThreshold && newDeploy.loss <= newDeploy.lossThreshold
-                    ? <span className="text-green-400">PASS ✓</span>
-                    : <span className="text-red-400">FAIL ✗</span>}
+                    ? <span className="text-green-400">PASS <CheckCircle2 className="w-3 h-3 inline" /></span>
+                    : <span className="text-red-400">FAIL <XCircle className="w-3 h-3 inline" /></span>}
                 </span>
               </div>
             </form>
@@ -276,7 +285,7 @@ export default function MLOpsCICD() {
               {auditLog.map((log, i) => (
                 <div key={i} className="flex items-center gap-4 p-3 bg-dark-900 rounded-lg">
                   <span className="text-lg">
-                    {log.action === 'deploy' ? '🚀' : log.action === 'rollback' ? '⏪' : log.action === 'promote' ? '⬆️' : '🚧'}
+                    {log.action === 'deploy' ? <Rocket className="w-5 h-5 text-purple-400" /> : log.action === 'rollback' ? <Undo2 className="w-5 h-5 text-red-400" /> : log.action === 'promote' ? <ArrowUpCircle className="w-5 h-5 text-green-400" /> : <Construction className="w-5 h-5 text-yellow-400" />}
                   </span>
                   <div className="flex-1">
                     <p className="text-sm text-white capitalize">{log.action}</p>

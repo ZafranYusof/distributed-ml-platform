@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import HowToUse from '../components/ui/HowToUse';
+import { Play, Square, Waves, AlertTriangle, Circle } from 'lucide-react';
 
 export default function StreamingML() {
   const [config, setConfig] = useState({ rate: 20, windowSize: 50, learningRate: 0.01, batchSize: 5 });
@@ -161,6 +163,12 @@ export default function StreamingML() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="streaming-ml" steps={[
+      'Configure data stream rate and window size.',
+      'Click \'Start Stream\' to begin online learning.',
+      'Inject concept drift to test adaptation.',
+      'Monitor accuracy and model updates in real-time.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Real-time Streaming ML</h1>
         <p className="text-purple-300/50 mt-1">Online learning with concept drift detection and auto-adaptation</p>
@@ -198,16 +206,16 @@ export default function StreamingML() {
         <div className="flex gap-3 mt-4">
           {!running ? (
             <button onClick={startStreaming} className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-              ▶ Start Streaming
+              <Play className="w-4 h-4 inline mr-1" /> Start Streaming
             </button>
           ) : (
             <button onClick={stopStreaming} className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-              ⏹ Stop
+              <Square className="w-4 h-4 inline mr-1" /> Stop
             </button>
           )}
           <button onClick={injectDrift} disabled={!running}
             className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 disabled:opacity-50">
-            🌊 Inject Drift
+            <Waves className="w-4 h-4 inline mr-1" /> Inject Drift
           </button>
         </div>
       </div>
@@ -233,7 +241,7 @@ export default function StreamingML() {
         <div className={`bg-dark-800/40 rounded-xl p-4 border ${driftDetected ? 'border-orange-500 bg-orange-500/10' : 'border-purple-500/20'} text-center`}>
           <p className="text-xs text-purple-300/50">Status</p>
           <p className={`text-xl font-bold ${driftDetected ? 'text-orange-400' : running ? 'text-green-400' : 'text-purple-300/50'}`}>
-            {driftDetected ? '⚠️ DRIFT' : running ? '● LIVE' : '○ IDLE'}
+            {driftDetected ? <><AlertTriangle className="w-4 h-4 inline mr-1" /> DRIFT</> : running ? <><Circle className="w-3 h-3 inline mr-1 fill-green-400 text-green-400" /> LIVE</> : <><Circle className="w-3 h-3 inline mr-1 text-gray-400" /> IDLE</>}
           </p>
         </div>
       </div>

@@ -59,6 +59,7 @@ const Analytics = lazy(() => import('./pages/Analytics'));
 const DataCatalog = lazy(() => import('./pages/DataCatalog'));
 const GitHubIntegration = lazy(() => import('./pages/GitHubIntegration'));
 const Webhooks = lazy(() => import('./pages/Webhooks'));
+const Documentation = lazy(() => import('./pages/Documentation'));
 
 function PageFallback() {
   return (
@@ -163,6 +164,7 @@ export default function App() {
           <Route path="data-catalog" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><DataCatalog /></Suspense></ErrorBoundary>} />
           <Route path="integrations/github" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><GitHubIntegration /></Suspense></ErrorBoundary>} />
           <Route path="integrations/webhooks" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><Webhooks /></Suspense></ErrorBoundary>} />
+          <Route path="docs" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><Documentation /></Suspense></ErrorBoundary>} />
         </Route>
       </Routes>
     </>

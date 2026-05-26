@@ -3,6 +3,7 @@ import Papa from 'papaparse';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ScatterChart, Scatter, Cell } from 'recharts';
 import { useToast } from '../components/ui/Toast';
 import { BarChart3, Upload, Flower2, Home, TrendingUp, Link2, HelpCircle, AlertTriangle } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function DataExplorer() {
   const toast = useToast();
@@ -145,6 +146,12 @@ export default function DataExplorer() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="data-explorer" steps={[
+      'Select a dataset to explore.',
+      'View column distributions, correlations, and statistics.',
+      'Identify outliers using IQR method.',
+      'Check for missing values.'
+      ]} />
       <div>
         <h2 className="text-2xl font-bold text-dark-50">Data Explorer</h2>
         <p className="text-purple-300/50 mt-1">Visualize and analyze your dataset</p>

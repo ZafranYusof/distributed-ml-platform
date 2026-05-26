@@ -2,7 +2,8 @@ import { useState, useCallback, useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import Papa from 'papaparse';
 import { useToast } from '../components/ui/Toast';
-import { FolderOpen, Upload, Flower2, Home, BarChart3, Settings, X, RefreshCw, Flag, Loader } from 'lucide-react';
+import { FolderOpen, Upload, Flower2, Home, BarChart3, Settings, X, RefreshCw, Flag, Loader, CheckCircle2, TrendingDown, Trophy } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Compare() {
   const toast = useToast();
@@ -270,6 +271,12 @@ export default function Compare() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="compare" steps={[
+      'Configure 2-6 different model configurations.',
+      'Select the same dataset for fair comparison.',
+      'Click \'Start Comparison\' to train all simultaneously.',
+      'View loss/accuracy charts side by side.'
+      ]} />
       <div>
         <h2 className="text-2xl font-bold text-dark-50">Comparison Mode</h2>
         <p className="text-purple-300/50 mt-1">Train multiple configurations side by side and compare results</p>
@@ -429,7 +436,7 @@ export default function Compare() {
                     <div className="flex justify-between text-sm">
                       <span className="text-purple-200/70" style={{ color: colors[idx % colors.length] }}>{config.name}</span>
                       <span className="text-purple-300/50">
-                        {idx < currentConfig ? '✅ Done' : idx === currentConfig ? `${(progress[idx] || 0).toFixed(0)}%` : 'Waiting...'}
+                        {idx < currentConfig ? 'Done' : idx === currentConfig ? `${(progress[idx] || 0).toFixed(0)}%` : 'Waiting...'}
                       </span>
                     </div>
                     <div className="w-full bg-dark-800/40 rounded-full h-2">
@@ -451,7 +458,7 @@ export default function Compare() {
           {results.length > 0 && (
             <>
               <div className="card">
-                <h3 className="text-lg font-semibold text-white mb-4">📉 Loss Comparison</h3>
+                <h3 className="text-lg font-semibold text-white mb-4"><TrendingDown className="w-5 h-5 inline mr-1" /> Loss Comparison</h3>
                 <div className="h-72">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={chartData}>
@@ -481,7 +488,7 @@ export default function Compare() {
 
               {/* Results Summary */}
               <div className="card">
-                <h3 className="text-lg font-semibold text-white mb-4">🏆 Results Summary</h3>
+                <h3 className="text-lg font-semibold text-white mb-4"><Trophy className="w-5 h-5 inline mr-1" /> Results Summary</h3>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
@@ -502,7 +509,7 @@ export default function Compare() {
                         return (
                           <tr key={r.configId} className={`border-b border-dark-800 ${isBest ? 'bg-primary-500/5' : ''}`}>
                             <td className="py-2 px-3 font-medium" style={{ color: colors[idx % colors.length] }}>
-                              {r.name} {isBest && '🏆'}
+                              {r.name} {isBest && <Trophy className="w-4 h-4 inline ml-1 text-yellow-400" />}
                             </td>
                             <td className="py-2 px-3 text-dark-200">{r.config.type}</td>
                             <td className="py-2 px-3 text-purple-400">{r.finalLoss?.toFixed(6)}</td>

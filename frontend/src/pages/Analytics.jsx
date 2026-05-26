@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { BarChart3 } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Analytics() {
   const { authFetch } = useAuth();
@@ -30,6 +31,12 @@ export default function Analytics() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
+      <HowToUse pageId="analytics" steps={[
+      'View your personal usage stats.',
+      'Check feature usage heatmap.',
+      'Identify peak usage hours.',
+      'Track experiments and training time.'
+      ]} />
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400"></div>
       </div>
     );

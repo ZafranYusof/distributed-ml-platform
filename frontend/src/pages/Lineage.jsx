@@ -4,6 +4,7 @@ import { ReactFlow, Background, Controls, MiniMap, useNodesState, useEdgesState,
 import '@xyflow/react/dist/style.css';
 import { useToast } from '../components/ui/Toast';
 import { FolderOpen, Wrench, Calculator, Brain, BarChart3, Settings, X, GitBranch } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 const nodeTypes = {
   dataset: { color: '#6366F1', icon: 'folder' },
@@ -27,6 +28,12 @@ function CustomNode({ data }) {
   const Icon = iconComponents[typeInfo.icon] || Settings;
   return (
     <div className="px-4 py-3 rounded-lg border-2 shadow-lg min-w-[150px]" style={{ borderColor: typeInfo.color, backgroundColor: '#1E1045' }}>
+      <HowToUse pageId="lineage" steps={[
+      'View the data lineage DAG.',
+      'Click nodes to see details.',
+      'Track how data flows through your pipeline.',
+      'Save lineage graphs.'
+      ]} />
       <div className="flex items-center gap-2">
         <Icon className="w-4 h-4" style={{ color: typeInfo.color }} />
         <span className="text-sm font-medium text-white">{data.label}</span>

@@ -1,5 +1,6 @@
 import { useSocket } from '../context/SocketContext';
 import { Flame, Users, Ghost } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function LiveSessions() {
   const { liveUsers, connected } = useSocket();
@@ -10,6 +11,11 @@ export default function LiveSessions() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="live-sessions" steps={[
+      'View who\'s currently training.',
+      'See real-time progress of other users.',
+      'Monitor platform activity.'
+      ]} />
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-dark-50">Live Sessions</h2>

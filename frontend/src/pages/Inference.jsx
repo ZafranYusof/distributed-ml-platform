@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import HuggingFaceExport from '../components/HuggingFaceExport';
 import { useToast } from '../components/ui/Toast';
 import { Save, Bot, FileText, Wand2, Target, Tag, BarChart3, Package } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Inference() {
   const { user, authFetch } = useAuth();
@@ -230,6 +231,13 @@ export default function Inference() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="inference" steps={[
+      'Load a trained model.',
+      'Input feature values.',
+      'Click \'Predict\' to get results.',
+      'View confidence scores.',
+      'Download model as JSON.'
+      ]} />
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-dark-50">Inference</h2>

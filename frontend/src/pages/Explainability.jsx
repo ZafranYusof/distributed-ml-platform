@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
 import { Search, RefreshCw, Map } from 'lucide-react';
 import { useToast } from '../components/ui/Toast';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Explainability() {
   const { user, authFetch } = useAuth();
@@ -110,6 +111,13 @@ export default function Explainability() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="explainability" steps={[
+      'Load a trained model.',
+      'Select a data point to explain.',
+      'View LIME feature contributions.',
+      'Explore counterfactual examples.',
+      'Visualize decision boundaries.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Explainable AI Dashboard</h1>
         <p className="text-purple-300/50 mt-1">Understand model decisions with LIME, counterfactuals, and decision boundaries</p>

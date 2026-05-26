@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
+import { ClipboardList, Download, X } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function ModelCards() {
   const { user, authFetch } = useAuth();
@@ -73,6 +75,12 @@ export default function ModelCards() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="model-cards" steps={[
+      'Select a trained model.',
+      'Click \'Generate Card\' to auto-create documentation.',
+      'Edit description, intended use, and limitations.',
+      'Export as markdown.'
+      ]} />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Model Cards</h1>
@@ -90,7 +98,7 @@ export default function ModelCards() {
             <div className="text-purple-300/50 text-center py-8"><div class="animate-pulse space-y-3"><div class="h-4 bg-purple-500/15 rounded w-3/4"></div><div class="h-4 bg-purple-500/15 rounded w-1/2"></div></div></div>
           ) : cards.length === 0 ? (
             <div className="text-center py-12 text-purple-300/50 bg-dark-800/40 border border-purple-500/20 rounded-xl">
-              <p className="text-4xl mb-4">📋</p>
+              <ClipboardList className="w-10 h-10 text-purple-400 mx-auto mb-4" />
               <p>No model cards yet</p>
             </div>
           ) : (
@@ -100,8 +108,8 @@ export default function ModelCards() {
                 <div className="flex items-center justify-between">
                   <h3 className="text-dark-200 font-medium">{card.modelName || card.modelId}</h3>
                   <div className="flex gap-2">
-                    <button onClick={(e) => { e.stopPropagation(); exportMarkdown(card); }} className="text-purple-400 hover:text-purple-300 text-xs">📥</button>
-                    <button onClick={(e) => { e.stopPropagation(); handleDelete(card._id); }} className="text-red-400 hover:text-red-300 text-xs">✕</button>
+                    <button onClick={(e) => { e.stopPropagation(); exportMarkdown(card); }} className="text-purple-400 hover:text-purple-300 text-xs"><Download className="w-4 h-4" /></button>
+                    <button onClick={(e) => { e.stopPropagation(); handleDelete(card._id); }} className="text-red-400 hover:text-red-300 text-xs"><X className="w-4 h-4" /></button>
                   </div>
                 </div>
                 <p className="text-purple-300/40 text-xs mt-1">{new Date(card.createdAt).toLocaleDateString()}</p>

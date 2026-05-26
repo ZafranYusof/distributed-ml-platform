@@ -5,6 +5,7 @@ import { useConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import { Users } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Organizations() {
   const { authFetch } = useAuth();
@@ -97,6 +98,12 @@ export default function Organizations() {
 
   return (
     <div className="space-y-6">
+      <HowToUse pageId="organizations" steps={[
+      'Create an organization.',
+      'Invite team members by email.',
+      'Assign roles (Admin/Member/Viewer).',
+      'Share resources within the org.'
+      ]} />
       {ConfirmDialog}
       <div className="flex items-center justify-between">
         <div>

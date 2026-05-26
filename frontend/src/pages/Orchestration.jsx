@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import HowToUse from '../components/ui/HowToUse';
 import {
   ReactFlow,
   addEdge,
@@ -11,16 +12,27 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useToast } from '../components/ui/Toast';
+import { Download, Wrench, Settings, Brain, BarChart3, Rocket, Bell, Loader, RefreshCw, CheckCircle2, XCircle, SkipForward, Play } from 'lucide-react';
 
 const NODE_TYPES = [
-  { type: 'data-load', label: 'Data Load', icon: '📥', color: 'bg-blue-500/20 border-blue-500/40' },
-  { type: 'preprocess', label: 'Preprocess', icon: '🔧', color: 'bg-yellow-500/20 border-yellow-500/40' },
-  { type: 'feature-eng', label: 'Feature Eng', icon: '⚙️', color: 'bg-purple-500/20 border-purple-500/40' },
-  { type: 'train', label: 'Train', icon: '🧠', color: 'bg-green-500/20 border-green-500/40' },
-  { type: 'evaluate', label: 'Evaluate', icon: '📊', color: 'bg-cyan-500/20 border-cyan-500/40' },
-  { type: 'deploy', label: 'Deploy', icon: '🚀', color: 'bg-red-500/20 border-red-500/40' },
-  { type: 'notify', label: 'Notify', icon: '🔔', color: 'bg-orange-500/20 border-orange-500/40' },
+  { type: 'data-load', label: 'Data Load', icon: 'download', color: 'bg-blue-500/20 border-blue-500/40' },
+  { type: 'preprocess', label: 'Preprocess', icon: 'wrench', color: 'bg-yellow-500/20 border-yellow-500/40' },
+  { type: 'feature-eng', label: 'Feature Eng', icon: 'settings', color: 'bg-purple-500/20 border-purple-500/40' },
+  { type: 'train', label: 'Train', icon: 'brain', color: 'bg-green-500/20 border-green-500/40' },
+  { type: 'evaluate', label: 'Evaluate', icon: 'chart', color: 'bg-cyan-500/20 border-cyan-500/40' },
+  { type: 'deploy', label: 'Deploy', icon: 'rocket', color: 'bg-red-500/20 border-red-500/40' },
+  { type: 'notify', label: 'Notify', icon: 'bell', color: 'bg-orange-500/20 border-orange-500/40' },
 ];
+
+const iconMap = {
+  download: Download,
+  wrench: Wrench,
+  settings: Settings,
+  brain: Brain,
+  chart: BarChart3,
+  rocket: Rocket,
+  bell: Bell
+};
 
 export default function Orchestration() {
   const { authFetch } = useAuth();
@@ -57,7 +69,7 @@ export default function Orchestration() {
       id,
       type: 'default',
       position: { x: 100 + Math.random() * 400, y: 100 + Math.random() * 300 },
-      data: { label: `${nodeType.icon} ${nodeType.label}` },
+      data: { label: nodeType.label, iconKey: nodeType.icon },
       style: { background: '#1E1045', border: '1px solid #2d1b69', color: '#fff', borderRadius: '8px', padding: '10px' }
     };
     setNodes(prev => [...prev, newNode]);
@@ -159,17 +171,24 @@ export default function Orchestration() {
 
   const getNodeStatusIcon = (status) => {
     switch (status) {
-      case 'pending': return '⏳';
-      case 'running': return '🔄';
-      case 'success': return '✅';
-      case 'failed': return '❌';
-      case 'skipped': return '⏭️';
-      default: return '⏳';
+      case 'pending': return <Loader className="w-4 h-4 text-yellow-400" />;
+      case 'running': return <RefreshCw className="w-4 h-4 text-blue-400 animate-spin" />;
+      case 'success': return <CheckCircle2 className="w-4 h-4 text-green-400" />;
+      case 'failed': return <XCircle className="w-4 h-4 text-red-400" />;
+      case 'skipped': return <SkipForward className="w-4 h-4 text-gray-400" />;
+      default: return <Loader className="w-4 h-4 text-yellow-400" />;
     }
   };
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="orchestration" steps={[
+      'Build a pipeline DAG visually.',
+      'Add conditional branches and parallel steps.',
+      'Click \'Run\' to execute.',
+      'Monitor node status in real-time.',
+      'Failed steps auto-retry.'
+      ]} />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">ML Pipeline Orchestration</h1>
@@ -193,8 +212,8 @@ export default function Orchestration() {
               <span className="text-xs text-purple-300/50 uppercase font-semibold">Add Node:</span>
               {NODE_TYPES.map(nt => (
                 <button key={nt.type} onClick={() => addNode(nt.type)}
-                  className={`px-3 py-1.5 text-xs rounded-lg border ${nt.color} text-white hover:opacity-80`}>
-                  {nt.icon} {nt.label}
+                  className={`px-3 py-1.5 text-xs rounded-lg border ${nt.color} text-white hover:opacity-80 flex items-center gap-1`}>
+                  {(() => { const Icon = iconMap[nt.icon]; return Icon ? <Icon className="w-3 h-3" /> : null; })()} {nt.label}
                 </button>
               ))}
             </div>
@@ -231,7 +250,7 @@ export default function Orchestration() {
               </button>
               <button onClick={runPipeline} disabled={!selectedPipeline}
                 className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50">
-                ▶ Run
+                <Play className="w-3 h-3 inline mr-1" /> Run
               </button>
             </div>
           </div>

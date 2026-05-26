@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
+import { Undo2 } from 'lucide-react';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import EmptyState from '../components/ui/EmptyState';
 import { GitBranch } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function ModelVersions() {
   const { user, authFetch } = useAuth();
@@ -73,6 +75,11 @@ export default function ModelVersions() {
 
   return (
     <div className="space-y-6">
+      <HowToUse pageId="model-versions" steps={[
+      'View all versions of your models.',
+      'Compare versions side by side.',
+      'Rollback to a previous version if needed.'
+      ]} />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Model Versioning</h1>
@@ -168,7 +175,7 @@ export default function ModelVersions() {
                   className="px-3 py-1.5 btn-secondary text-sm"
                   aria-label={`Rollback to ${v.modelName} v${v.version}`}
                 >
-                  ↩ Rollback
+                  <Undo2 className="w-4 h-4 inline mr-1" /> Rollback
                 </button>
               </div>
             </div>

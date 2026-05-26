@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { Crown, Users, Dumbbell, BarChart3, FolderOpen } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function AdminDashboard() {
   const { authFetch } = useAuth();
@@ -33,6 +34,12 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
+      <HowToUse pageId="admin-dashboard" steps={[
+      'View platform-wide statistics.',
+      'Monitor active users and training jobs.',
+      'Check resource usage.',
+      'View recent activity feed.'
+      ]} />
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400"></div>
       </div>
     );

@@ -5,6 +5,7 @@ import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import EmptyState from '../components/ui/EmptyState';
 import { FolderOpen, FlaskConical, Package, FolderKanban } from 'lucide-react';
 import { Search } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function DataCatalog() {
   const { authFetch } = useAuth();
@@ -70,6 +71,12 @@ export default function DataCatalog() {
   if (loading) {
     return (
       <div className="space-y-6">
+      <HowToUse pageId="data-catalog" steps={[
+      'Browse all datasets, models, and experiments.',
+      'Use search and filters to find items.',
+      'Click any item for details.',
+      'Quick actions: open, clone, or delete.'
+      ]} />
         <div className="flex items-center gap-3">
           <FolderKanban className="w-6 h-6 text-purple-400" aria-hidden="true" />
           <div>

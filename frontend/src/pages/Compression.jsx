@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Hash, Scissors, FlaskConical, Loader, Minimize2 } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Compression() {
   const [technique, setTechnique] = useState('quantization');
@@ -128,6 +129,12 @@ export default function Compression() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="compression" steps={[
+      'Load a trained model.',
+      'Choose technique: Quantization, Pruning, or Distillation.',
+      'Configure parameters (threshold, target size).',
+      'View size reduction and accuracy impact.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Model Compression</h1>
         <p className="text-purple-300/50 mt-1">Reduce model size with quantization, pruning, and knowledge distillation</p>

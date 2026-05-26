@@ -7,3 +7,4 @@ export { default as Breadcrumb } from './Breadcrumb';
 export { default as SearchFilterBar } from './SearchFilterBar';
 export { useApiError, useFormValidation } from './hooks';
 export * from './animations';
+export { default as HowToUse } from './HowToUse';

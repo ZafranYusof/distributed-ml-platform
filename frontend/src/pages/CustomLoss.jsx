@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Editor from 'react-simple-code-editor';
-import { CheckCircle2, XCircle, Save, Ruler } from 'lucide-react';
+import { CheckCircle2, XCircle, Save, Ruler, Play } from 'lucide-react';
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import { useToast } from '../components/ui/Toast';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function CustomLoss() {
   const { user, authFetch } = useAuth();
@@ -97,6 +98,12 @@ export default function CustomLoss() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="custom-loss" steps={[
+      'Write a custom loss function in JavaScript.',
+      'Click \'Validate\' to check syntax.',
+      'Test with sample data.',
+      'Save to your library for use in training.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Custom Loss Functions</h1>
         <p className="text-purple-300/50 mt-1">Write, validate, and test custom loss functions in JavaScript</p>
@@ -130,7 +137,7 @@ export default function CustomLoss() {
 
         <div className="flex items-center gap-3">
           <button onClick={handleValidate} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm transition-colors"><CheckCircle2 className="w-4 h-4 inline mr-1" /> Validate Syntax</button>
-          <button onClick={handleTest} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm transition-colors">▶ Test with Sample</button>
+          <button onClick={handleTest} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm transition-colors"><Play className="w-3 h-3 inline" /> Test with Sample</button>
           <button onClick={handleSave} disabled={!form.name} className="px-4 py-2 bg-gradient-btn text-white rounded-lg text-sm font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors">
                         {editing ? <><Save className="w-4 h-4 inline mr-1" /> Update</> : <><Save className="w-4 h-4 inline mr-1" /> Save to Library</>}
           </button>

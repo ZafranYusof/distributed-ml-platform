@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { Globe } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function InferenceAPI() {
   const { user, authFetch } = useAuth();
@@ -84,6 +85,13 @@ export default function InferenceAPI() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="inference-api" steps={[
+      'Select a trained model to deploy.',
+      'Generate an API key.',
+      'Set rate limits.',
+      'Use the test panel to verify.',
+      'Monitor usage in the dashboard.'
+      ]} />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Real-time Inference API</h1>

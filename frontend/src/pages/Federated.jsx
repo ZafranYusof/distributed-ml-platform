@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Shield } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Federated() {
   const { user } = useAuth();
@@ -122,6 +123,12 @@ export default function Federated() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="federated" steps={[
+      'Configure number of clients (2-10).',
+      'Set privacy options (differential privacy).',
+      'Click \'Start\' to begin federated training.',
+      'Watch per-client metrics and global convergence.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Federated Learning</h1>
         <p className="text-purple-300/50 mt-1">Simulate privacy-preserving distributed training with FedAvg aggregation</p>

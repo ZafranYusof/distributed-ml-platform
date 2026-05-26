@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { Github } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function GitHubIntegration() {
   const { authFetch } = useAuth();
@@ -69,6 +70,12 @@ export default function GitHubIntegration() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
+      <HowToUse pageId="github-integration" steps={[
+      'Enter your GitHub repo URL and personal access token.',
+      'View recent commits.',
+      'Enable auto-versioning on push.',
+      'Link models to commits.'
+      ]} />
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-400"></div>
       </div>
     );

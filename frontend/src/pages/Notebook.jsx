@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
+import { BookOpen, Trash2, ArrowLeft, Loader, Save, Play, ChevronUp, ChevronDown, X } from 'lucide-react';
 import { useConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
-import { BookOpen } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Notebook() {
   const { authFetch } = useAuth();
@@ -179,6 +180,13 @@ export default function Notebook() {
   if (!currentNotebook) {
     return (
       <div className="space-y-6">
+      <HowToUse pageId="notebook" steps={[
+      'Add cells (code or markdown).',
+      'Write JavaScript in code cells.',
+      'Click \'Run\' to execute.',
+      'Reorder cells by dragging.',
+      'Save notebooks for later.'
+      ]} />
         {ConfirmDialog}
         <div className="flex items-center justify-between">
           <div>
@@ -186,7 +194,7 @@ export default function Notebook() {
             <p className="text-purple-300/50 mt-1">Jupyter-like interactive coding environment</p>
           </div>
           <button onClick={createNotebook} className="btn-primary flex items-center gap-2" aria-label="Create new notebook">
-            <span aria-hidden="true">📓</span> New Notebook
+            <BookOpen className="w-4 h-4" /> New Notebook
           </button>
         </div>
 
@@ -222,7 +230,7 @@ export default function Notebook() {
                     className="text-purple-300/40 hover:text-red-400 transition-colors"
                     aria-label={`Delete ${nb.title}`}
                   >
-                    🗑️
+                    <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
                 <p className="text-xs text-purple-300/40 mt-3">
@@ -248,7 +256,7 @@ export default function Notebook() {
             className="text-purple-300/50 hover:text-dark-200 transition-colors"
             aria-label="Back to notebook list"
           >
-            ← Back
+            <ArrowLeft className="w-4 h-4 inline mr-1" /> Back
           </button>
           <input
             type="text"
@@ -261,7 +269,7 @@ export default function Notebook() {
         </div>
         <div className="flex items-center gap-3">
           <button onClick={saveNotebook} disabled={saving} className="btn-primary text-sm flex items-center gap-2">
-            {saving ? '⏳ Saving...' : '💾 Save'}
+            {saving ? <><Loader className="w-4 h-4 animate-spin inline mr-1" /> Saving...</> : <><Save className="w-4 h-4 inline mr-1" /> Save</>}
           </button>
         </div>
       </div>
@@ -297,12 +305,12 @@ export default function Notebook() {
                     className="text-xs bg-green-500/10 text-green-400 border border-green-500/20 px-2 py-1 rounded hover:bg-green-500/20 transition-colors"
                     aria-label={`Run cell ${idx + 1}`}
                   >
-                    ▶ Run
+                    <Play className="w-3 h-3 inline mr-1" /> Run
                   </button>
                 )}
-                <button onClick={() => moveCell(cell.id, 'up')} disabled={idx === 0} className="text-xs text-purple-300/50 hover:text-dark-200 px-1 disabled:opacity-30 transition-colors" aria-label="Move cell up">↑</button>
-                <button onClick={() => moveCell(cell.id, 'down')} disabled={idx === cells.length - 1} className="text-xs text-purple-300/50 hover:text-dark-200 px-1 disabled:opacity-30 transition-colors" aria-label="Move cell down">↓</button>
-                <button onClick={() => deleteCell(cell.id)} className="text-xs text-purple-300/50 hover:text-red-400 px-1 transition-colors" aria-label="Delete cell">✕</button>
+                <button onClick={() => moveCell(cell.id, 'up')} disabled={idx === 0} className="text-xs text-purple-300/50 hover:text-dark-200 px-1 disabled:opacity-30 transition-colors" aria-label="Move cell up"><ChevronUp className="w-3 h-3" /></button>
+                <button onClick={() => moveCell(cell.id, 'down')} disabled={idx === cells.length - 1} className="text-xs text-purple-300/50 hover:text-dark-200 px-1 disabled:opacity-30 transition-colors" aria-label="Move cell down"><ChevronDown className="w-3 h-3" /></button>
+                <button onClick={() => deleteCell(cell.id)} className="text-xs text-purple-300/50 hover:text-red-400 px-1 transition-colors" aria-label="Delete cell"><X className="w-3 h-3" /></button>
               </div>
             </div>
 

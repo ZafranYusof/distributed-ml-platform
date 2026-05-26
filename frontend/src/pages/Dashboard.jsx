@@ -4,7 +4,8 @@ import Papa from 'papaparse';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { useFormValidation } from '../components/ui/hooks';
-import { FolderOpen, Upload, Flower2, Home, TrendingUp, BarChart3, Settings, Wrench, Rocket } from 'lucide-react';
+import { FolderOpen, Upload, Flower2, Home, TrendingUp, BarChart3, Settings, Wrench, Rocket, Play, ChevronDown } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -149,6 +150,11 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
+      <HowToUse pageId="dashboard" steps={[
+      'View your training overview and recent activity.',
+      'Click any card to navigate to that feature.',
+      'Use quick actions to start training or upload data.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-dark-50">Training Dashboard</h1>
         <p className="text-purple-300/50 mt-1">Upload data, configure model, and start distributed training</p>
@@ -474,7 +480,7 @@ export default function Dashboard() {
               className="flex items-center gap-2 text-dark-200 hover:text-dark-50 transition-colors"
               aria-expanded={showPreprocessing}
             >
-              <span aria-hidden="true">{showPreprocessing ? '▼' : '▶'}</span>
+              <span aria-hidden="true">{showPreprocessing ? '<ChevronDown className="w-3 h-3 inline" />' : '<Play className="w-3 h-3 inline" />'}</span>
               <span className="font-medium"><Wrench className="w-4 h-4 inline mr-1" /> Preprocessing Options</span>
             </button>
 

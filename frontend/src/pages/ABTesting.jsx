@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useToast } from '../components/ui/Toast';
 import { FlaskConical, Loader, Play, Pause, Trash2 } from 'lucide-react';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function ABTesting() {
   const { authFetch } = useAuth();
@@ -145,6 +146,12 @@ export default function ABTesting() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="ab-testing" steps={[
+      'Deploy two trained models.',
+      'Set traffic split ratio (e.g., 70/30).',
+      'Send test predictions.',
+      'Monitor which model performs better over time.'
+      ]} />
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-dark-50">A/B Testing</h2>
@@ -266,7 +273,7 @@ export default function ABTesting() {
                     {selectedTest === test._id ? 'Hide' : 'Details'}
                   </button>
                   {test.status === 'active' ? (
-                    <button onClick={() => updateStatus(test._id, 'paused')} className="text-xs text-yellow-400 hover:text-yellow-300">⏸</button>
+                    <button onClick={() => updateStatus(test._id, 'paused')} className="text-xs text-yellow-400 hover:text-yellow-300"><Pause className="w-4 h-4 inline" /></button>
                   ) : test.status === 'paused' ? (
                     <button onClick={() => updateStatus(test._id, 'active')} className="text-xs text-green-400 hover:text-green-300"><Play className="w-3 h-3" /></button>
                   ) : null}

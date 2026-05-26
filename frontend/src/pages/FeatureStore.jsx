@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
-import { X } from 'lucide-react';
+import { X, Play } from 'lucide-react';
 import { useConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import { Package } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
+import HowToUse from '../components/ui/HowToUse';
 
 export default function FeatureStore() {
   const { user, authFetch } = useAuth();
@@ -93,6 +94,12 @@ export default function FeatureStore() {
 
   return (
     <div className="space-y-6">
+      <HowToUse pageId="feature-store" steps={[
+      'Define feature transformations (code).',
+      'Run on a dataset to compute features.',
+      'Version and reuse across experiments.',
+      'Track feature lineage.'
+      ]} />
       {ConfirmDialog}
       <div className="flex items-center justify-between">
         <div>
@@ -136,7 +143,7 @@ export default function FeatureStore() {
                   <p className="text-purple-300/50 text-sm mt-1">v{f.version}</p>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={() => computeFeature(f)} className="text-purple-400 hover:text-purple-300 text-sm transition-colors" aria-label={`Run ${f.name}`}>▶ Run</button>
+                  <button onClick={() => computeFeature(f)} className="text-purple-400 hover:text-purple-300 text-sm transition-colors" aria-label={`Run ${f.name}`}><Play className="w-3 h-3 inline mr-1" /> Run</button>
                   <button onClick={() => handleDelete(f._id)} className="text-red-400 hover:text-red-300 text-sm transition-colors" aria-label={`Delete ${f.name}`}><X className="w-4 h-4" /></button>
                 </div>
               </div>

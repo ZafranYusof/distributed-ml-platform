@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import HowToUse from '../components/ui/HowToUse';
+import { Snowflake, Flame, X, Loader, Rocket, CheckCircle2 } from 'lucide-react';
 
 export default function TransferLearning() {
   const [selectedModel, setSelectedModel] = useState('');
@@ -94,6 +96,12 @@ export default function TransferLearning() {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <HowToUse pageId="transfer-learning" steps={[
+      'Select a pre-trained model (MobileNet, etc).',
+      'Toggle layers to freeze/unfreeze.',
+      'Add custom head layers.',
+      'Upload your dataset and fine-tune.'
+      ]} />
       <div>
         <h1 className="text-2xl font-bold text-white">Transfer Learning</h1>
         <p className="text-purple-300/50 mt-1">Load pre-trained models, freeze layers, add custom heads, and fine-tune</p>
@@ -126,8 +134,8 @@ export default function TransferLearning() {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white">Base Model Layers</h3>
             <div className="flex items-center gap-3 text-sm">
-              <span className="text-blue-400">🧊 Frozen: {frozenCount}</span>
-              <span className="text-green-400">🔥 Trainable: {trainableCount}</span>
+              <span className="text-blue-400"><Snowflake className="w-4 h-4 inline mr-1" /> Frozen: {frozenCount}</span>
+              <span className="text-green-400"><Flame className="w-4 h-4 inline mr-1" /> Trainable: {trainableCount}</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -142,7 +150,7 @@ export default function TransferLearning() {
                   onClick={() => toggleFreeze(idx)}
                   className={`px-3 py-1 rounded text-xs font-medium transition-colors ${layer.frozen ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30' : 'bg-green-500/20 text-green-400 hover:bg-green-500/30'}`}
                 >
-                  {layer.frozen ? '🧊 Frozen' : '🔥 Trainable'}
+                  {layer.frozen ? '<Snowflake className="w-4 h-4 inline mr-1" /> Frozen' : '<Flame className="w-4 h-4 inline mr-1" /> Trainable'}
                 </button>
               </div>
             ))}
@@ -173,7 +181,7 @@ export default function TransferLearning() {
                     <option value="linear">Linear</option>
                   </select>
                 </div>
-                <button onClick={() => removeHeadLayer(idx)} className="text-purple-300/40 hover:text-red-400 text-sm">✕</button>
+                <button onClick={() => removeHeadLayer(idx)} className="text-purple-300/40 hover:text-red-400 text-sm"><X className="w-4 h-4" /></button>
               </div>
             ))}
           </div>
@@ -188,7 +196,7 @@ export default function TransferLearning() {
             disabled={training}
             className="px-6 py-3 bg-gradient-btn text-white rounded-lg font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors"
           >
-            {training ? '⏳ Fine-tuning...' : '🚀 Start Fine-tuning'}
+            {training ? '<Loader className="w-4 h-4 inline mr-1 animate-spin" /> Fine-tuning...' : '<Rocket className="w-4 h-4 inline mr-1" /> Start Fine-tuning'}
           </button>
         </div>
       )}
@@ -222,7 +230,7 @@ export default function TransferLearning() {
       {/* Results */}
       {results && (
         <div className="bg-dark-800/40 border border-green-500/20 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-green-400 mb-4">✓ Fine-tuning Complete</h3>
+          <h3 className="text-lg font-semibold text-green-400 mb-4"><CheckCircle2 className="w-5 h-5 inline mr-1" /> Fine-tuning Complete</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-dark-900 rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-green-400">{(results.finalAccuracy * 100).toFixed(1)}%</p>

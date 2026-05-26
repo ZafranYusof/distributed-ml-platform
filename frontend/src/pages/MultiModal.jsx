@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart3, FileText, Image } from 'lucide-react';
 
 export default function MultiModal() {
   const [tabularData, setTabularData] = useState('');
@@ -87,21 +88,21 @@ export default function MultiModal() {
       {/* Data Inputs */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20">
-          <h3 className="text-sm font-semibold text-purple-200/70 mb-3">📊 Tabular Data</h3>
+          <h3 className="text-sm font-semibold text-purple-200/70 mb-3"><BarChart3 className="w-4 h-4 inline mr-1" /> Tabular Data</h3>
           <textarea value={tabularData} onChange={e => setTabularData(e.target.value)}
             className="w-full h-32 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white text-xs font-mono resize-none"
             placeholder="CSV data..." />
           <p className="text-xs text-purple-300/40 mt-1">{tabularData ? tabularData.split('\n').length - 1 : 0} rows</p>
         </div>
         <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20">
-          <h3 className="text-sm font-semibold text-purple-200/70 mb-3">📝 Text Data</h3>
+          <h3 className="text-sm font-semibold text-purple-200/70 mb-3"><FileText className="w-4 h-4 inline mr-1" /> Text Data</h3>
           <textarea value={textData} onChange={e => setTextData(e.target.value)}
             className="w-full h-32 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white text-xs resize-none"
             placeholder="Enter text..." />
           <p className="text-xs text-purple-300/40 mt-1">{textData ? textData.split(' ').length : 0} words</p>
         </div>
         <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20">
-          <h3 className="text-sm font-semibold text-purple-200/70 mb-3">🖼️ Image Features</h3>
+          <h3 className="text-sm font-semibold text-purple-200/70 mb-3"><Image className="w-4 h-4 inline mr-1" /> Image Features</h3>
           {imageFeatures ? (
             <div className="h-32 overflow-hidden">
               <div className="grid grid-cols-8 gap-0.5">
