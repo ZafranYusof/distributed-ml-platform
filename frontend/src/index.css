@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-950 text-dark-100 antialiased;
+  }
+
+  /* Skip to content link for accessibility */
+  .skip-to-content {
+    @apply absolute -top-10 left-4 z-[99999] bg-primary-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all;
+  }
+  .skip-to-content:focus {
+    @apply top-4;
+  }
+
+  /* Focus visible outlines */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-500;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-dark-900 border border-dark-700 rounded-xl p-6 transition-all duration-200;
+  }
+  .card-hover:hover {
+    @apply -translate-y-0.5 shadow-lg shadow-black/20 border-dark-600;
+  }
+  .btn-primary {
+    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply bg-dark-700 hover:bg-dark-600 text-dark-100 font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
+  }
+  .btn-danger {
+    @apply bg-red-500 hover:bg-red-600 text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
+  }
+  .btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+  .input-field {
+    @apply bg-dark-800 border border-dark-600 rounded-lg px-3 py-2 text-dark-100 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors duration-200;
+  }
+  .input-error {
+    @apply border-red-500 focus:border-red-500 focus:ring-red-500;
+  }
+  .field-error {
+    @apply text-red-400 text-xs mt-1;
+  }
+}
+
+@layer utilities {
+  /* Shimmer animation for skeleton loaders */
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  .animate-shimmer {
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  /* Slide in from right for toasts */
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  .animate-slide-in-right {
+    animation: slide-in-right 0.3s ease-out;
+  }
+
+  /* Fade in animation */
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  /* Smooth progress bar */
+  .progress-smooth {
+    transition: width 0.3s ease-out;
+  }
+}

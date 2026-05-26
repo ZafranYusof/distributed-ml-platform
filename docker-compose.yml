@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - distml-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "5005:5005"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/distml
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=distml-secret-key
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - distml-network
+
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - distml-network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - distml-network
+
+volumes:
+  mongo-data:
+  redis-data:
+
+networks:
+  distml-network:
+    driver: bridge

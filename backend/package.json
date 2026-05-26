@@ -1,0 +1,25 @@
+{
+  "name": "distributed-ml-backend",
+  "version": "1.0.0",
+  "description": "Backend coordinator for distributed ML training platform",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "@socket.io/redis-adapter": "^8.3.0",
+    "bcryptjs": "2.4.3",
+    "cors": "2.8.5",
+    "express": "4.21.2",
+    "ioredis": "^5.4.2",
+    "jsonwebtoken": "9.0.2",
+    "mongoose": "8.9.5",
+    "multer": "1.4.5-lts.1",
+    "node-cron": "^4.2.1",
+    "socket.io": "^4.8.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
