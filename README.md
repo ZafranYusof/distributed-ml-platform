@@ -1,6 +1,6 @@
-# 🧠 Distributed ML Training Platform
+# Distributed ML Training Platform
 
-**Train machine learning models directly in your browser — no server-side GPUs required.**
+**Train machine learning models directly in your browser -- no server-side GPUs required.**
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Deploy with Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)](https://distributed-ml-platform.vercel.app)
@@ -9,91 +9,91 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
-Distributed ML Training Platform is a full-stack web application that brings enterprise-grade machine learning capabilities to the browser. By leveraging **Web Workers** and **TensorFlow.js**, it enables distributed model training without requiring expensive server-side GPU infrastructure — making ML accessible to everyone.
+Distributed ML Training Platform is a full-stack web application that brings enterprise-grade machine learning capabilities to the browser. By leveraging **Web Workers** and **TensorFlow.js**, it enables distributed model training without requiring expensive server-side GPU infrastructure -- making ML accessible to everyone.
 
 The platform supports the complete ML lifecycle: from data ingestion and exploration, through model architecture design (CNN, RNN, Neural Networks), to training, evaluation, deployment, and monitoring. Features like AutoML, Neural Architecture Search, and Transfer Learning automate complex workflows, while real-time collaboration via Socket.io enables teams to work together seamlessly.
 
-Whether you're a researcher prototyping new architectures, a team building production ML pipelines, or a student learning the fundamentals — this platform provides the tools you need with a modern, intuitive interface.
+Whether you're a researcher prototyping new architectures, a team building production ML pipelines, or a student learning the fundamentals -- this platform provides the tools you need with a modern, intuitive interface.
 
 ---
 
-## 🚀 Live Demo
+## Live Demo
 
-**👉 [distributed-ml-platform.vercel.app](https://distributed-ml-platform.vercel.app)**
-
----
-
-## ✨ Key Features
-
-### 🏋️ Training
-- **Distributed Training** — Parallel model training using Web Workers
-- **AutoML** — Automated model selection and hyperparameter tuning
-- **Neural Architecture Search (NAS)** — Discover optimal architectures automatically
-- **Streaming ML** — Train on streaming/real-time data
-- **CNN / RNN / NN Support** — Build and train various architectures
-- **Real-time Visualization** — Live training metrics and loss curves
-
-### 📊 Data
-- **Dataset Management** — Upload, organize, and version datasets
-- **Data Explorer** — Interactive data visualization and statistics
-- **Augmentation** — Built-in data augmentation pipelines
-- **Auto Feature Engineering** — Automated feature extraction and selection
-- **Synthetic Data Generator** — Generate training data programmatically
-- **Annotations** — Label and annotate datasets collaboratively
-
-### 🤖 Models
-- **Inference API** — Deploy models with REST endpoints
-- **Model Versioning** — Track and compare model versions
-- **Marketplace** — Share and discover pre-trained models
-- **Transfer Learning** — Fine-tune pre-trained models on custom data
-- **Ensemble Methods** — Combine multiple models for better performance
-- **Model Compression** — Quantization and pruning for deployment
-- **Custom Loss Functions** — Define custom training objectives
-- **Model Cards** — Standardized model documentation
-
-### ⚙️ MLOps
-- **Monitoring & Drift Detection** — Track model performance in production
-- **Feature Store** — Centralized feature management
-- **Pipeline Orchestration** — Visual pipeline builder with DAG support
-- **CI/CD Integration** — Automated training and deployment pipelines
-- **Scheduled Training** — Cron-based retraining schedules
-- **A/B Testing** — Compare model variants in production
-
-### 👥 Collaboration
-- **Real-time Collaboration** — Live sessions via Socket.io
-- **Organizations** — Team management and access control
-- **Federated Learning** — Train across distributed data sources
-- **Active Learning** — Human-in-the-loop labeling workflows
-- **Notebooks** — Interactive computational notebooks
-
-### 🔬 Research
-- **RL Playground** — Reinforcement learning experimentation
-- **Explainability (LIME)** — Model interpretability and explanations
-- **Debug Studio** — Inspect model internals and gradients
-- **GPU Acceleration** — WebGL-accelerated computation
-- **Multi-Modal Learning** — Train on text, image, and tabular data
-
-### 🏗️ Platform
-- **Docker Support** — Containerized deployment
-- **Redis Caching** — High-performance caching layer
-- **Swagger API Docs** — Interactive API documentation
-- **GitHub Integration** — Import/export models and datasets
-- **Webhook Support** — Event-driven automation
-- **Admin Dashboard** — Platform management and user analytics
-
-### 🎨 User Experience
-- **Dark / Light Theme** — System-aware theme switching
-- **Command Palette** — Quick actions with keyboard shortcuts
-- **Keyboard Shortcuts** — Power-user navigation
-- **Onboarding Tour** — Guided first-time experience
-- **Mobile Responsive** — Works on all screen sizes
-- **Full Documentation** — In-app docs and guides
+**[distributed-ml-platform.vercel.app](https://distributed-ml-platform.vercel.app)**
 
 ---
 
-## 🛠️ Tech Stack
+## Key Features
+
+### Training
+- **Distributed Training** -- Parallel model training using Web Workers
+- **AutoML** -- Automated model selection and hyperparameter tuning
+- **Neural Architecture Search (NAS)** -- Discover optimal architectures automatically
+- **Streaming ML** -- Train on streaming/real-time data
+- **CNN / RNN / NN Support** -- Build and train various architectures
+- **Real-time Visualization** -- Live training metrics and loss curves
+
+### Data
+- **Dataset Management** -- Upload, organize, and version datasets
+- **Data Explorer** -- Interactive data visualization and statistics
+- **Augmentation** -- Built-in data augmentation pipelines
+- **Auto Feature Engineering** -- Automated feature extraction and selection
+- **Synthetic Data Generator** -- Generate training data programmatically
+- **Annotations** -- Label and annotate datasets collaboratively
+
+### Models
+- **Inference API** -- Deploy models with REST endpoints
+- **Model Versioning** -- Track and compare model versions
+- **Marketplace** -- Share and discover pre-trained models
+- **Transfer Learning** -- Fine-tune pre-trained models on custom data
+- **Ensemble Methods** -- Combine multiple models for better performance
+- **Model Compression** -- Quantization and pruning for deployment
+- **Custom Loss Functions** -- Define custom training objectives
+- **Model Cards** -- Standardized model documentation
+
+### MLOps
+- **Monitoring and Drift Detection** -- Track model performance in production
+- **Feature Store** -- Centralized feature management
+- **Pipeline Orchestration** -- Visual pipeline builder with DAG support
+- **CI/CD Integration** -- Automated training and deployment pipelines
+- **Scheduled Training** -- Cron-based retraining schedules
+- **A/B Testing** -- Compare model variants in production
+
+### Collaboration
+- **Real-time Collaboration** -- Live sessions via Socket.io
+- **Organizations** -- Team management and access control
+- **Federated Learning** -- Train across distributed data sources
+- **Active Learning** -- Human-in-the-loop labeling workflows
+- **Notebooks** -- Interactive computational notebooks
+
+### Research
+- **RL Playground** -- Reinforcement learning experimentation
+- **Explainability (LIME)** -- Model interpretability and explanations
+- **Debug Studio** -- Inspect model internals and gradients
+- **GPU Acceleration** -- WebGL-accelerated computation
+- **Multi-Modal Learning** -- Train on text, image, and tabular data
+
+### Platform
+- **Docker Support** -- Containerized deployment
+- **Redis Caching** -- High-performance caching layer
+- **Swagger API Docs** -- Interactive API documentation
+- **GitHub Integration** -- Import/export models and datasets
+- **Webhook Support** -- Event-driven automation
+- **Admin Dashboard** -- Platform management and user analytics
+
+### User Experience
+- **Dark / Light Theme** -- System-aware theme switching
+- **Command Palette** -- Quick actions with keyboard shortcuts
+- **Keyboard Shortcuts** -- Power-user navigation
+- **Onboarding Tour** -- Guided first-time experience
+- **Mobile Responsive** -- Works on all screen sizes
+- **Full Documentation** -- In-app docs and guides
+
+---
+
+## Tech Stack
 
 | Layer | Technologies |
 |-------|-------------|
@@ -105,11 +105,11 @@ Whether you're a researcher prototyping new architectures, a team building produ
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-- **Node.js** 18+ 
+- **Node.js** 18+
 - **MongoDB** 6+
 - **Redis** (optional, for caching and real-time scaling)
 - **Docker** (optional, for containerized deployment)
@@ -160,57 +160,51 @@ docker-compose up --build
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 distributed-ml-platform/
-├── frontend/
-│   ├── src/
-│   │   ├── pages/            # 50+ feature pages
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── Training.jsx
-│   │   │   ├── AutoML.jsx
-│   │   │   ├── Datasets.jsx
-│   │   │   ├── Monitoring.jsx
-│   │   │   └── ...
-│   │   ├── components/       # Shared UI components
-│   │   │   ├── ui/           # Base UI primitives
-│   │   │   ├── Layout.jsx
-│   │   │   ├── CommandPalette.jsx
-│   │   │   ├── OnboardingTour.jsx
-│   │   │   └── ...
-│   │   └── data/             # Static data and configs
-│   └── package.json
-├── backend/
-│   └── src/
-│       ├── routes/           # API route handlers
-│       ├── models/           # MongoDB schemas
-│       ├── middleware/       # Auth, validation, etc.
-│       ├── utils/            # Helper functions
-│       └── index.js          # Server entry point
-├── docker-compose.yml
-├── render.yaml
-└── package.json
+|-- frontend/
+|   +-- src/
+|       +-- pages/            # 50+ feature pages
+|       |   +-- Dashboard.jsx
+|       |   +-- Training.jsx
+|       |   +-- AutoML.jsx
+|       |   +-- Datasets.jsx
+|       |   +-- Monitoring.jsx
+|       |   `-- ...
+|       +-- components/       # Shared UI components
+|       |   +-- ui/           # Base UI primitives
+|       |   +-- Layout.jsx
+|       |   +-- CommandPalette.jsx
+|       |   +-- OnboardingTour.jsx
+|       |   `-- ...
+|       `-- data/             # Static data and configs
+|   `-- package.json
+|-- backend/
+|   +-- src/
+|       +-- routes/           # API route handlers
+|       +-- models/           # MongoDB schemas
+|       +-- middleware/       # Auth, validation, etc.
+|       +-- utils/            # Helper functions
+|       `-- index.js          # Server entry point
+|-- docker-compose.yml
+|-- render.yaml
+`-- package.json
 ```
 
 ---
 
-## 📸 Screenshots
+## API Documentation
 
-> Screenshots coming soon. Visit the [live demo](https://distributed-ml-platform.vercel.app) to explore the platform.
-
----
-
-## 📚 API Documentation
-
-- **Swagger UI** — Available at `/api-docs` when running the backend
-- **In-app Documentation** — Comprehensive guides at `/docs` within the application
+- **Swagger UI** -- Available at `/api-docs` when running the backend
+- **In-app Documentation** -- Comprehensive guides at `/docs` within the application
 
 The API follows RESTful conventions with JWT authentication. All endpoints are documented with request/response schemas.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Here's how to get started:
 
@@ -229,13 +223,13 @@ Contributions are welcome! Here's how to get started:
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** -- see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 👤 Author
+## Author
 
 **Zafran Yusof**
 
@@ -244,5 +238,5 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 ---
 
 <p align="center">
-  Built with ❤️ using React, TensorFlow.js, and Web Workers
+  Built with React, TensorFlow.js, and Web Workers
 </p>
