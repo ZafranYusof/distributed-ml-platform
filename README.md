@@ -204,25 +204,6 @@ The API follows RESTful conventions with JWT authentication. All endpoints are d
 
 ---
 
-## Contributing
-
-Contributions are welcome! Here's how to get started:
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'feat: add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
-
-### Guidelines
-
-- Follow existing code style and conventions
-- Write meaningful commit messages using [Conventional Commits](https://www.conventionalcommits.org/)
-- Add tests for new features when applicable
-- Update documentation for any API changes
-
----
-
 ## License
 
 This project is licensed under the **MIT License** -- see the [LICENSE](LICENSE) file for details.
