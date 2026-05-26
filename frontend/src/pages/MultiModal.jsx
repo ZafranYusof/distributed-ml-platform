@@ -81,27 +81,27 @@ export default function MultiModal() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-white">Multi-Modal Learning</h1>
-        <p className="text-dark-400 mt-1">Train models on multiple data types with configurable fusion strategies</p>
+        <p className="text-purple-300/50 mt-1">Train models on multiple data types with configurable fusion strategies</p>
       </div>
 
       {/* Data Inputs */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="bg-dark-800 rounded-xl p-4 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 mb-3">📊 Tabular Data</h3>
+        <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 mb-3">📊 Tabular Data</h3>
           <textarea value={tabularData} onChange={e => setTabularData(e.target.value)}
-            className="w-full h-32 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white text-xs font-mono resize-none"
+            className="w-full h-32 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white text-xs font-mono resize-none"
             placeholder="CSV data..." />
-          <p className="text-xs text-dark-500 mt-1">{tabularData ? tabularData.split('\n').length - 1 : 0} rows</p>
+          <p className="text-xs text-purple-300/40 mt-1">{tabularData ? tabularData.split('\n').length - 1 : 0} rows</p>
         </div>
-        <div className="bg-dark-800 rounded-xl p-4 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 mb-3">📝 Text Data</h3>
+        <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 mb-3">📝 Text Data</h3>
           <textarea value={textData} onChange={e => setTextData(e.target.value)}
-            className="w-full h-32 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white text-xs resize-none"
+            className="w-full h-32 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white text-xs resize-none"
             placeholder="Enter text..." />
-          <p className="text-xs text-dark-500 mt-1">{textData ? textData.split(' ').length : 0} words</p>
+          <p className="text-xs text-purple-300/40 mt-1">{textData ? textData.split(' ').length : 0} words</p>
         </div>
-        <div className="bg-dark-800 rounded-xl p-4 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 mb-3">🖼️ Image Features</h3>
+        <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 mb-3">🖼️ Image Features</h3>
           {imageFeatures ? (
             <div className="h-32 overflow-hidden">
               <div className="grid grid-cols-8 gap-0.5">
@@ -112,29 +112,29 @@ export default function MultiModal() {
               </div>
             </div>
           ) : (
-            <div className="h-32 flex items-center justify-center text-dark-500 text-sm">No image loaded</div>
+            <div className="h-32 flex items-center justify-center text-purple-300/40 text-sm">No image loaded</div>
           )}
-          <p className="text-xs text-dark-500 mt-1">{imageFeatures ? '64-dim feature vector' : 'Upload or generate'}</p>
+          <p className="text-xs text-purple-300/40 mt-1">{imageFeatures ? '64-dim feature vector' : 'Upload or generate'}</p>
         </div>
       </div>
 
-      <button onClick={generateSampleData} className="px-4 py-2 bg-dark-700 text-dark-300 rounded-lg hover:bg-dark-600">
+      <button onClick={generateSampleData} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 rounded-lg hover:bg-purple-500/20">
         Generate Sample Data
       </button>
 
       {/* Encoder & Fusion Config */}
-      <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-        <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Model Configuration</h3>
+      <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+        <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Model Configuration</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="text-xs text-dark-400">Fusion Strategy</label>
+            <label className="text-xs text-purple-300/50">Fusion Strategy</label>
             <select value={fusionStrategy} onChange={e => setFusionStrategy(e.target.value)}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={training}>
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={training}>
               <option value="early">Early Fusion (concat features)</option>
               <option value="late">Late Fusion (combine predictions)</option>
               <option value="hybrid">Hybrid (attention-based)</option>
             </select>
-            <p className="text-xs text-dark-500 mt-1">
+            <p className="text-xs text-purple-300/40 mt-1">
               {fusionStrategy === 'early' && 'Concatenate all features before the model'}
               {fusionStrategy === 'late' && 'Separate models per modality, combine outputs'}
               {fusionStrategy === 'hybrid' && 'Cross-modal attention with learned weights'}
@@ -142,35 +142,35 @@ export default function MultiModal() {
           </div>
           <div className="space-y-3">
             <div>
-              <label className="text-xs text-dark-400">Tabular Encoder</label>
+              <label className="text-xs text-purple-300/50">Tabular Encoder</label>
               <p className="text-sm text-white font-mono">[{encoderConfig.tabular.layers.join(' → ')}] · {encoderConfig.tabular.activation}</p>
             </div>
             <div>
-              <label className="text-xs text-dark-400">Text Encoder</label>
+              <label className="text-xs text-purple-300/50">Text Encoder</label>
               <p className="text-sm text-white font-mono">Embedding({encoderConfig.text.embeddingDim}) · maxLen={encoderConfig.text.maxLen}</p>
             </div>
             <div>
-              <label className="text-xs text-dark-400">Image Encoder</label>
+              <label className="text-xs text-purple-300/50">Image Encoder</label>
               <p className="text-sm text-white font-mono">Conv({encoderConfig.image.convFilters}) · Pool({encoderConfig.image.poolSize})</p>
             </div>
           </div>
         </div>
         <button onClick={trainModel} disabled={training || (!tabularData && !textData && !imageFeatures)}
-          className="mt-4 px-6 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 disabled:opacity-50">
+          className="mt-4 px-6 py-2 bg-gradient-btn text-white rounded-lg hover:bg-primary-600 disabled:opacity-50">
           {training ? 'Training...' : 'Train Multi-Modal Model'}
         </button>
       </div>
 
       {/* Training Metrics */}
       {metrics.length > 0 && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Training Progress</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Training Progress</h3>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={metrics}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="epoch" stroke="#64748b" />
-              <YAxis stroke="#64748b" />
-              <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+              <XAxis dataKey="epoch" stroke="#6b5b95" />
+              <YAxis stroke="#6b5b95" />
+              <Tooltip contentStyle={{ background: '#1E1045', border: '1px solid #2d1b69', borderRadius: '8px' }} />
               <Line type="monotone" dataKey="loss" stroke="#ef4444" strokeWidth={2} name="Loss" dot={false} />
               <Line type="monotone" dataKey="accuracy" stroke="#06b6d4" strokeWidth={2} name="Accuracy" dot={false} />
             </LineChart>
@@ -181,13 +181,13 @@ export default function MultiModal() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Modality Contributions */}
         {contributions && (
-          <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-            <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Modality Contributions</h3>
+          <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+            <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Modality Contributions</h3>
             <div className="space-y-4">
               {Object.entries(contributions).map(([key, value]) => (
                 <div key={key} className="flex items-center gap-3">
-                  <span className="text-sm text-dark-300 w-20 capitalize">{key}</span>
-                  <div className="flex-1 h-6 bg-dark-700 rounded overflow-hidden">
+                  <span className="text-sm text-purple-200/70 w-20 capitalize">{key}</span>
+                  <div className="flex-1 h-6 bg-purple-500/15 rounded overflow-hidden">
                     <div className={`h-full ${
                       key === 'tabular' ? 'bg-blue-500' : key === 'text' ? 'bg-green-500' : 'bg-purple-500'
                     }`} style={{ width: `${value * 100}%` }}></div>
@@ -201,48 +201,48 @@ export default function MultiModal() {
 
         {/* Cross-Modal Attention */}
         {attention && (
-          <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-            <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Cross-Modal Attention (Text → Image)</h3>
+          <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+            <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Cross-Modal Attention (Text → Image)</h3>
             <div className="flex flex-wrap gap-2">
               {attention.map((item, i) => (
                 <span key={i} className="px-2 py-1 rounded text-sm"
                   style={{
                     backgroundColor: `rgba(6, 182, 212, ${item.weight * 0.5})`,
                     border: `1px solid rgba(6, 182, 212, ${item.weight})`,
-                    color: item.weight > 0.5 ? '#fff' : '#94a3b8'
+                    color: item.weight > 0.5 ? '#fff' : '#A78BFA'
                   }}>
                   {item.word}
                 </span>
               ))}
             </div>
-            <p className="text-xs text-dark-500 mt-3">Brighter = higher attention weight from image features</p>
+            <p className="text-xs text-purple-300/40 mt-3">Brighter = higher attention weight from image features</p>
           </div>
         )}
       </div>
 
       {/* Per-modality predictions */}
       {predictions.length > 0 && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Per-Modality Predictions</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Per-Modality Predictions</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-dark-700">
-                  <th className="text-left py-2 px-3 text-dark-400">Epoch</th>
+                <tr className="border-b border-purple-500/20">
+                  <th className="text-left py-2 px-3 text-purple-300/50">Epoch</th>
                   <th className="text-left py-2 px-3 text-blue-400">Tabular</th>
                   <th className="text-left py-2 px-3 text-green-400">Text</th>
                   <th className="text-left py-2 px-3 text-purple-400">Image</th>
-                  <th className="text-left py-2 px-3 text-primary-400">Fused</th>
+                  <th className="text-left py-2 px-3 text-purple-400">Fused</th>
                 </tr>
               </thead>
               <tbody>
                 {predictions.map((p, i) => (
-                  <tr key={i} className="border-b border-dark-700/50">
+                  <tr key={i} className="border-b border-purple-500/20/50">
                     <td className="py-2 px-3 text-white">{p.epoch}</td>
                     <td className="py-2 px-3 text-blue-300 font-mono">{p.tabularPred}</td>
                     <td className="py-2 px-3 text-green-300 font-mono">{p.textPred}</td>
                     <td className="py-2 px-3 text-purple-300 font-mono">{p.imagePred}</td>
-                    <td className="py-2 px-3 text-primary-300 font-mono font-bold">{p.fusedPred}</td>
+                    <td className="py-2 px-3 text-purple-300 font-mono font-bold">{p.fusedPred}</td>
                   </tr>
                 ))}
               </tbody>

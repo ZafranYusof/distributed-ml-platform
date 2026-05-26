@@ -96,7 +96,7 @@ export default function TransferLearning() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-white">Transfer Learning</h1>
-        <p className="text-dark-400 mt-1">Load pre-trained models, freeze layers, add custom heads, and fine-tune</p>
+        <p className="text-purple-300/50 mt-1">Load pre-trained models, freeze layers, add custom heads, and fine-tune</p>
       </div>
 
       {/* Model Selection */}
@@ -105,13 +105,13 @@ export default function TransferLearning() {
           <div
             key={model.id}
             onClick={() => handleSelectModel(model.id)}
-            className={`bg-dark-800 border rounded-lg p-4 cursor-pointer transition-colors ${selectedModel === model.id ? 'border-primary-500 bg-primary-500/5' : 'border-dark-700 hover:border-dark-600'}`}
+            className={`bg-dark-800/40 border rounded-lg p-4 cursor-pointer transition-colors ${selectedModel === model.id ? 'border-primary-500 bg-primary-500/5' : 'border-purple-500/20 hover:border-purple-500/30'}`}
           >
             <div className="flex items-center justify-between">
               <h3 className="text-white font-medium">{model.name}</h3>
-              <span className="text-xs bg-dark-700 text-dark-300 px-2 py-0.5 rounded">{model.type}</span>
+              <span className="text-xs bg-purple-500/15 text-purple-200/70 px-2 py-0.5 rounded">{model.type}</span>
             </div>
-            <div className="flex items-center gap-4 mt-2 text-xs text-dark-400">
+            <div className="flex items-center gap-4 mt-2 text-xs text-purple-300/50">
               <span>{model.params} params</span>
               <span>Input: {model.inputShape}</span>
               <span>{model.layers.length} layers</span>
@@ -122,7 +122,7 @@ export default function TransferLearning() {
 
       {/* Layer Configuration */}
       {selectedModel && (
-        <div className="bg-dark-800 border border-dark-700 rounded-lg p-6">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white">Base Model Layers</h3>
             <div className="flex items-center gap-3 text-sm">
@@ -134,9 +134,9 @@ export default function TransferLearning() {
             {layers.map((layer, idx) => (
               <div key={idx} className={`flex items-center justify-between p-3 rounded-lg ${layer.frozen ? 'bg-blue-500/5 border border-blue-500/10' : 'bg-green-500/5 border border-green-500/10'}`}>
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-mono text-dark-300">{layer.name}</span>
-                  <span className="text-xs text-dark-500">{layer.type}</span>
-                  <span className="text-xs text-dark-500">{layer.params.toLocaleString()} params</span>
+                  <span className="text-sm font-mono text-purple-200/70">{layer.name}</span>
+                  <span className="text-xs text-purple-300/40">{layer.type}</span>
+                  <span className="text-xs text-purple-300/40">{layer.params.toLocaleString()} params</span>
                 </div>
                 <button
                   onClick={() => toggleFreeze(idx)}
@@ -152,20 +152,20 @@ export default function TransferLearning() {
 
       {/* Custom Head */}
       {selectedModel && (
-        <div className="bg-dark-800 border border-dark-700 rounded-lg p-6">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white">Custom Head (New Layers)</h3>
-            <button onClick={addHeadLayer} className="px-3 py-1.5 bg-dark-700 text-dark-300 hover:text-white rounded-lg text-sm transition-colors">+ Add Layer</button>
+            <button onClick={addHeadLayer} className="px-3 py-1.5 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm transition-colors">+ Add Layer</button>
           </div>
           <div className="space-y-3">
             {customHead.map((layer, idx) => (
               <div key={idx} className="flex items-center gap-3 bg-dark-900 rounded-lg p-3">
-                <span className="text-xs text-dark-500 w-16">Layer {idx + 1}</span>
+                <span className="text-xs text-purple-300/40 w-16">Layer {idx + 1}</span>
                 <div className="flex items-center gap-2 flex-1">
-                  <label className="text-xs text-dark-400">Units:</label>
-                  <input type="number" value={layer.units} onChange={(e) => updateHeadLayer(idx, 'units', e.target.value)} className="w-20 bg-dark-800 border border-dark-600 text-dark-200 rounded px-2 py-1 text-sm" />
-                  <label className="text-xs text-dark-400 ml-2">Activation:</label>
-                  <select value={layer.activation} onChange={(e) => updateHeadLayer(idx, 'activation', e.target.value)} className="bg-dark-800 border border-dark-600 text-dark-200 rounded px-2 py-1 text-sm">
+                  <label className="text-xs text-purple-300/50">Units:</label>
+                  <input type="number" value={layer.units} onChange={(e) => updateHeadLayer(idx, 'units', e.target.value)} className="w-20 bg-dark-800/40 border border-purple-500/30 text-dark-200 rounded px-2 py-1 text-sm" />
+                  <label className="text-xs text-purple-300/50 ml-2">Activation:</label>
+                  <select value={layer.activation} onChange={(e) => updateHeadLayer(idx, 'activation', e.target.value)} className="bg-dark-800/40 border border-purple-500/30 text-dark-200 rounded px-2 py-1 text-sm">
                     <option value="relu">ReLU</option>
                     <option value="sigmoid">Sigmoid</option>
                     <option value="softmax">Softmax</option>
@@ -173,7 +173,7 @@ export default function TransferLearning() {
                     <option value="linear">Linear</option>
                   </select>
                 </div>
-                <button onClick={() => removeHeadLayer(idx)} className="text-dark-500 hover:text-red-400 text-sm">✕</button>
+                <button onClick={() => removeHeadLayer(idx)} className="text-purple-300/40 hover:text-red-400 text-sm">✕</button>
               </div>
             ))}
           </div>
@@ -186,7 +186,7 @@ export default function TransferLearning() {
           <button
             onClick={handleFineTune}
             disabled={training}
-            className="px-6 py-3 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors"
+            className="px-6 py-3 bg-gradient-btn text-white rounded-lg font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors"
           >
             {training ? '⏳ Fine-tuning...' : '🚀 Start Fine-tuning'}
           </button>
@@ -195,24 +195,24 @@ export default function TransferLearning() {
 
       {/* Progress */}
       {progress && training && (
-        <div className="bg-dark-800 border border-dark-700 rounded-lg p-6">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Training Progress</h3>
           <div className="space-y-3">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-dark-400">Epoch {progress.epoch}/{progress.totalEpochs}</span>
-              <span className="text-dark-400">{((progress.epoch / progress.totalEpochs) * 100).toFixed(0)}%</span>
+              <span className="text-purple-300/50">Epoch {progress.epoch}/{progress.totalEpochs}</span>
+              <span className="text-purple-300/50">{((progress.epoch / progress.totalEpochs) * 100).toFixed(0)}%</span>
             </div>
-            <div className="w-full bg-dark-700 rounded-full h-3">
-              <div className="bg-primary-500 h-3 rounded-full transition-all" style={{ width: `${(progress.epoch / progress.totalEpochs) * 100}%` }}></div>
+            <div className="w-full bg-purple-500/15 rounded-full h-3">
+              <div className="bg-gradient-btn h-3 rounded-full transition-all" style={{ width: `${(progress.epoch / progress.totalEpochs) * 100}%` }}></div>
             </div>
             <div className="grid grid-cols-2 gap-4 mt-3">
               <div className="bg-dark-900 rounded-lg p-3 text-center">
                 <p className="text-xl font-bold text-yellow-400">{progress.loss.toFixed(4)}</p>
-                <p className="text-xs text-dark-400">Loss</p>
+                <p className="text-xs text-purple-300/50">Loss</p>
               </div>
               <div className="bg-dark-900 rounded-lg p-3 text-center">
                 <p className="text-xl font-bold text-green-400">{(progress.accuracy * 100).toFixed(1)}%</p>
-                <p className="text-xs text-dark-400">Accuracy</p>
+                <p className="text-xs text-purple-300/50">Accuracy</p>
               </div>
             </div>
           </div>
@@ -221,24 +221,24 @@ export default function TransferLearning() {
 
       {/* Results */}
       {results && (
-        <div className="bg-dark-800 border border-green-500/20 rounded-lg p-6">
+        <div className="bg-dark-800/40 border border-green-500/20 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-green-400 mb-4">✓ Fine-tuning Complete</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-dark-900 rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-green-400">{(results.finalAccuracy * 100).toFixed(1)}%</p>
-              <p className="text-xs text-dark-400 mt-1">Final Accuracy</p>
+              <p className="text-xs text-purple-300/50 mt-1">Final Accuracy</p>
             </div>
             <div className="bg-dark-900 rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-yellow-400">{results.finalLoss.toFixed(4)}</p>
-              <p className="text-xs text-dark-400 mt-1">Final Loss</p>
+              <p className="text-xs text-purple-300/50 mt-1">Final Loss</p>
             </div>
             <div className="bg-dark-900 rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-blue-400">{results.frozenLayers}</p>
-              <p className="text-xs text-dark-400 mt-1">Frozen Layers</p>
+              <p className="text-xs text-purple-300/50 mt-1">Frozen Layers</p>
             </div>
             <div className="bg-dark-900 rounded-lg p-4 text-center">
-              <p className="text-2xl font-bold text-primary-400">{results.trainableLayers}</p>
-              <p className="text-xs text-dark-400 mt-1">Trainable Layers</p>
+              <p className="text-2xl font-bold text-purple-400">{results.trainableLayers}</p>
+              <p className="text-xs text-purple-300/50 mt-1">Trainable Layers</p>
             </div>
           </div>
         </div>

@@ -157,9 +157,9 @@ export default function AutoFeatures() {
     switch (type) {
       case 'polynomial': return '#8b5cf6';
       case 'interaction': return '#06b6d4';
-      case 'binning': return '#f59e0b';
+      case 'binning': return '#6366F1';
       case 'one-hot': return '#10b981';
-      default: return '#64748b';
+      default: return '#6b5b95';
     }
   };
 
@@ -169,34 +169,34 @@ export default function AutoFeatures() {
       case 'interaction': return 'bg-cyan-500/10 text-cyan-400';
       case 'binning': return 'bg-yellow-500/10 text-yellow-400';
       case 'one-hot': return 'bg-green-500/10 text-green-400';
-      default: return 'bg-dark-700 text-dark-400';
+      default: return 'bg-purple-500/15 text-purple-300/50';
     }
   };
 
-  if (!user) return <div className="text-dark-400 text-center py-20">Sign in to use AutoFeature Engineering</div>;
+  if (!user) return <div className="text-purple-300/50 text-center py-20">Sign in to use AutoFeature Engineering</div>;
 
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-white">AutoFeature Engineering</h1>
-        <p className="text-dark-400 mt-1">Automatically generate and rank features from your dataset</p>
+        <p className="text-purple-300/50 mt-1">Automatically generate and rank features from your dataset</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Configuration */}
-        <div className="bg-dark-800 border border-dark-700 rounded-xl p-6 space-y-4">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6 space-y-4">
           <h3 className="text-white font-semibold">Feature Generation Config</h3>
 
           {!dataset ? (
-            <button onClick={loadSampleDataset} className="w-full px-4 py-2 bg-primary-500/10 text-primary-400 border border-primary-500/20 rounded-lg hover:bg-primary-500/20">
+            <button onClick={loadSampleDataset} className="w-full px-4 py-2 bg-purple-500/10 text-purple-300 border border-primary-500/20 rounded-lg hover:bg-primary-500/20">
               Load Sample Dataset
             </button>
           ) : (
             <div className="bg-dark-900 rounded-lg p-3 text-sm">
               <p className="text-dark-200">Dataset loaded</p>
-              <p className="text-dark-400 text-xs mt-1">{dataset.data.length} samples, {dataset.columns.length} features</p>
-              <p className="text-dark-400 text-xs">Numeric: {dataset.numericCols.join(', ')}</p>
-              <p className="text-dark-400 text-xs">Categorical: {dataset.categoricalCols.join(', ')}</p>
+              <p className="text-purple-300/50 text-xs mt-1">{dataset.data.length} samples, {dataset.columns.length} features</p>
+              <p className="text-purple-300/50 text-xs">Numeric: {dataset.numericCols.join(', ')}</p>
+              <p className="text-purple-300/50 text-xs">Categorical: {dataset.categoricalCols.join(', ')}</p>
             </div>
           )}
 
@@ -207,9 +207,9 @@ export default function AutoFeatures() {
             </label>
             {config.polynomial && (
               <div className="ml-6">
-                <label className="text-dark-400 text-xs">Degree</label>
+                <label className="text-purple-300/50 text-xs">Degree</label>
                 <select value={config.polynomialDegree} onChange={e => setConfig({ ...config, polynomialDegree: parseInt(e.target.value) })}
-                  className="ml-2 bg-dark-900 border border-dark-600 rounded px-2 py-1 text-dark-200 text-sm">
+                  className="ml-2 bg-dark-900 border border-purple-500/30 rounded px-2 py-1 text-dark-200 text-sm">
                   <option value={2}>2</option>
                   <option value={3}>3</option>
                 </select>
@@ -228,14 +228,14 @@ export default function AutoFeatures() {
             {config.binning && (
               <div className="ml-6 space-y-2">
                 <select value={config.binningMethod} onChange={e => setConfig({ ...config, binningMethod: e.target.value })}
-                  className="bg-dark-900 border border-dark-600 rounded px-2 py-1 text-dark-200 text-sm w-full">
+                  className="bg-dark-900 border border-purple-500/30 rounded px-2 py-1 text-dark-200 text-sm w-full">
                   <option value="equal-width">Equal Width</option>
                   <option value="equal-frequency">Equal Frequency</option>
                 </select>
                 <div className="flex items-center gap-2">
-                  <label className="text-dark-400 text-xs">Bins:</label>
+                  <label className="text-purple-300/50 text-xs">Bins:</label>
                   <input type="number" value={config.numBins} onChange={e => setConfig({ ...config, numBins: parseInt(e.target.value) || 5 })} min={2} max={20}
-                    className="w-16 bg-dark-900 border border-dark-600 rounded px-2 py-1 text-dark-200 text-sm" />
+                    className="w-16 bg-dark-900 border border-purple-500/30 rounded px-2 py-1 text-dark-200 text-sm" />
                 </div>
               </div>
             )}
@@ -245,15 +245,15 @@ export default function AutoFeatures() {
               <span className="text-dark-200 text-sm">One-Hot Encoding</span>
             </label>
 
-            <div className="border-t border-dark-700 pt-3">
-              <label className="text-dark-400 text-sm">Select Top K Features</label>
+            <div className="border-t border-purple-500/20 pt-3">
+              <label className="text-purple-300/50 text-sm">Select Top K Features</label>
               <input type="number" value={config.topK} onChange={e => setConfig({ ...config, topK: parseInt(e.target.value) || 10 })} min={1} max={50}
-                className="w-full mt-1 bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-dark-200" />
+                className="w-full mt-1 bg-dark-900 border border-purple-500/30 rounded-lg px-3 py-2 text-dark-200" />
             </div>
           </div>
 
           <button onClick={generateFeatures} disabled={!dataset || loading}
-            className="w-full px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 disabled:opacity-50">
+            className="w-full px-4 py-2 bg-gradient-btn text-white rounded-lg hover:bg-primary-600 disabled:opacity-50">
             {loading ? 'Generating...' : 'Generate Features'}
           </button>
         </div>
@@ -263,14 +263,14 @@ export default function AutoFeatures() {
           {generatedFeatures ? (
             <>
               {/* Correlation chart */}
-              <div className="bg-dark-800 border border-dark-700 rounded-xl p-6">
+              <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6">
                 <h3 className="text-white font-semibold mb-4">Feature Ranking by Correlation with Target</h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={generatedFeatures.slice(0, 15)} layout="vertical">
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                    <XAxis type="number" domain={[-1, 1]} stroke="#64748b" />
-                    <YAxis dataKey="name" type="category" stroke="#64748b" width={140} tick={{ fontSize: 11 }} />
-                    <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155' }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+                    <XAxis type="number" domain={[-1, 1]} stroke="#6b5b95" />
+                    <YAxis dataKey="name" type="category" stroke="#6b5b95" width={140} tick={{ fontSize: 11 }} />
+                    <Tooltip contentStyle={{ backgroundColor: '#1E1045', border: '1px solid #2d1b69' }} />
                     <Bar dataKey="correlation" radius={[0, 4, 4, 0]}>
                       {generatedFeatures.slice(0, 15).map((entry, i) => (
                         <Cell key={i} fill={getTypeColor(entry.type)} />
@@ -286,16 +286,16 @@ export default function AutoFeatures() {
               </div>
 
               {/* Feature list with selection */}
-              <div className="bg-dark-800 border border-dark-700 rounded-xl p-6">
+              <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-white font-semibold">Generated Features ({generatedFeatures.length} total, {selectedFeatures.length} selected)</h3>
                   <button onClick={() => setSelectedFeatures(generatedFeatures.slice(0, config.topK).map(f => f.name))}
-                    className="text-xs text-primary-400 hover:text-primary-300">Select Top {config.topK}</button>
+                    className="text-xs text-purple-400 hover:text-purple-300">Select Top {config.topK}</button>
                 </div>
                 <div className="space-y-2 max-h-80 overflow-y-auto">
                   {generatedFeatures.map((feature, i) => (
                     <div key={i} onClick={() => toggleFeature(feature.name)}
-                      className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-colors ${selectedFeatures.includes(feature.name) ? 'bg-primary-500/10 border border-primary-500/30' : 'bg-dark-900 border border-dark-700 hover:border-dark-500'}`}>
+                      className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-colors ${selectedFeatures.includes(feature.name) ? 'bg-primary-500/10 border border-primary-500/30' : 'bg-dark-800/50 backdrop-blur-md border border-purple-500/20 hover:border-dark-500'}`}>
                       <div className="flex items-center gap-3">
                         <input type="checkbox" checked={selectedFeatures.includes(feature.name)} readOnly className="accent-cyan-500" />
                         <div>
@@ -304,7 +304,7 @@ export default function AutoFeatures() {
                         </div>
                       </div>
                       <div className="flex items-center gap-4 text-xs">
-                        <span className="text-dark-400">Preview: [{feature.preview.join(', ')}]</span>
+                        <span className="text-purple-300/50">Preview: [{feature.preview.join(', ')}]</span>
                         <span className={`font-medium ${feature.correlation >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                           r={feature.correlation}
                         </span>
@@ -315,16 +315,16 @@ export default function AutoFeatures() {
               </div>
 
               {/* Apply button */}
-              <div className="bg-dark-800 border border-dark-700 rounded-xl p-4 flex items-center justify-between">
-                <span className="text-dark-400 text-sm">{selectedFeatures.length} features selected for use</span>
+              <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-4 flex items-center justify-between">
+                <span className="text-purple-300/50 text-sm">{selectedFeatures.length} features selected for use</span>
                 <button className="px-4 py-2 bg-green-500/10 text-green-400 border border-green-500/20 rounded-lg hover:bg-green-500/20 text-sm">
                   Apply Selected Features
                 </button>
               </div>
             </>
           ) : (
-            <div className="bg-dark-800 border border-dark-700 rounded-xl p-6 flex items-center justify-center h-64">
-              <div className="text-center text-dark-400">
+            <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6 flex items-center justify-center h-64">
+              <div className="text-center text-purple-300/50">
                 <p className="text-4xl mb-4">🧮</p>
                 <p>Load a dataset and generate features to see results</p>
               </div>

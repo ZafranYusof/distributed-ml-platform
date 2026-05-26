@@ -41,7 +41,7 @@ export default function Compare() {
   const workersRef = useRef([]);
   const nextId = useRef(3);
 
-  const colors = ['#06b6d4', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444', '#ec4899'];
+  const colors = ['#06b6d4', '#8b5cf6', '#6366F1', '#10b981', '#ef4444', '#ec4899'];
 
   const handleDrag = useCallback((e) => {
     e.preventDefault();
@@ -271,20 +271,20 @@ export default function Compare() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h2 className="text-2xl font-bold text-dark-50">Comparison Mode</h2>
-        <p className="text-dark-400 mt-1">Train multiple configurations side by side and compare results</p>
+        <p className="text-purple-300/50 mt-1">Train multiple configurations side by side and compare results</p>
       </div>
 
       {/* Dataset Selection */}
       {!dataset ? (
         <div className="card">
-          <h3 className="text-lg font-semibold text-dark-100 mb-4">📁 Select Dataset</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">📁 Select Dataset</h3>
           <div
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
             className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors cursor-pointer ${
-              dragActive ? 'border-primary-400 bg-primary-500/5' : 'border-dark-600 hover:border-dark-400'
+              dragActive ? 'border-primary-400 bg-primary-500/5' : 'border-purple-500/30 hover:border-dark-400'
             }`}
             onClick={() => document.getElementById('compare-file-input').click()}
           >
@@ -293,18 +293,18 @@ export default function Compare() {
             <input id="compare-file-input" type="file" accept=".csv" onChange={handleFileInput} className="hidden" />
           </div>
           <div className="flex items-center gap-4 mt-4">
-            <div className="flex-1 h-px bg-dark-700"></div>
-            <span className="text-dark-500 text-sm">or</span>
-            <div className="flex-1 h-px bg-dark-700"></div>
+            <div className="flex-1 h-px bg-purple-500/15"></div>
+            <span className="text-purple-300/40 text-sm">or</span>
+            <div className="flex-1 h-px bg-purple-500/15"></div>
           </div>
           <div className="grid grid-cols-2 gap-3 mt-4">
             <button onClick={() => loadSample('iris')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-dark-100">🌸 Iris Dataset</div>
-              <div className="text-xs text-dark-400 mt-1">Classification · 150 samples</div>
+              <div className="text-sm font-medium text-white">🌸 Iris Dataset</div>
+              <div className="text-xs text-purple-300/50 mt-1">Classification · 150 samples</div>
             </button>
             <button onClick={() => loadSample('housing')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-dark-100">🏠 Housing Prices</div>
-              <div className="text-xs text-dark-400 mt-1">Regression · 200 samples</div>
+              <div className="text-sm font-medium text-white">🏠 Housing Prices</div>
+              <div className="text-xs text-purple-300/50 mt-1">Regression · 200 samples</div>
             </button>
           </div>
         </div>
@@ -316,11 +316,11 @@ export default function Compare() {
               <div className="flex items-center gap-3">
                 <span className="text-2xl">📊</span>
                 <div>
-                  <p className="font-medium text-dark-100">{dataset.name}</p>
-                  <p className="text-sm text-dark-400">{dataset.rows} rows · {dataset.columns.length} columns</p>
+                  <p className="font-medium text-white">{dataset.name}</p>
+                  <p className="text-sm text-purple-300/50">{dataset.rows} rows · {dataset.columns.length} columns</p>
                 </div>
               </div>
-              <button onClick={() => { setDataset(null); setParsedData(null); setResults([]); }} className="text-dark-400 hover:text-red-400 text-sm">
+              <button onClick={() => { setDataset(null); setParsedData(null); setResults([]); }} className="text-purple-300/50 hover:text-red-400 text-sm">
                 Change
               </button>
             </div>
@@ -329,7 +329,7 @@ export default function Compare() {
           {/* Configurations */}
           <div className="card">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-dark-100">⚙️ Configurations</h3>
+              <h3 className="text-lg font-semibold text-white">⚙️ Configurations</h3>
               <button onClick={addConfig} className="btn-secondary text-sm" disabled={configs.length >= 6}>
                 + Add Config
               </button>
@@ -337,7 +337,7 @@ export default function Compare() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {configs.map((config, idx) => (
-                <div key={config.id} className="bg-dark-800 border border-dark-600 rounded-lg p-4">
+                <div key={config.id} className="bg-dark-800/40 border border-purple-500/30 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full" style={{ backgroundColor: colors[idx % colors.length] }}></div>
@@ -345,17 +345,17 @@ export default function Compare() {
                         type="text"
                         value={config.name}
                         onChange={(e) => updateConfig(config.id, 'name', e.target.value)}
-                        className="bg-transparent text-dark-100 font-medium text-sm border-none outline-none"
+                        className="bg-transparent text-white font-medium text-sm border-none outline-none"
                       />
                     </div>
                     {configs.length > 2 && (
-                      <button onClick={() => removeConfig(config.id)} className="text-dark-500 hover:text-red-400 text-xs">✕</button>
+                      <button onClick={() => removeConfig(config.id)} className="text-purple-300/40 hover:text-red-400 text-xs">✕</button>
                     )}
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 text-sm">
                     <div>
-                      <label className="text-xs text-dark-400">Architecture</label>
+                      <label className="text-xs text-purple-300/50">Architecture</label>
                       <select value={config.type} onChange={(e) => updateConfig(config.id, 'type', e.target.value)} className="input-field w-full text-xs py-1">
                         <option value="linear">Linear</option>
                         <option value="neural-network">Neural Network</option>
@@ -364,14 +364,14 @@ export default function Compare() {
                       </select>
                     </div>
                     <div>
-                      <label className="text-xs text-dark-400">Target</label>
+                      <label className="text-xs text-purple-300/50">Target</label>
                       <select value={config.targetColumn} onChange={(e) => updateConfig(config.id, 'targetColumn', e.target.value)} className="input-field w-full text-xs py-1">
                         {dataset.columns.map(col => <option key={col} value={col}>{col}</option>)}
                       </select>
                     </div>
                     {(config.type === 'neural-network' || config.type === 'cnn' || config.type === 'rnn') && (
                       <div>
-                        <label className="text-xs text-dark-400">Layers</label>
+                        <label className="text-xs text-purple-300/50">Layers</label>
                         <input
                           type="text"
                           value={config.layers.join(', ')}
@@ -381,15 +381,15 @@ export default function Compare() {
                       </div>
                     )}
                     <div>
-                      <label className="text-xs text-dark-400">Learning Rate</label>
+                      <label className="text-xs text-purple-300/50">Learning Rate</label>
                       <input type="number" step="0.001" value={config.learningRate} onChange={(e) => updateConfig(config.id, 'learningRate', parseFloat(e.target.value))} className="input-field w-full text-xs py-1" />
                     </div>
                     <div>
-                      <label className="text-xs text-dark-400">Epochs</label>
+                      <label className="text-xs text-purple-300/50">Epochs</label>
                       <input type="number" min="1" max="200" value={config.epochs} onChange={(e) => updateConfig(config.id, 'epochs', parseInt(e.target.value))} className="input-field w-full text-xs py-1" />
                     </div>
                     <div>
-                      <label className="text-xs text-dark-400">Batch Size</label>
+                      <label className="text-xs text-purple-300/50">Batch Size</label>
                       <input type="number" min="1" max="512" value={config.batchSize} onChange={(e) => updateConfig(config.id, 'batchSize', parseInt(e.target.value))} className="input-field w-full text-xs py-1" />
                     </div>
                   </div>
@@ -421,17 +421,17 @@ export default function Compare() {
           {/* Progress */}
           {training && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-dark-100 mb-4">⏳ Training Progress</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">⏳ Training Progress</h3>
               <div className="space-y-3">
                 {configs.map((config, idx) => (
                   <div key={config.id} className="space-y-1">
                     <div className="flex justify-between text-sm">
-                      <span className="text-dark-300" style={{ color: colors[idx % colors.length] }}>{config.name}</span>
-                      <span className="text-dark-400">
+                      <span className="text-purple-200/70" style={{ color: colors[idx % colors.length] }}>{config.name}</span>
+                      <span className="text-purple-300/50">
                         {idx < currentConfig ? '✅ Done' : idx === currentConfig ? `${(progress[idx] || 0).toFixed(0)}%` : 'Waiting...'}
                       </span>
                     </div>
-                    <div className="w-full bg-dark-800 rounded-full h-2">
+                    <div className="w-full bg-dark-800/40 rounded-full h-2">
                       <div
                         className="h-2 rounded-full transition-all duration-300"
                         style={{
@@ -450,15 +450,15 @@ export default function Compare() {
           {results.length > 0 && (
             <>
               <div className="card">
-                <h3 className="text-lg font-semibold text-dark-100 mb-4">📉 Loss Comparison</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">📉 Loss Comparison</h3>
                 <div className="h-72">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={chartData}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                      <XAxis dataKey="epoch" stroke="#94a3b8" fontSize={12} />
-                      <YAxis stroke="#94a3b8" fontSize={12} />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+                      <XAxis dataKey="epoch" stroke="#A78BFA" fontSize={12} />
+                      <YAxis stroke="#A78BFA" fontSize={12} />
                       <Tooltip
-                        contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
+                        contentStyle={{ backgroundColor: '#1E1045', border: '1px solid #2d1b69', borderRadius: '8px' }}
                         labelStyle={{ color: '#e2e8f0' }}
                       />
                       <Legend />
@@ -480,19 +480,19 @@ export default function Compare() {
 
               {/* Results Summary */}
               <div className="card">
-                <h3 className="text-lg font-semibold text-dark-100 mb-4">🏆 Results Summary</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">🏆 Results Summary</h3>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b border-dark-700">
-                        <th className="text-left py-2 px-3 text-dark-400">Config</th>
-                        <th className="text-left py-2 px-3 text-dark-400">Architecture</th>
-                        <th className="text-left py-2 px-3 text-dark-400">Final Loss</th>
+                      <tr className="border-b border-purple-500/20">
+                        <th className="text-left py-2 px-3 text-purple-300/50">Config</th>
+                        <th className="text-left py-2 px-3 text-purple-300/50">Architecture</th>
+                        <th className="text-left py-2 px-3 text-purple-300/50">Final Loss</th>
                         {results[0]?.finalAccuracy != null && (
-                          <th className="text-left py-2 px-3 text-dark-400">Final Accuracy</th>
+                          <th className="text-left py-2 px-3 text-purple-300/50">Final Accuracy</th>
                         )}
-                        <th className="text-left py-2 px-3 text-dark-400">LR</th>
-                        <th className="text-left py-2 px-3 text-dark-400">Layers</th>
+                        <th className="text-left py-2 px-3 text-purple-300/50">LR</th>
+                        <th className="text-left py-2 px-3 text-purple-300/50">Layers</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -504,7 +504,7 @@ export default function Compare() {
                               {r.name} {isBest && '🏆'}
                             </td>
                             <td className="py-2 px-3 text-dark-200">{r.config.type}</td>
-                            <td className="py-2 px-3 text-primary-400">{r.finalLoss?.toFixed(6)}</td>
+                            <td className="py-2 px-3 text-purple-400">{r.finalLoss?.toFixed(6)}</td>
                             {results[0]?.finalAccuracy != null && (
                               <td className="py-2 px-3 text-green-400">{r.finalAccuracy ? (r.finalAccuracy * 100).toFixed(1) + '%' : 'N/A'}</td>
                             )}

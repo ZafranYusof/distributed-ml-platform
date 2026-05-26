@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import EmptyState from '../components/ui/EmptyState';
+import { GitBranch } from 'lucide-react';
 
 export default function ModelVersions() {
   const { user, authFetch } = useAuth();
@@ -68,14 +69,14 @@ export default function ModelVersions() {
     setCompareIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : prev.length < 2 ? [...prev, id] : prev);
   };
 
-  if (!user) return <div className="text-dark-400 text-center py-20">Sign in to access model versioning</div>;
+  if (!user) return <div className="text-purple-300/50 text-center py-20">Sign in to access model versioning</div>;
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Model Versioning</h1>
-          <p className="text-dark-400 mt-1">Track, compare, and rollback model versions</p>
+          <p className="text-purple-300/50 mt-1">Track, compare, and rollback model versions</p>
         </div>
         <div className="flex items-center gap-3">
           <select
@@ -89,7 +90,7 @@ export default function ModelVersions() {
           </select>
           <button
             onClick={() => { setCompareMode(!compareMode); setCompareIds([]); setComparison(null); }}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${compareMode ? 'bg-primary-500 text-white' : 'bg-dark-800 text-dark-300 hover:bg-dark-700'}`}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${compareMode ? 'bg-gradient-btn text-white' : 'bg-dark-800 text-purple-200/70 hover:bg-purple-500/15'}`}
             aria-pressed={compareMode}
           >
             {compareMode ? 'Cancel Compare' : 'Compare Versions'}
@@ -99,7 +100,7 @@ export default function ModelVersions() {
 
       {compareMode && (
         <div className="bg-dark-800/50 border border-primary-500/20 rounded-lg p-4 animate-fade-in">
-          <p className="text-dark-300 text-sm">Select 2 versions to compare ({compareIds.length}/2 selected)</p>
+          <p className="text-purple-200/70 text-sm">Select 2 versions to compare ({compareIds.length}/2 selected)</p>
           {compareIds.length === 2 && (
             <button onClick={handleCompare} className="mt-2 btn-primary text-sm">
               Compare Selected
@@ -114,12 +115,12 @@ export default function ModelVersions() {
           <div className="grid grid-cols-2 gap-6">
             {[comparison.v1, comparison.v2].map((v, i) => (
               <div key={i} className="bg-dark-900 rounded-lg p-4">
-                <h3 className="text-primary-400 font-medium mb-2">{v.modelName} v{v.version}</h3>
+                <h3 className="text-purple-400 font-medium mb-2">{v.modelName} v{v.version}</h3>
                 <div className="space-y-2 text-sm">
-                  <div><span className="text-dark-400">Created:</span> <span className="text-dark-200">{new Date(v.createdAt).toLocaleString()}</span></div>
-                  {v.metrics && <div><span className="text-dark-400">Metrics:</span> <pre className="text-dark-200 mt-1 text-xs bg-dark-800 p-2 rounded overflow-auto">{JSON.stringify(v.metrics, null, 2)}</pre></div>}
-                  {v.hyperparams && <div><span className="text-dark-400">Hyperparams:</span> <pre className="text-dark-200 mt-1 text-xs bg-dark-800 p-2 rounded overflow-auto">{JSON.stringify(v.hyperparams, null, 2)}</pre></div>}
-                  {v.architecture && <div><span className="text-dark-400">Architecture:</span> <pre className="text-dark-200 mt-1 text-xs bg-dark-800 p-2 rounded overflow-auto">{JSON.stringify(v.architecture, null, 2)}</pre></div>}
+                  <div><span className="text-purple-300/50">Created:</span> <span className="text-dark-200">{new Date(v.createdAt).toLocaleString()}</span></div>
+                  {v.metrics && <div><span className="text-purple-300/50">Metrics:</span> <pre className="text-dark-200 mt-1 text-xs bg-dark-800/40 p-2 rounded overflow-auto">{JSON.stringify(v.metrics, null, 2)}</pre></div>}
+                  {v.hyperparams && <div><span className="text-purple-300/50">Hyperparams:</span> <pre className="text-dark-200 mt-1 text-xs bg-dark-800/40 p-2 rounded overflow-auto">{JSON.stringify(v.hyperparams, null, 2)}</pre></div>}
+                  {v.architecture && <div><span className="text-purple-300/50">Architecture:</span> <pre className="text-dark-200 mt-1 text-xs bg-dark-800/40 p-2 rounded overflow-auto">{JSON.stringify(v.architecture, null, 2)}</pre></div>}
                 </div>
               </div>
             ))}
@@ -131,7 +132,7 @@ export default function ModelVersions() {
         <CardSkeleton count={4} />
       ) : versions.length === 0 ? (
         <EmptyState
-          icon="📦"
+          icon={GitBranch}
           title="No model versions yet"
           description="Train a model to create your first version. Versions are automatically tracked."
         />
@@ -145,17 +146,17 @@ export default function ModelVersions() {
                     type="checkbox"
                     checked={compareIds.includes(v._id)}
                     onChange={() => toggleCompare(v._id)}
-                    className="w-4 h-4 rounded border-dark-600"
+                    className="w-4 h-4 rounded border-purple-500/30"
                     aria-label={`Select ${v.modelName} v${v.version} for comparison`}
                   />
                 )}
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-white font-medium">{v.modelName}</span>
-                    <span className="text-xs bg-primary-500/20 text-primary-400 px-2 py-0.5 rounded-full">v{v.version}</span>
+                    <span className="text-xs bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full">v{v.version}</span>
                   </div>
-                  <p className="text-dark-400 text-sm mt-1">{v.description || 'No description'}</p>
-                  <div className="flex items-center gap-4 mt-2 text-xs text-dark-500">
+                  <p className="text-purple-300/50 text-sm mt-1">{v.description || 'No description'}</p>
+                  <div className="flex items-center gap-4 mt-2 text-xs text-purple-300/40">
                     <span>{new Date(v.createdAt).toLocaleString()}</span>
                     {v.metrics && <span>Loss: {v.metrics.loss?.toFixed(4) || 'N/A'} | Acc: {v.metrics.accuracy?.toFixed(4) || 'N/A'}</span>}
                   </div>

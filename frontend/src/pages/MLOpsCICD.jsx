@@ -3,10 +3,8 @@ import { useAuth } from '../context/AuthContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useToast } from '../components/ui/Toast';
 
-const API = 'http://localhost:5005/api/mlops';
-
 export default function MLOpsCICD() {
-  const { token } = useAuth();
+  const { authFetch } = useAuth();
   const toast = useToast();
   const [deployments, setDeployments] = useState([]);
   const [auditLog, setAuditLog] = useState([]);
@@ -15,13 +13,11 @@ export default function MLOpsCICD() {
   const [monitorData, setMonitorData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-
   useEffect(() => { fetchDeployments(); fetchAudit(); }, []);
 
   const fetchDeployments = async () => {
     try {
-      const res = await fetch(`${API}/deployments`, { headers });
+      const res = await authFetch('/api/mlops/deployments');
       const data = await res.json();
       setDeployments(Array.isArray(data) ? data : []);
     } catch (err) { }
@@ -29,7 +25,7 @@ export default function MLOpsCICD() {
 
   const fetchAudit = async () => {
     try {
-      const res = await fetch(`${API}/audit`, { headers });
+      const res = await authFetch('/api/mlops/audit');
       const data = await res.json();
       setAuditLog(Array.isArray(data) ? data : []);
     } catch (err) { }
@@ -45,8 +41,8 @@ export default function MLOpsCICD() {
         thresholds: { accuracy: newDeploy.accThreshold, loss: newDeploy.lossThreshold },
         passed: newDeploy.accuracy >= newDeploy.accThreshold && newDeploy.loss <= newDeploy.lossThreshold
       };
-      await fetch(`${API}/deployments`, {
-        method: 'POST', headers,
+      await authFetch('/api/mlops/deployments', {
+        method: 'POST',
         body: JSON.stringify({ modelId: `model-${Date.now()}`, modelName: newDeploy.modelName, version: newDeploy.version, gateResults })
       });
       setNewDeploy({ modelName: '', version: 1, accuracy: 0.9, loss: 0.1, accThreshold: 0.85, lossThreshold: 0.5 });
@@ -58,13 +54,13 @@ export default function MLOpsCICD() {
 
   const rollback = async (id) => {
     if (!confirm('Rollback this deployment?')) return;
-    await fetch(`${API}/deployments/${id}/rollback`, { method: 'POST', headers });
+    await authFetch(`/api/mlops/deployments/${id}/rollback`, { method: 'POST' });
     fetchDeployments();
     fetchAudit();
   };
 
   const promote = async (id) => {
-    await fetch(`${API}/deployments/${id}/promote`, { method: 'POST', headers });
+    await authFetch(`/api/mlops/deployments/${id}/promote`, { method: 'POST' });
     fetchDeployments();
     fetchAudit();
   };
@@ -85,7 +81,7 @@ export default function MLOpsCICD() {
       deployed: 'bg-green-500/20 text-green-400',
       'rolled-back': 'bg-red-500/20 text-red-400',
       gated: 'bg-yellow-500/20 text-yellow-400',
-      pending: 'bg-dark-600 text-dark-300',
+      pending: 'bg-dark-600 text-purple-200/70',
       failed: 'bg-red-500/20 text-red-400'
     };
     return styles[status] || styles.pending;
@@ -104,12 +100,12 @@ export default function MLOpsCICD() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">MLOps CI/CD Pipeline</h1>
-          <p className="text-dark-400 mt-1">Version, gate, deploy, and monitor ML models</p>
+          <p className="text-purple-300/50 mt-1">Version, gate, deploy, and monitor ML models</p>
         </div>
         <div className="flex gap-2">
           {['deploy', 'monitor', 'audit'].map(t => (
             <button key={t} onClick={() => { setTab(t); if (t === 'monitor') simulateMonitoring(); }}
-              className={`px-3 py-1.5 text-sm rounded-lg capitalize ${tab === t ? 'bg-primary-500 text-white' : 'bg-dark-700 text-dark-300'}`}>
+              className={`px-3 py-1.5 text-sm rounded-lg capitalize ${tab === t ? 'bg-gradient-btn text-white' : 'bg-purple-500/15 text-purple-200/70'}`}>
               {t}
             </button>
           ))}
@@ -117,18 +113,18 @@ export default function MLOpsCICD() {
       </div>
 
       {/* Visual Pipeline */}
-      <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
+      <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
         <div className="flex items-center justify-between">
           {pipelineStages.map((stage, i) => (
             <div key={i} className="flex items-center">
               <div className={`flex flex-col items-center ${
                 stage.status === 'success' ? 'text-green-400' :
-                stage.status === 'active' ? 'text-primary-400' : 'text-dark-500'
+                stage.status === 'active' ? 'text-purple-400' : 'text-purple-300/40'
               }`}>
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center text-xl border-2 ${
                   stage.status === 'success' ? 'border-green-500 bg-green-500/10' :
                   stage.status === 'active' ? 'border-primary-500 bg-primary-500/10 animate-pulse' :
-                  'border-dark-600 bg-dark-900'
+                  'border-purple-500/30 bg-dark-900'
                 }`}>
                   {stage.icon}
                 </div>
@@ -147,51 +143,51 @@ export default function MLOpsCICD() {
       {tab === 'deploy' && (
         <>
           {/* New Deployment */}
-          <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-            <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">New Deployment</h3>
+          <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+            <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">New Deployment</h3>
             <form onSubmit={createDeployment} className="space-y-4">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="text-xs text-dark-400">Model Name</label>
+                  <label className="text-xs text-purple-300/50">Model Name</label>
                   <input value={newDeploy.modelName} onChange={e => setNewDeploy(p => ({ ...p, modelName: e.target.value }))}
-                    className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" required placeholder="my-model" />
+                    className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" required placeholder="my-model" />
                 </div>
                 <div>
-                  <label className="text-xs text-dark-400">Version</label>
+                  <label className="text-xs text-purple-300/50">Version</label>
                   <input type="number" min={1} value={newDeploy.version} onChange={e => setNewDeploy(p => ({ ...p, version: +e.target.value }))}
-                    className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" />
+                    className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" />
                 </div>
                 <div>
-                  <label className="text-xs text-dark-400">Model Accuracy</label>
+                  <label className="text-xs text-purple-300/50">Model Accuracy</label>
                   <input type="number" min={0} max={1} step={0.01} value={newDeploy.accuracy}
                     onChange={e => setNewDeploy(p => ({ ...p, accuracy: +e.target.value }))}
-                    className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" />
+                    className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" />
                 </div>
                 <div>
-                  <label className="text-xs text-dark-400">Model Loss</label>
+                  <label className="text-xs text-purple-300/50">Model Loss</label>
                   <input type="number" min={0} max={10} step={0.01} value={newDeploy.loss}
                     onChange={e => setNewDeploy(p => ({ ...p, loss: +e.target.value }))}
-                    className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" />
+                    className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" />
                 </div>
                 <div>
-                  <label className="text-xs text-dark-400">Accuracy Threshold</label>
+                  <label className="text-xs text-purple-300/50">Accuracy Threshold</label>
                   <input type="number" min={0} max={1} step={0.01} value={newDeploy.accThreshold}
                     onChange={e => setNewDeploy(p => ({ ...p, accThreshold: +e.target.value }))}
-                    className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" />
+                    className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" />
                 </div>
                 <div>
-                  <label className="text-xs text-dark-400">Loss Threshold</label>
+                  <label className="text-xs text-purple-300/50">Loss Threshold</label>
                   <input type="number" min={0} max={10} step={0.01} value={newDeploy.lossThreshold}
                     onChange={e => setNewDeploy(p => ({ ...p, lossThreshold: +e.target.value }))}
-                    className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" />
+                    className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" />
                 </div>
               </div>
               <div className="flex items-center gap-4">
                 <button type="submit" disabled={loading || !newDeploy.modelName}
-                  className="px-6 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 disabled:opacity-50">
+                  className="px-6 py-2 bg-gradient-btn text-white rounded-lg hover:bg-primary-600 disabled:opacity-50">
                   Deploy Model
                 </button>
-                <span className="text-xs text-dark-400">
+                <span className="text-xs text-purple-300/50">
                   Gate: acc ≥ {newDeploy.accThreshold} & loss ≤ {newDeploy.lossThreshold} →{' '}
                   {newDeploy.accuracy >= newDeploy.accThreshold && newDeploy.loss <= newDeploy.lossThreshold
                     ? <span className="text-green-400">PASS ✓</span>
@@ -202,23 +198,23 @@ export default function MLOpsCICD() {
           </div>
 
           {/* Deployments List */}
-          <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-            <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Deployments</h3>
+          <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+            <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Deployments</h3>
             {deployments.length === 0 ? (
-              <p className="text-dark-400 text-center py-8">No deployments yet</p>
+              <p className="text-purple-300/50 text-center py-8">No deployments yet</p>
             ) : (
               <div className="space-y-3">
                 {deployments.map(d => (
-                  <div key={d._id} className="flex items-center justify-between p-4 bg-dark-900 rounded-lg border border-dark-700">
+                  <div key={d._id} className="flex items-center justify-between p-4 bg-dark-900 rounded-lg border border-purple-500/20">
                     <div className="flex items-center gap-4">
                       <div>
                         <p className="text-white font-medium">{d.modelName}</p>
-                        <p className="text-xs text-dark-400">v{d.version} · {new Date(d.createdAt).toLocaleString()}</p>
+                        <p className="text-xs text-purple-300/50">v{d.version} · {new Date(d.createdAt).toLocaleString()}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
                       {d.gateResults && (
-                        <span className="text-xs text-dark-400">
+                        <span className="text-xs text-purple-300/50">
                           acc: {d.gateResults.accuracy?.toFixed(2)} | loss: {d.gateResults.loss?.toFixed(2)}
                         </span>
                       )}
@@ -244,25 +240,25 @@ export default function MLOpsCICD() {
 
       {tab === 'monitor' && (
         <div className="space-y-4">
-          <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-            <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Production Model Monitoring</h3>
+          <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+            <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Production Model Monitoring</h3>
             {monitorData.length > 0 ? (
               <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={monitorData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                  <XAxis dataKey="time" stroke="#64748b" />
-                  <YAxis stroke="#64748b" domain={[0.5, 1]} />
-                  <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+                  <XAxis dataKey="time" stroke="#6b5b95" />
+                  <YAxis stroke="#6b5b95" domain={[0.5, 1]} />
+                  <Tooltip contentStyle={{ background: '#1E1045', border: '1px solid #2d1b69', borderRadius: '8px' }} />
                   <Line type="monotone" dataKey="accuracy" stroke="#06b6d4" strokeWidth={2} name="Accuracy" dot={false} />
                   <Line type="monotone" dataKey="threshold" stroke="#ef4444" strokeWidth={1} strokeDasharray="5 5" name="Threshold" dot={false} />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
-              <p className="text-dark-400 text-center py-8">Click "Monitor" tab to simulate monitoring data</p>
+              <p className="text-purple-300/50 text-center py-8">Click "Monitor" tab to simulate monitoring data</p>
             )}
           </div>
-          <div className="bg-dark-800 rounded-xl p-4 border border-dark-700">
-            <p className="text-xs text-dark-400">
+          <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20">
+            <p className="text-xs text-purple-300/50">
               Auto-rollback triggers when accuracy drops below threshold for 3 consecutive checks.
               The system will revert to the previous stable version and log the event.
             </p>
@@ -271,10 +267,10 @@ export default function MLOpsCICD() {
       )}
 
       {tab === 'audit' && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Audit Trail</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Audit Trail</h3>
           {auditLog.length === 0 ? (
-            <p className="text-dark-400 text-center py-8">No audit events yet</p>
+            <p className="text-purple-300/50 text-center py-8">No audit events yet</p>
           ) : (
             <div className="space-y-2 max-h-96 overflow-y-auto">
               {auditLog.map((log, i) => (
@@ -284,11 +280,11 @@ export default function MLOpsCICD() {
                   </span>
                   <div className="flex-1">
                     <p className="text-sm text-white capitalize">{log.action}</p>
-                    <p className="text-xs text-dark-400">
+                    <p className="text-xs text-purple-300/50">
                       {log.details?.modelName} v{log.details?.version}
                     </p>
                   </div>
-                  <span className="text-xs text-dark-500">{new Date(log.timestamp).toLocaleString()}</span>
+                  <span className="text-xs text-purple-300/40">{new Date(log.timestamp).toLocaleString()}</span>
                 </div>
               ))}
             </div>

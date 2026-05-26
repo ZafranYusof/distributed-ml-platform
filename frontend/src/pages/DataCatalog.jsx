@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import EmptyState from '../components/ui/EmptyState';
+import { Search } from 'lucide-react';
 
 export default function DataCatalog() {
   const { authFetch } = useAuth();
@@ -72,7 +73,7 @@ export default function DataCatalog() {
           <span className="text-2xl" aria-hidden="true">🗂️</span>
           <div>
             <h1 className="text-2xl font-bold text-white">Data Catalog</h1>
-            <p className="text-dark-400 text-sm">Search and browse all datasets, models, and experiments</p>
+            <p className="text-purple-300/50 text-sm">Search and browse all datasets, models, and experiments</p>
           </div>
         </div>
         <CardSkeleton count={6} />
@@ -86,16 +87,14 @@ export default function DataCatalog() {
         <span className="text-2xl" aria-hidden="true">🗂️</span>
         <div>
           <h1 className="text-2xl font-bold text-white">Data Catalog</h1>
-          <p className="text-dark-400 text-sm">Search and browse all datasets, models, and experiments</p>
+          <p className="text-purple-300/50 text-sm">Search and browse all datasets, models, and experiments</p>
         </div>
       </div>
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-purple-300/50" aria-hidden="true" />
           <input
             type="text"
             value={search}
@@ -112,8 +111,8 @@ export default function DataCatalog() {
               onClick={() => setFilter(f)}
               className={`px-3 py-2 text-sm rounded-lg border transition-colors ${
                 filter === f
-                  ? 'bg-primary-500/10 border-primary-500/30 text-primary-400'
-                  : 'bg-dark-800 border-dark-600 text-dark-300 hover:border-dark-500'
+                  ? 'bg-primary-500/10 border-primary-500/30 text-purple-400'
+                  : 'bg-dark-800 border-purple-500/30 text-purple-200/70 hover:border-dark-500'
               }`}
               aria-pressed={filter === f}
             >
@@ -124,12 +123,12 @@ export default function DataCatalog() {
       </div>
 
       {/* Results count */}
-      <p className="text-sm text-dark-400" aria-live="polite">{filtered.length} items found</p>
+      <p className="text-sm text-purple-300/50" aria-live="polite">{filtered.length} items found</p>
 
       {/* Catalog Grid */}
       {filtered.length === 0 ? (
         <EmptyState
-          icon="🔍"
+          icon={Search}
           title="No items match your search"
           description="Try adjusting your search terms or filters to find what you're looking for."
         />
@@ -148,13 +147,13 @@ export default function DataCatalog() {
                 </span>
               </div>
               <h3 className="text-sm font-medium text-white truncate">{item.name || item.title || 'Untitled'}</h3>
-              <p className="text-xs text-dark-400 mt-1 line-clamp-2">{item.description || 'No description'}</p>
+              <p className="text-xs text-purple-300/50 mt-1 line-clamp-2">{item.description || 'No description'}</p>
               <div className="flex items-center gap-2 mt-3">
                 {item.createdAt && (
-                  <span className="text-xs text-dark-500">{new Date(item.createdAt).toLocaleDateString()}</span>
+                  <span className="text-xs text-purple-300/40">{new Date(item.createdAt).toLocaleDateString()}</span>
                 )}
                 {item.tags && item.tags.slice(0, 2).map((tag, j) => (
-                  <span key={j} className="text-xs bg-dark-700 text-dark-300 px-1.5 py-0.5 rounded">{tag}</span>
+                  <span key={j} className="text-xs bg-purple-500/15 text-purple-200/70 px-1.5 py-0.5 rounded">{tag}</span>
                 ))}
               </div>
             </div>

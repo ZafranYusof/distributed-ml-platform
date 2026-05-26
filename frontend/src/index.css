@@ -3,13 +3,76 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --neural-primary: #6366F1;
+    --neural-secondary: #7C3AED;
+    --neural-glow: #a78bfa;
+    --bg-deep: #0D0221;
+    --bg-surface: #1A0533;
+    --bg-card: #1E1045;
+    --accent-blue: #3B82F6;
+    --accent-green: #10B981;
+    --accent-green-light: #34D399;
+    --text-primary: #F8FAFC;
+    --text-secondary: #A78BFA;
+    --border-glow: rgba(139, 92, 246, 0.2);
+  }
+
+  .light {
+    --neural-primary: #6366F1;
+    --neural-secondary: #7C3AED;
+    --neural-glow: #a78bfa;
+    --bg-deep: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-card: #f1f5f9;
+    --accent-blue: #3B82F6;
+    --accent-green: #10B981;
+    --accent-green-light: #34D399;
+    --text-primary: #1e293b;
+    --text-secondary: #6d28d9;
+    --border-glow: rgba(139, 92, 246, 0.15);
+  }
+
   body {
-    @apply bg-dark-950 text-dark-100 antialiased;
+    @apply bg-dark-950 text-white antialiased;
+    background: linear-gradient(180deg, #0D0221 0%, #1A0533 100%);
+    min-height: 100vh;
+  }
+
+  .light body {
+    @apply bg-white text-gray-900;
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0D0221;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2d1b69;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #7C3AED;
+  }
+
+  .light ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+  .light ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+  }
+  .light ::-webkit-scrollbar-thumb:hover {
+    background: #7C3AED;
   }
 
   /* Skip to content link for accessibility */
   .skip-to-content {
-    @apply absolute -top-10 left-4 z-[99999] bg-primary-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all;
+    @apply absolute -top-10 left-4 z-[99999] bg-neural-primary text-white px-4 py-2 rounded-lg text-sm font-medium transition-all;
   }
   .skip-to-content:focus {
     @apply top-4;
@@ -17,22 +80,22 @@
 
   /* Focus visible outlines */
   *:focus-visible {
-    @apply outline-2 outline-offset-2 outline-primary-500;
+    @apply outline-2 outline-offset-2 outline-neural-primary;
   }
 }
 
 @layer components {
   .card {
-    @apply bg-dark-900 border border-dark-700 rounded-xl p-6 transition-all duration-200;
+    @apply bg-dark-800/50 backdrop-blur-md border border-purple-500/20 rounded-xl p-6 transition-all duration-200;
   }
   .card-hover:hover {
-    @apply -translate-y-0.5 shadow-lg shadow-black/20 border-dark-600;
+    @apply -translate-y-0.5 shadow-glow-purple border-purple-500/40;
   }
   .btn-primary {
-    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
+    @apply bg-gradient-btn text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98] hover:shadow-glow-purple;
   }
   .btn-secondary {
-    @apply bg-dark-700 hover:bg-dark-600 text-dark-100 font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
+    @apply bg-dark-800/60 hover:bg-dark-700/60 text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98] border border-purple-500/20 hover:border-purple-500/40;
   }
   .btn-danger {
     @apply bg-red-500 hover:bg-red-600 text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
@@ -41,7 +104,7 @@
     @apply px-3 py-1.5 text-sm;
   }
   .input-field {
-    @apply bg-dark-800 border border-dark-600 rounded-lg px-3 py-2 text-dark-100 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-colors duration-200;
+    @apply bg-dark-900/80 border border-purple-500/20 rounded-lg px-3 py-2 text-white placeholder-dark-400 focus:outline-none focus:border-purple-500/60 focus:ring-1 focus:ring-purple-500/40 focus:shadow-glow-purple transition-all duration-200;
   }
   .input-error {
     @apply border-red-500 focus:border-red-500 focus:ring-red-500;
@@ -49,10 +112,24 @@
   .field-error {
     @apply text-red-400 text-xs mt-1;
   }
+
+  /* Light mode overrides */
+  .light .card {
+    @apply bg-white/80 border-purple-200/50;
+  }
+  .light .card-hover:hover {
+    @apply shadow-lg shadow-purple-500/10 border-purple-300/60;
+  }
+  .light .btn-secondary {
+    @apply bg-purple-50 hover:bg-purple-100 text-purple-700 border-purple-200;
+  }
+  .light .input-field {
+    @apply bg-white border-purple-200 text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-purple-500/30;
+  }
 }
 
 @layer utilities {
-  /* Shimmer animation for skeleton loaders */
+  /* Shimmer animation for skeleton loaders - purple themed */
   @keyframes shimmer {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
@@ -88,5 +165,19 @@
   /* Smooth progress bar */
   .progress-smooth {
     transition: width 0.3s ease-out;
+  }
+
+  /* Neural glow pulse */
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(124, 58, 237, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.4); }
+  }
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  /* Gradient text utility */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-header;
   }
 }

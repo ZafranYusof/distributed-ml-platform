@@ -201,34 +201,34 @@ export default function GPUCluster() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-white">GPU Cluster Simulation</h1>
-        <p className="text-dark-400 mt-1">Simulate distributed training with fault tolerance and elastic scaling</p>
+        <p className="text-purple-300/50 mt-1">Simulate distributed training with fault tolerance and elastic scaling</p>
       </div>
 
       {/* Config */}
-      <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-        <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Cluster Configuration</h3>
+      <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+        <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Cluster Configuration</h3>
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <label className="text-xs text-dark-400">Machines</label>
+            <label className="text-xs text-purple-300/50">Machines</label>
             <input type="number" min={1} max={12} value={clusterConfig.machines}
               onChange={e => setClusterConfig(p => ({ ...p, machines: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={training} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={training} />
           </div>
           <div>
-            <label className="text-xs text-dark-400">Workers/Machine</label>
+            <label className="text-xs text-purple-300/50">Workers/Machine</label>
             <input type="number" min={1} max={8} value={clusterConfig.workersPerMachine}
               onChange={e => setClusterConfig(p => ({ ...p, workersPerMachine: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={training} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={training} />
           </div>
           <div>
-            <label className="text-xs text-dark-400">Total Epochs</label>
+            <label className="text-xs text-purple-300/50">Total Epochs</label>
             <input type="number" min={5} max={100} value={totalEpochs}
               onChange={e => setTotalEpochs(+e.target.value)}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={training} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={training} />
           </div>
         </div>
         <div className="flex gap-3 mt-4">
-          <button onClick={initCluster} disabled={training} className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 disabled:opacity-50">
+          <button onClick={initCluster} disabled={training} className="px-4 py-2 bg-gradient-btn text-white rounded-lg hover:bg-primary-600 disabled:opacity-50">
             Initialize Cluster
           </button>
           <button onClick={startTraining} disabled={!cluster || training} className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50">
@@ -253,35 +253,35 @@ export default function GPUCluster() {
             ➖ Remove Node
           </button>
           <div className="ml-auto flex items-center gap-4 text-sm">
-            <span className="text-dark-400">Epoch: <span className="text-white font-mono">{epoch}/{totalEpochs}</span></span>
-            <span className="text-dark-400">Workers: <span className="text-green-400">{activeWorkers}</span>/<span className="text-white">{totalWorkers}</span></span>
+            <span className="text-purple-300/50">Epoch: <span className="text-white font-mono">{epoch}/{totalEpochs}</span></span>
+            <span className="text-purple-300/50">Workers: <span className="text-green-400">{activeWorkers}</span>/<span className="text-white">{totalWorkers}</span></span>
           </div>
         </div>
       )}
 
       {/* Cluster Map */}
       {cluster && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Cluster Map</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Cluster Map</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {cluster.map(machine => (
-              <div key={machine.id} className="bg-dark-900 rounded-lg p-4 border border-dark-600">
+              <div key={machine.id} className="bg-dark-900 rounded-lg p-4 border border-purple-500/30">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-lg">🖥️</span>
                   <span className="text-sm text-white font-medium">{machine.id}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   {machine.workers.map(worker => (
-                    <div key={worker.id} className="flex items-center gap-2 p-2 bg-dark-800 rounded">
+                    <div key={worker.id} className="flex items-center gap-2 p-2 bg-dark-800/40 rounded">
                       <div className={`w-3 h-3 rounded-full ${getStatusColor(worker.status)}`}></div>
-                      <span className="text-xs text-dark-300">{worker.id.split('-')[1]}</span>
+                      <span className="text-xs text-purple-200/70">{worker.id.split('-')[1]}</span>
                     </div>
                   ))}
                 </div>
               </div>
             ))}
           </div>
-          <div className="flex gap-4 mt-4 text-xs text-dark-400">
+          <div className="flex gap-4 mt-4 text-xs text-purple-300/50">
             <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-green-500"></div> Active</span>
             <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-red-500"></div> Failed</span>
             <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-yellow-500"></div> Recovering</span>
@@ -292,12 +292,12 @@ export default function GPUCluster() {
       {/* Metrics & Checkpoints */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {metrics.length > 0 && (
-          <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-            <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Training Metrics</h3>
+          <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+            <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Training Metrics</h3>
             <div className="space-y-2 max-h-60 overflow-y-auto">
               {metrics.slice(-10).map((m, i) => (
-                <div key={i} className="flex justify-between text-sm py-1 border-b border-dark-700">
-                  <span className="text-dark-400">Epoch {m.epoch}</span>
+                <div key={i} className="flex justify-between text-sm py-1 border-b border-purple-500/20">
+                  <span className="text-purple-300/50">Epoch {m.epoch}</span>
                   <span className="text-red-400">Loss: {m.loss}</span>
                   <span className="text-green-400">Acc: {(m.accuracy * 100).toFixed(1)}%</span>
                 </div>
@@ -307,14 +307,14 @@ export default function GPUCluster() {
         )}
 
         {checkpoints.length > 0 && (
-          <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-            <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Checkpoints</h3>
+          <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+            <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Checkpoints</h3>
             <div className="space-y-2">
               {checkpoints.map((cp, i) => (
                 <div key={i} className="flex justify-between items-center text-sm py-2 px-3 bg-dark-900 rounded-lg">
                   <span className="text-white">Epoch {cp.epoch}</span>
-                  <span className="text-dark-400">Loss: {cp.loss}</span>
-                  <span className="text-xs text-dark-500">{new Date(cp.timestamp).toLocaleTimeString()}</span>
+                  <span className="text-purple-300/50">Loss: {cp.loss}</span>
+                  <span className="text-xs text-purple-300/40">{new Date(cp.timestamp).toLocaleTimeString()}</span>
                 </div>
               ))}
             </div>
@@ -324,11 +324,11 @@ export default function GPUCluster() {
 
       {/* Logs */}
       {logs.length > 0 && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Logs</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Logs</h3>
           <div className="bg-dark-900 rounded-lg p-4 max-h-48 overflow-y-auto font-mono text-xs space-y-1">
             {logs.map((log, i) => (
-              <div key={i} className="text-dark-300">{log}</div>
+              <div key={i} className="text-purple-200/70">{log}</div>
             ))}
           </div>
         </div>

@@ -121,7 +121,7 @@ export default function DataExplorer() {
   };
 
   const getCorrelationColor = (val) => {
-    if (val > 0.7) return 'bg-primary-500';
+    if (val > 0.7) return 'bg-gradient-btn';
     if (val > 0.3) return 'bg-primary-700';
     if (val > -0.3) return 'bg-dark-600';
     if (val > -0.7) return 'bg-red-700';
@@ -146,7 +146,7 @@ export default function DataExplorer() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h2 className="text-2xl font-bold text-dark-50">Data Explorer</h2>
-        <p className="text-dark-400 mt-1">Visualize and analyze your dataset</p>
+        <p className="text-purple-300/50 mt-1">Visualize and analyze your dataset</p>
       </div>
 
       {!dataset ? (
@@ -157,13 +157,13 @@ export default function DataExplorer() {
             onDragOver={handleDrag}
             onDrop={handleDrop}
             className={`border-2 border-dashed rounded-xl p-12 text-center transition-colors cursor-pointer ${
-              dragActive ? 'border-primary-400 bg-primary-500/5' : 'border-dark-600 hover:border-dark-400'
+              dragActive ? 'border-primary-400 bg-primary-500/5' : 'border-purple-500/30 hover:border-dark-400'
             }`}
             onClick={() => document.getElementById('explorer-file-input').click()}
           >
             <div className="text-4xl mb-3">📊</div>
             <p className="text-dark-200 font-medium">Drop CSV file here to explore</p>
-            <p className="text-dark-500 text-sm mt-1">Supports .csv files</p>
+            <p className="text-purple-300/40 text-sm mt-1">Supports .csv files</p>
             <input
               id="explorer-file-input"
               type="file"
@@ -173,19 +173,19 @@ export default function DataExplorer() {
             />
           </div>
           <div className="flex items-center gap-4">
-            <div className="flex-1 h-px bg-dark-700"></div>
-            <span className="text-dark-500 text-sm">or use a sample</span>
-            <div className="flex-1 h-px bg-dark-700"></div>
+            <div className="flex-1 h-px bg-purple-500/15"></div>
+            <span className="text-purple-300/40 text-sm">or use a sample</span>
+            <div className="flex-1 h-px bg-purple-500/15"></div>
           </div>
           <div className="grid grid-cols-3 gap-3">
             <button onClick={() => loadSample('iris')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-dark-100">🌸 Iris</div>
+              <div className="text-sm font-medium text-white">🌸 Iris</div>
             </button>
             <button onClick={() => loadSample('housing')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-dark-100">🏠 Housing</div>
+              <div className="text-sm font-medium text-white">🏠 Housing</div>
             </button>
             <button onClick={() => loadSample('sequence')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-dark-100">📈 Sine Wave</div>
+              <div className="text-sm font-medium text-white">📈 Sine Wave</div>
             </button>
           </div>
         </div>
@@ -197,11 +197,11 @@ export default function DataExplorer() {
               <div className="flex items-center gap-3">
                 <span className="text-2xl">📊</span>
                 <div>
-                  <p className="font-medium text-dark-100">{dataset.name}</p>
-                  <p className="text-sm text-dark-400">{dataset.rows} rows · {dataset.columns.length} columns</p>
+                  <p className="font-medium text-white">{dataset.name}</p>
+                  <p className="text-sm text-purple-300/50">{dataset.rows} rows · {dataset.columns.length} columns</p>
                 </div>
               </div>
-              <button onClick={() => { setDataset(null); setParsedData(null); setStats(null); }} className="text-dark-400 hover:text-red-400 text-sm">
+              <button onClick={() => { setDataset(null); setParsedData(null); setStats(null); }} className="text-purple-300/50 hover:text-red-400 text-sm">
                 Reset
               </button>
             </div>
@@ -210,30 +210,30 @@ export default function DataExplorer() {
           {/* Basic Stats */}
           {stats && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-dark-100 mb-4">📈 Basic Statistics</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">📈 Basic Statistics</h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-dark-700">
-                      <th className="text-left py-2 px-3 text-dark-400">Column</th>
-                      <th className="text-right py-2 px-3 text-dark-400">Mean</th>
-                      <th className="text-right py-2 px-3 text-dark-400">Median</th>
-                      <th className="text-right py-2 px-3 text-dark-400">Std</th>
-                      <th className="text-right py-2 px-3 text-dark-400">Min</th>
-                      <th className="text-right py-2 px-3 text-dark-400">Max</th>
-                      <th className="text-right py-2 px-3 text-dark-400">Missing</th>
+                    <tr className="border-b border-purple-500/20">
+                      <th className="text-left py-2 px-3 text-purple-300/50">Column</th>
+                      <th className="text-right py-2 px-3 text-purple-300/50">Mean</th>
+                      <th className="text-right py-2 px-3 text-purple-300/50">Median</th>
+                      <th className="text-right py-2 px-3 text-purple-300/50">Std</th>
+                      <th className="text-right py-2 px-3 text-purple-300/50">Min</th>
+                      <th className="text-right py-2 px-3 text-purple-300/50">Max</th>
+                      <th className="text-right py-2 px-3 text-purple-300/50">Missing</th>
                     </tr>
                   </thead>
                   <tbody>
                     {Object.entries(stats.columns).map(([col, s]) => (
-                      <tr key={col} className="border-b border-dark-800 hover:bg-dark-800/50">
+                      <tr key={col} className="border-b border-dark-800 hover:bg-purple-500/10/50">
                         <td className="py-2 px-3 text-dark-200 font-medium">{col}</td>
-                        <td className="text-right py-2 px-3 text-dark-300 font-mono">{s.mean.toFixed(3)}</td>
-                        <td className="text-right py-2 px-3 text-dark-300 font-mono">{s.median.toFixed(3)}</td>
-                        <td className="text-right py-2 px-3 text-dark-300 font-mono">{s.std.toFixed(3)}</td>
-                        <td className="text-right py-2 px-3 text-dark-300 font-mono">{s.min.toFixed(3)}</td>
-                        <td className="text-right py-2 px-3 text-dark-300 font-mono">{s.max.toFixed(3)}</td>
-                        <td className="text-right py-2 px-3 text-dark-300">{stats.missing[col]}</td>
+                        <td className="text-right py-2 px-3 text-purple-200/70 font-mono">{s.mean.toFixed(3)}</td>
+                        <td className="text-right py-2 px-3 text-purple-200/70 font-mono">{s.median.toFixed(3)}</td>
+                        <td className="text-right py-2 px-3 text-purple-200/70 font-mono">{s.std.toFixed(3)}</td>
+                        <td className="text-right py-2 px-3 text-purple-200/70 font-mono">{s.min.toFixed(3)}</td>
+                        <td className="text-right py-2 px-3 text-purple-200/70 font-mono">{s.max.toFixed(3)}</td>
+                        <td className="text-right py-2 px-3 text-purple-200/70">{stats.missing[col]}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -245,7 +245,7 @@ export default function DataExplorer() {
           {/* Histogram */}
           {stats && stats.numericFields.length > 0 && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-dark-100 mb-4">📊 Distribution</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">📊 Distribution</h3>
               <div className="flex gap-2 mb-4 flex-wrap">
                 {stats.numericFields.map(col => (
                   <button
@@ -253,8 +253,8 @@ export default function DataExplorer() {
                     onClick={() => setSelectedCol(col)}
                     className={`px-3 py-1 rounded-lg text-xs transition-colors ${
                       selectedCol === col
-                        ? 'bg-primary-500/20 text-primary-300 border border-primary-500/30'
-                        : 'bg-dark-800 text-dark-400 border border-dark-600 hover:border-dark-400'
+                        ? 'bg-primary-500/20 text-purple-300 border border-primary-500/30'
+                        : 'bg-dark-800 text-purple-300/50 border border-purple-500/30 hover:border-dark-400'
                     }`}
                   >
                     {col}
@@ -264,11 +264,11 @@ export default function DataExplorer() {
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={getHistogramData(selectedCol)}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                    <XAxis dataKey="range" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-                    <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+                    <XAxis dataKey="range" tick={{ fill: '#A78BFA', fontSize: 11 }} />
+                    <YAxis tick={{ fill: '#A78BFA', fontSize: 11 }} />
                     <Tooltip
-                      contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
+                      contentStyle={{ backgroundColor: '#1E1045', border: '1px solid #2d1b69', borderRadius: '8px' }}
                       labelStyle={{ color: '#e2e8f0' }}
                     />
                     <Bar dataKey="count" fill="#06b6d4" radius={[4, 4, 0, 0]} />
@@ -281,21 +281,21 @@ export default function DataExplorer() {
           {/* Correlation Matrix */}
           {correlations && stats && stats.numericFields.length > 1 && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-dark-100 mb-4">🔗 Correlation Matrix</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">🔗 Correlation Matrix</h3>
               <div className="overflow-x-auto">
                 <table className="text-xs">
                   <thead>
                     <tr>
                       <th className="p-2"></th>
                       {stats.numericFields.map(f => (
-                        <th key={f} className="p-2 text-dark-400 font-normal truncate max-w-[80px]">{f}</th>
+                        <th key={f} className="p-2 text-purple-300/50 font-normal truncate max-w-[80px]">{f}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
                     {stats.numericFields.map(f1 => (
                       <tr key={f1}>
-                        <td className="p-2 text-dark-400 font-medium truncate max-w-[80px]">{f1}</td>
+                        <td className="p-2 text-purple-300/50 font-medium truncate max-w-[80px]">{f1}</td>
                         {stats.numericFields.map(f2 => {
                           const val = correlations[f1]?.[f2] || 0;
                           return (
@@ -320,15 +320,15 @@ export default function DataExplorer() {
           {/* Missing Values */}
           {stats && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-dark-100 mb-4">❓ Missing Values</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">❓ Missing Values</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {dataset.columns.map(col => (
-                  <div key={col} className="bg-dark-800 rounded-lg p-3 border border-dark-600">
-                    <p className="text-xs text-dark-400 truncate">{col}</p>
+                  <div key={col} className="bg-dark-800/40 rounded-lg p-3 border border-purple-500/30">
+                    <p className="text-xs text-purple-300/50 truncate">{col}</p>
                     <p className={`text-lg font-bold ${stats.missing[col] > 0 ? 'text-yellow-400' : 'text-green-400'}`}>
                       {stats.missing[col]}
                     </p>
-                    <p className="text-xs text-dark-500">
+                    <p className="text-xs text-purple-300/40">
                       {((stats.missing[col] / dataset.rows) * 100).toFixed(1)}% missing
                     </p>
                   </div>
@@ -340,15 +340,15 @@ export default function DataExplorer() {
           {/* Outliers */}
           {outliers && Object.keys(outliers).length > 0 && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-dark-100 mb-4">⚠️ Outlier Detection (IQR Method)</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">⚠️ Outlier Detection (IQR Method)</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {Object.entries(outliers).map(([col, info]) => (
-                  <div key={col} className="bg-dark-800 rounded-lg p-3 border border-dark-600">
-                    <p className="text-xs text-dark-400 truncate">{col}</p>
+                  <div key={col} className="bg-dark-800/40 rounded-lg p-3 border border-purple-500/30">
+                    <p className="text-xs text-purple-300/50 truncate">{col}</p>
                     <p className={`text-lg font-bold ${info.count > 0 ? 'text-orange-400' : 'text-green-400'}`}>
                       {info.count} outliers
                     </p>
-                    <p className="text-xs text-dark-500">
+                    <p className="text-xs text-purple-300/40">
                       Range: [{info.lower.toFixed(2)}, {info.upper.toFixed(2)}]
                     </p>
                   </div>

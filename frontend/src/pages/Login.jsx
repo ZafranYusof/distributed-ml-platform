@@ -40,18 +40,27 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-dark-950 flex items-center justify-center p-4">
-      <div className="w-full max-w-md animate-fade-in">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0D0221 0%, #1A0533 30%, #2d1b69 60%, #4F46E5 100%)' }}>
+      {/* Neural network background pattern */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
+        backgroundImage: 'radial-gradient(circle at 25% 25%, rgba(99,102,241,0.3) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(124,58,237,0.3) 0%, transparent 50%)',
+      }} />
+      <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
+        backgroundImage: 'linear-gradient(rgba(139,92,246,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.4) 1px, transparent 1px)',
+        backgroundSize: '60px 60px'
+      }} />
+
+      <div className="w-full max-w-md animate-fade-in relative z-10">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-primary-400 flex items-center justify-center gap-2">
+          <h1 className="text-3xl font-bold flex items-center justify-center gap-2">
             <span className="text-4xl" aria-hidden="true">🧠</span>
-            <span>DistML</span>
+            <span className="text-gradient">DistML</span>
           </h1>
-          <p className="text-dark-400 mt-2">Distributed Training Platform</p>
+          <p className="text-purple-300/60 mt-2">Distributed Training Platform</p>
         </div>
 
-        <div className="card">
-          <h2 className="text-xl font-semibold text-dark-100 mb-6">Sign In</h2>
+        <div className="bg-dark-800/40 backdrop-blur-xl border border-purple-500/20 rounded-2xl p-8 shadow-glow-purple-lg">
+          <h2 className="text-xl font-semibold text-white mb-6">Sign In</h2>
 
           {error && (
             <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm" role="alert">
@@ -61,7 +70,7 @@ export default function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-4" noValidate>
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="login-email">Email</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="login-email">Email</label>
               <input
                 id="login-email"
                 type="email"
@@ -78,7 +87,7 @@ export default function Login() {
             </div>
 
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="login-password">Password</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="login-password">Password</label>
               <input
                 id="login-password"
                 type="password"
@@ -103,11 +112,11 @@ export default function Login() {
             </button>
           </form>
 
-          <p className="mt-4 text-center text-sm text-dark-400">
+          <p className="mt-4 text-center text-sm text-purple-300/50">
             Don't have an account?{' '}
             <button
               onClick={() => navigate('/register')}
-              className="text-primary-400 hover:text-primary-300 transition-colors"
+              className="text-accent-blue hover:text-blue-300 transition-colors"
             >
               Create one
             </button>

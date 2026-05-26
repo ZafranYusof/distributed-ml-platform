@@ -63,10 +63,10 @@ export function useToast() {
 }
 
 const typeStyles = {
-  success: 'border-green-500/30 bg-green-500/10',
-  error: 'border-red-500/30 bg-red-500/10',
-  warning: 'border-yellow-500/30 bg-yellow-500/10',
-  info: 'border-primary-500/30 bg-primary-500/10',
+  success: 'border-emerald-500/30 bg-emerald-500/10 backdrop-blur-md',
+  error: 'border-red-500/30 bg-red-500/10 backdrop-blur-md',
+  warning: 'border-yellow-500/30 bg-yellow-500/10 backdrop-blur-md',
+  info: 'border-purple-500/30 bg-purple-500/10 backdrop-blur-md',
 };
 
 const typeIcons = {
@@ -77,17 +77,17 @@ const typeIcons = {
 };
 
 const typeIconColors = {
-  success: 'text-green-400',
+  success: 'text-emerald-400',
   error: 'text-red-400',
   warning: 'text-yellow-400',
-  info: 'text-primary-400',
+  info: 'text-purple-400',
 };
 
 const typeBarColors = {
-  success: 'bg-green-500',
+  success: 'bg-emerald-500',
   error: 'bg-red-500',
   warning: 'bg-yellow-500',
-  info: 'bg-primary-500',
+  info: 'bg-purple-500',
 };
 
 function ToastItem({ toast, onRemove }) {
@@ -106,7 +106,7 @@ function ToastItem({ toast, onRemove }) {
 
   return (
     <div
-      className={`relative overflow-hidden border rounded-lg p-3 pr-8 shadow-lg backdrop-blur-sm transition-all duration-300 ${typeStyles[toast.type]}`}
+      className={`relative overflow-hidden border rounded-lg p-3 pr-8 shadow-lg transition-all duration-300 ${typeStyles[toast.type]}`}
       role="alert"
       aria-live="polite"
     >
@@ -114,17 +114,17 @@ function ToastItem({ toast, onRemove }) {
         <span className={`text-sm font-bold ${typeIconColors[toast.type]}`}>
           {typeIcons[toast.type]}
         </span>
-        <p className="text-sm text-dark-100">{toast.message}</p>
+        <p className="text-sm text-white">{toast.message}</p>
       </div>
       <button
         onClick={() => onRemove(toast.id)}
-        className="absolute top-2 right-2 text-dark-400 hover:text-dark-200 text-xs"
+        className="absolute top-2 right-2 text-purple-300/50 hover:text-white text-xs"
         aria-label="Dismiss notification"
       >
         ✕
       </button>
       {toast.duration > 0 && (
-        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-dark-700">
+        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-dark-800/50">
           <div
             className={`h-full transition-all duration-100 ease-linear ${typeBarColors[toast.type]}`}
             style={{ width: `${progress}%` }}

@@ -1,55 +1,66 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  LayoutDashboard, Radio, Wand2, FlaskConical, ArrowRightLeft, Code2, Monitor,
+  Database, BarChart3, Layers, Tag,
+  GitBranch, Minimize2, Zap, Settings, Globe, Split,
+  Activity, GitGraph, FileText, Package,
+  LineChart, Boxes, Eye, Share2, GraduationCap, Sparkles,
+  Workflow, BookOpen, Clock, Store, GitCompare, History,
+  Users, Server, Network, Rocket,
+  Dna, Waves, Bug, FlaskRound, Clapperboard, Gamepad2,
+  Shield, TrendingUp, Search, Github, Webhook
+} from 'lucide-react';
 
 const PAGES = [
-  { name: 'Dashboard', path: '/', icon: '⚡' },
-  { name: 'Live Sessions', path: '/live', icon: '🔴' },
-  { name: 'AutoML', path: '/automl', icon: '🤖' },
-  { name: 'Experiments', path: '/experiments', icon: '🧪' },
-  { name: 'Transfer Learning', path: '/transfer-learning', icon: '🔄' },
-  { name: 'Custom Loss', path: '/custom-loss', icon: '📐' },
-  { name: 'GPU Acceleration', path: '/gpu', icon: '🎮' },
-  { name: 'Datasets', path: '/datasets', icon: '📁' },
-  { name: 'Data Explorer', path: '/data-explorer', icon: '📊' },
-  { name: 'Augmentation', path: '/augmentation', icon: '🔀' },
-  { name: 'Annotations', path: '/annotations', icon: '🏷' },
-  { name: 'Model Versions', path: '/model-versions', icon: '📦' },
-  { name: 'Compression', path: '/compression', icon: '🗜' },
-  { name: 'Inference', path: '/inference', icon: '🔮' },
-  { name: 'Distributed Inference', path: '/distributed-inference', icon: '⚙️' },
-  { name: 'Inference API', path: '/inference-api', icon: '🌐' },
-  { name: 'A/B Testing', path: '/ab-testing', icon: '🔬' },
-  { name: 'Monitoring', path: '/monitoring', icon: '📡' },
-  { name: 'Data Lineage', path: '/lineage', icon: '🔗' },
-  { name: 'Model Cards', path: '/model-cards', icon: '📋' },
-  { name: 'Feature Store', path: '/feature-store', icon: '🗃️' },
-  { name: 'Hyperparam Viz', path: '/hyperparam-viz', icon: '📉' },
-  { name: 'Ensemble', path: '/ensemble', icon: '🎯' },
-  { name: 'Explainability', path: '/explainability', icon: '🔍' },
-  { name: 'Federated', path: '/federated', icon: '🔒' },
-  { name: 'Active Learning', path: '/active-learning', icon: '🎓' },
-  { name: 'Auto Features', path: '/auto-features', icon: '🧮' },
-  { name: 'Pipeline', path: '/pipeline', icon: '🔗' },
-  { name: 'Notebook', path: '/notebook', icon: '📓' },
-  { name: 'Schedules', path: '/schedules', icon: '⏰' },
-  { name: 'Marketplace', path: '/marketplace', icon: '🏪' },
-  { name: 'Compare', path: '/compare', icon: '📈' },
-  { name: 'History', path: '/history', icon: '📜' },
-  { name: 'Organizations', path: '/organizations', icon: '🏢' },
-  { name: 'GPU Cluster', path: '/cluster', icon: '🖥️' },
-  { name: 'Orchestration', path: '/orchestration', icon: '🔀' },
-  { name: 'MLOps CI/CD', path: '/mlops-cicd', icon: '🚀' },
-  { name: 'NAS', path: '/nas', icon: '🧬' },
-  { name: 'Streaming ML', path: '/streaming', icon: '🌊' },
-  { name: 'Debug Studio', path: '/debug-studio', icon: '🐛' },
-  { name: 'Synthetic Data', path: '/synthetic-data', icon: '🎲' },
-  { name: 'Multi-Modal', path: '/multimodal', icon: '🎭' },
-  { name: 'RL Playground', path: '/rl-playground', icon: '🎮' },
-  { name: 'Admin Dashboard', path: '/admin', icon: '👑' },
-  { name: 'Analytics', path: '/analytics', icon: '📊' },
-  { name: 'Data Catalog', path: '/data-catalog', icon: '🗂️' },
-  { name: 'GitHub Integration', path: '/integrations/github', icon: '🐙' },
-  { name: 'Webhooks', path: '/integrations/webhooks', icon: '🔔' },
+  { name: 'Dashboard', path: '/', icon: LayoutDashboard },
+  { name: 'Live Sessions', path: '/live', icon: Radio },
+  { name: 'AutoML', path: '/automl', icon: Wand2 },
+  { name: 'Experiments', path: '/experiments', icon: FlaskConical },
+  { name: 'Transfer Learning', path: '/transfer-learning', icon: ArrowRightLeft },
+  { name: 'Custom Loss', path: '/custom-loss', icon: Code2 },
+  { name: 'GPU Acceleration', path: '/gpu', icon: Monitor },
+  { name: 'Datasets', path: '/datasets', icon: Database },
+  { name: 'Data Explorer', path: '/data-explorer', icon: BarChart3 },
+  { name: 'Augmentation', path: '/augmentation', icon: Layers },
+  { name: 'Annotations', path: '/annotations', icon: Tag },
+  { name: 'Model Versions', path: '/model-versions', icon: GitBranch },
+  { name: 'Compression', path: '/compression', icon: Minimize2 },
+  { name: 'Inference', path: '/inference', icon: Zap },
+  { name: 'Distributed Inference', path: '/distributed-inference', icon: Settings },
+  { name: 'Inference API', path: '/inference-api', icon: Globe },
+  { name: 'A/B Testing', path: '/ab-testing', icon: Split },
+  { name: 'Monitoring', path: '/monitoring', icon: Activity },
+  { name: 'Data Lineage', path: '/lineage', icon: GitGraph },
+  { name: 'Model Cards', path: '/model-cards', icon: FileText },
+  { name: 'Feature Store', path: '/feature-store', icon: Package },
+  { name: 'Hyperparam Viz', path: '/hyperparam-viz', icon: LineChart },
+  { name: 'Ensemble', path: '/ensemble', icon: Boxes },
+  { name: 'Explainability', path: '/explainability', icon: Eye },
+  { name: 'Federated', path: '/federated', icon: Share2 },
+  { name: 'Active Learning', path: '/active-learning', icon: GraduationCap },
+  { name: 'Auto Features', path: '/auto-features', icon: Sparkles },
+  { name: 'Pipeline', path: '/pipeline', icon: Workflow },
+  { name: 'Notebook', path: '/notebook', icon: BookOpen },
+  { name: 'Schedules', path: '/schedules', icon: Clock },
+  { name: 'Marketplace', path: '/marketplace', icon: Store },
+  { name: 'Compare', path: '/compare', icon: GitCompare },
+  { name: 'History', path: '/history', icon: History },
+  { name: 'Organizations', path: '/organizations', icon: Users },
+  { name: 'GPU Cluster', path: '/cluster', icon: Server },
+  { name: 'Orchestration', path: '/orchestration', icon: Network },
+  { name: 'MLOps CI/CD', path: '/mlops-cicd', icon: Rocket },
+  { name: 'NAS', path: '/nas', icon: Dna },
+  { name: 'Streaming ML', path: '/streaming', icon: Waves },
+  { name: 'Debug Studio', path: '/debug-studio', icon: Bug },
+  { name: 'Synthetic Data', path: '/synthetic-data', icon: FlaskRound },
+  { name: 'Multi-Modal', path: '/multimodal', icon: Clapperboard },
+  { name: 'RL Playground', path: '/rl-playground', icon: Gamepad2 },
+  { name: 'Admin Dashboard', path: '/admin', icon: Shield },
+  { name: 'Analytics', path: '/analytics', icon: TrendingUp },
+  { name: 'Data Catalog', path: '/data-catalog', icon: Search },
+  { name: 'GitHub Integration', path: '/integrations/github', icon: Github },
+  { name: 'Webhooks', path: '/integrations/webhooks', icon: Webhook },
 ];
 
 export default function CommandPalette() {
@@ -130,11 +141,9 @@ export default function CommandPalette() {
     <>
       <div className="fixed inset-0 bg-black/60 z-[9990]" onClick={() => setOpen(false)} />
       <div className="fixed top-[20%] left-1/2 -translate-x-1/2 w-full max-w-lg z-[9991]" ref={paletteRef}>
-        <div className="bg-dark-800 border border-dark-600 rounded-xl shadow-2xl overflow-hidden" role="dialog" aria-modal="true" aria-label="Command palette">
-          <div className="flex items-center gap-3 p-4 border-b border-dark-700">
-            <svg className="w-5 h-5 text-dark-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+        <div className="bg-dark-800/40 border border-dark-600 rounded-xl shadow-2xl overflow-hidden" role="dialog" aria-modal="true" aria-label="Command palette">
+          <div className="flex items-center gap-3 p-4 border-b border-purple-500/20">
+            <Search className="w-5 h-5 text-purple-300/50" />
             <input
               ref={inputRef}
               type="text"
@@ -144,35 +153,38 @@ export default function CommandPalette() {
               placeholder="Search pages, models, datasets..."
               className="flex-1 bg-transparent text-white placeholder-dark-400 outline-none text-sm"
             />
-            <kbd className="text-xs text-dark-500 bg-dark-700 px-1.5 py-0.5 rounded">ESC</kbd>
+            <kbd className="text-xs text-purple-300/40 bg-dark-700 px-1.5 py-0.5 rounded">ESC</kbd>
           </div>
 
           <div className="max-h-80 overflow-y-auto p-2">
             {!query && recentSearches.length > 0 && (
-              <p className="text-xs text-dark-500 px-3 py-1">Recent</p>
+              <p className="text-xs text-purple-300/40 px-3 py-1">Recent</p>
             )}
             {results.length === 0 ? (
-              <div className="p-6 text-center text-dark-400 text-sm">No results found</div>
+              <div className="p-6 text-center text-purple-300/50 text-sm">No results found</div>
             ) : (
-              results.map((item, i) => (
-                <button
-                  key={item.path}
-                  onClick={() => handleSelect(item)}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${
-                    i === selectedIndex ? 'bg-primary-500/10 text-primary-400' : 'text-dark-300 hover:bg-dark-700'
-                  }`}
-                >
-                  <span className="text-base">{item.icon}</span>
-                  <span className="text-sm font-medium">{item.name}</span>
-                  {i === selectedIndex && (
-                    <span className="ml-auto text-xs text-dark-500">↵ Enter</span>
-                  )}
-                </button>
-              ))
+              results.map((item, i) => {
+                const IconComponent = item.icon;
+                return (
+                  <button
+                    key={item.path}
+                    onClick={() => handleSelect(item)}
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${
+                      i === selectedIndex ? 'bg-primary-500/10 text-purple-400' : 'text-purple-200/70 hover:bg-purple-500/15'
+                    }`}
+                  >
+                    <IconComponent className="w-5 h-5 flex-shrink-0" />
+                    <span className="text-sm font-medium">{item.name}</span>
+                    {i === selectedIndex && (
+                      <span className="ml-auto text-xs text-purple-300/40">↵ Enter</span>
+                    )}
+                  </button>
+                );
+              })
             )}
           </div>
 
-          <div className="flex items-center gap-4 px-4 py-2 border-t border-dark-700 text-xs text-dark-500">
+          <div className="flex items-center gap-4 px-4 py-2 border-t border-purple-500/20 text-xs text-purple-300/40">
             <span>↑↓ Navigate</span>
             <span>↵ Open</span>
             <span>ESC Close</span>

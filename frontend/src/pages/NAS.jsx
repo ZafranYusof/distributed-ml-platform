@@ -158,54 +158,54 @@ export default function NAS() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-white">Neural Architecture Search</h1>
-        <p className="text-dark-400 mt-1">Evolutionary algorithm to discover optimal network architectures</p>
+        <p className="text-purple-300/50 mt-1">Evolutionary algorithm to discover optimal network architectures</p>
       </div>
 
       {/* Config */}
-      <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-        <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Configuration</h3>
+      <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+        <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Configuration</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
-            <label className="text-xs text-dark-400">Population Size</label>
+            <label className="text-xs text-purple-300/50">Population Size</label>
             <input type="number" min={10} max={50} value={config.populationSize}
               onChange={e => setConfig(p => ({ ...p, populationSize: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={running} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={running} />
           </div>
           <div>
-            <label className="text-xs text-dark-400">Generations</label>
+            <label className="text-xs text-purple-300/50">Generations</label>
             <input type="number" min={5} max={20} value={config.generations}
               onChange={e => setConfig(p => ({ ...p, generations: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={running} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={running} />
           </div>
           <div>
-            <label className="text-xs text-dark-400">Input Size</label>
+            <label className="text-xs text-purple-300/50">Input Size</label>
             <input type="number" min={1} max={100} value={config.inputSize}
               onChange={e => setConfig(p => ({ ...p, inputSize: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={running} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={running} />
           </div>
           <div>
-            <label className="text-xs text-dark-400">Output Size</label>
+            <label className="text-xs text-purple-300/50">Output Size</label>
             <input type="number" min={1} max={50} value={config.outputSize}
               onChange={e => setConfig(p => ({ ...p, outputSize: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={running} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={running} />
           </div>
         </div>
         <button onClick={startNAS} disabled={running}
-          className="mt-4 px-6 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 disabled:opacity-50">
+          className="mt-4 px-6 py-2 bg-gradient-btn text-white rounded-lg hover:bg-primary-600 disabled:opacity-50">
           {running ? `Running... Gen ${generation}/${config.generations}` : 'Start NAS'}
         </button>
       </div>
 
       {/* Fitness Chart */}
       {history.length > 0 && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Fitness Over Generations</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Fitness Over Generations</h3>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={history}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="gen" stroke="#64748b" label={{ value: 'Generation', position: 'bottom', fill: '#64748b' }} />
-              <YAxis stroke="#64748b" domain={[0, 1]} />
-              <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+              <XAxis dataKey="gen" stroke="#6b5b95" label={{ value: 'Generation', position: 'bottom', fill: '#6b5b95' }} />
+              <YAxis stroke="#6b5b95" domain={[0, 1]} />
+              <Tooltip contentStyle={{ background: '#1E1045', border: '1px solid #2d1b69', borderRadius: '8px' }} />
               <Line type="monotone" dataKey="best" stroke="#06b6d4" strokeWidth={2} name="Best" dot={false} />
               <Line type="monotone" dataKey="avg" stroke="#8b5cf6" strokeWidth={2} name="Average" dot={false} />
               <Line type="monotone" dataKey="worst" stroke="#ef4444" strokeWidth={1} name="Worst" dot={false} strokeDasharray="5 5" />
@@ -217,26 +217,26 @@ export default function NAS() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Best Architecture */}
         {bestArch && (
-          <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-            <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Best Architecture</h3>
+          <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+            <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Best Architecture</h3>
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-xs text-dark-400">Fitness:</span>
-              <span className="text-lg font-bold text-primary-400">{(bestArch.fitness * 100).toFixed(1)}%</span>
+              <span className="text-xs text-purple-300/50">Fitness:</span>
+              <span className="text-lg font-bold text-purple-400">{(bestArch.fitness * 100).toFixed(1)}%</span>
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               <div className="px-3 py-2 bg-blue-500/20 border border-blue-500/30 rounded-lg text-xs text-blue-400">
                 Input ({config.inputSize})
               </div>
-              <span className="text-dark-500">→</span>
+              <span className="text-purple-300/40">→</span>
               {bestArch.layers.map((layer, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <div className="px-3 py-2 bg-primary-500/20 border border-primary-500/30 rounded-lg text-xs text-primary-400">
+                  <div className="px-3 py-2 bg-primary-500/20 border border-primary-500/30 rounded-lg text-xs text-purple-400">
                     Dense({layer.size}) · {layer.activation}
                   </div>
-                  {i < bestArch.layers.length - 1 && <span className="text-dark-500">→</span>}
+                  {i < bestArch.layers.length - 1 && <span className="text-purple-300/40">→</span>}
                 </div>
               ))}
-              <span className="text-dark-500">→</span>
+              <span className="text-purple-300/40">→</span>
               <div className="px-3 py-2 bg-green-500/20 border border-green-500/30 rounded-lg text-xs text-green-400">
                 Output ({config.outputSize})
               </div>
@@ -246,12 +246,12 @@ export default function NAS() {
 
         {/* Generation Table */}
         {genTable.length > 0 && (
-          <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-            <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Generation History</h3>
+          <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+            <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Generation History</h3>
             <div className="max-h-60 overflow-y-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-dark-400 border-b border-dark-700">
+                  <tr className="text-purple-300/50 border-b border-purple-500/20">
                     <th className="text-left py-2">Gen</th>
                     <th className="text-left py-2">Best ID</th>
                     <th className="text-left py-2">Layers</th>
@@ -260,11 +260,11 @@ export default function NAS() {
                 </thead>
                 <tbody>
                   {genTable.map((row, i) => (
-                    <tr key={i} className="border-b border-dark-700/50">
+                    <tr key={i} className="border-b border-purple-500/20/50">
                       <td className="py-2 text-white">{row.gen}</td>
-                      <td className="py-2 text-dark-300 font-mono">{row.bestId}</td>
-                      <td className="py-2 text-dark-300">{row.layers}</td>
-                      <td className="py-2 text-primary-400">{row.fitness}</td>
+                      <td className="py-2 text-purple-200/70 font-mono">{row.bestId}</td>
+                      <td className="py-2 text-purple-200/70">{row.layers}</td>
+                      <td className="py-2 text-purple-400">{row.fitness}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -276,22 +276,22 @@ export default function NAS() {
 
       {/* Current Population */}
       {population.length > 0 && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Current Population (Top 10)</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Current Population (Top 10)</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {population.slice(0, 10).map((arch, i) => (
               <div key={arch.id} className="flex items-center gap-3 p-3 bg-dark-900 rounded-lg">
-                <span className="text-xs text-dark-500 w-6">#{i + 1}</span>
+                <span className="text-xs text-purple-300/40 w-6">#{i + 1}</span>
                 <div className="flex-1">
                   <div className="flex items-center gap-1 flex-wrap">
                     {arch.layers.map((l, j) => (
-                      <span key={j} className="text-xs px-1.5 py-0.5 bg-dark-700 rounded text-dark-300">
+                      <span key={j} className="text-xs px-1.5 py-0.5 bg-purple-500/15 rounded text-purple-200/70">
                         {l.size}·{l.activation.slice(0, 3)}
                       </span>
                     ))}
                   </div>
                 </div>
-                <span className="text-sm font-mono text-primary-400">{(arch.fitness * 100).toFixed(1)}%</span>
+                <span className="text-sm font-mono text-purple-400">{(arch.fitness * 100).toFixed(1)}%</span>
               </div>
             ))}
           </div>

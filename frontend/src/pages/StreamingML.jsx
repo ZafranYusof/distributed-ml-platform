@@ -163,36 +163,36 @@ export default function StreamingML() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-white">Real-time Streaming ML</h1>
-        <p className="text-dark-400 mt-1">Online learning with concept drift detection and auto-adaptation</p>
+        <p className="text-purple-300/50 mt-1">Online learning with concept drift detection and auto-adaptation</p>
       </div>
 
       {/* Config */}
-      <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-        <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Configuration</h3>
+      <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+        <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Configuration</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
-            <label className="text-xs text-dark-400">Data Rate (pts/sec)</label>
+            <label className="text-xs text-purple-300/50">Data Rate (pts/sec)</label>
             <input type="number" min={1} max={100} value={config.rate}
               onChange={e => setConfig(p => ({ ...p, rate: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={running} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={running} />
           </div>
           <div>
-            <label className="text-xs text-dark-400">Window Size</label>
+            <label className="text-xs text-purple-300/50">Window Size</label>
             <input type="number" min={10} max={200} value={config.windowSize}
               onChange={e => setConfig(p => ({ ...p, windowSize: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={running} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={running} />
           </div>
           <div>
-            <label className="text-xs text-dark-400">Learning Rate</label>
+            <label className="text-xs text-purple-300/50">Learning Rate</label>
             <input type="number" min={0.001} max={0.1} step={0.001} value={config.learningRate}
               onChange={e => setConfig(p => ({ ...p, learningRate: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={running} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={running} />
           </div>
           <div>
-            <label className="text-xs text-dark-400">Batch Size</label>
+            <label className="text-xs text-purple-300/50">Batch Size</label>
             <input type="number" min={1} max={20} value={config.batchSize}
               onChange={e => setConfig(p => ({ ...p, batchSize: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={running} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={running} />
           </div>
         </div>
         <div className="flex gap-3 mt-4">
@@ -214,25 +214,25 @@ export default function StreamingML() {
 
       {/* Status Bar */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <div className="bg-dark-800 rounded-xl p-4 border border-dark-700 text-center">
-          <p className="text-xs text-dark-400">Data Points</p>
+        <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20 text-center">
+          <p className="text-xs text-purple-300/50">Data Points</p>
           <p className="text-xl font-bold text-white">{stepRef.current}</p>
         </div>
-        <div className="bg-dark-800 rounded-xl p-4 border border-dark-700 text-center">
-          <p className="text-xs text-dark-400">Model Updates</p>
-          <p className="text-xl font-bold text-primary-400">{modelUpdates}</p>
+        <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20 text-center">
+          <p className="text-xs text-purple-300/50">Model Updates</p>
+          <p className="text-xl font-bold text-purple-400">{modelUpdates}</p>
         </div>
-        <div className="bg-dark-800 rounded-xl p-4 border border-dark-700 text-center">
-          <p className="text-xs text-dark-400">Learning Rate</p>
+        <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20 text-center">
+          <p className="text-xs text-purple-300/50">Learning Rate</p>
           <p className={`text-xl font-bold ${driftDetected ? 'text-orange-400' : 'text-white'}`}>{currentLR.toFixed(4)}</p>
         </div>
-        <div className="bg-dark-800 rounded-xl p-4 border border-dark-700 text-center">
-          <p className="text-xs text-dark-400">Drift Events</p>
+        <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20 text-center">
+          <p className="text-xs text-purple-300/50">Drift Events</p>
           <p className="text-xl font-bold text-orange-400">{driftCount}</p>
         </div>
-        <div className={`bg-dark-800 rounded-xl p-4 border ${driftDetected ? 'border-orange-500 bg-orange-500/10' : 'border-dark-700'} text-center`}>
-          <p className="text-xs text-dark-400">Status</p>
-          <p className={`text-xl font-bold ${driftDetected ? 'text-orange-400' : running ? 'text-green-400' : 'text-dark-400'}`}>
+        <div className={`bg-dark-800/40 rounded-xl p-4 border ${driftDetected ? 'border-orange-500 bg-orange-500/10' : 'border-purple-500/20'} text-center`}>
+          <p className="text-xs text-purple-300/50">Status</p>
+          <p className={`text-xl font-bold ${driftDetected ? 'text-orange-400' : running ? 'text-green-400' : 'text-purple-300/50'}`}>
             {driftDetected ? '⚠️ DRIFT' : running ? '● LIVE' : '○ IDLE'}
           </p>
         </div>
@@ -240,14 +240,14 @@ export default function StreamingML() {
 
       {/* Predictions Chart */}
       {predictions.length > 0 && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Actual vs Predicted</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Actual vs Predicted</h3>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={predictions.slice(-60)}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="step" stroke="#64748b" />
-              <YAxis stroke="#64748b" />
-              <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+              <XAxis dataKey="step" stroke="#6b5b95" />
+              <YAxis stroke="#6b5b95" />
+              <Tooltip contentStyle={{ background: '#1E1045', border: '1px solid #2d1b69', borderRadius: '8px' }} />
               <Line type="monotone" dataKey="actual" stroke="#06b6d4" strokeWidth={2} name="Actual" dot={false} />
               <Line type="monotone" dataKey="predicted" stroke="#8b5cf6" strokeWidth={2} name="Predicted" dot={false} strokeDasharray="5 5" />
             </LineChart>
@@ -257,14 +257,14 @@ export default function StreamingML() {
 
       {/* Accuracy Over Time */}
       {accuracyHistory.length > 0 && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Prediction Accuracy Over Time</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Prediction Accuracy Over Time</h3>
           <ResponsiveContainer width="100%" height={200}>
             <AreaChart data={accuracyHistory}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="step" stroke="#64748b" />
-              <YAxis stroke="#64748b" domain={[0, 1]} />
-              <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+              <XAxis dataKey="step" stroke="#6b5b95" />
+              <YAxis stroke="#6b5b95" domain={[0, 1]} />
+              <Tooltip contentStyle={{ background: '#1E1045', border: '1px solid #2d1b69', borderRadius: '8px' }} />
               <Area type="monotone" dataKey="accuracy" stroke="#10b981" fill="#10b981" fillOpacity={0.2} name="Accuracy" />
             </AreaChart>
           </ResponsiveContainer>
@@ -273,19 +273,19 @@ export default function StreamingML() {
 
       {/* Data Distribution */}
       {data.length > 0 && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Data Distribution (Sliding Window)</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Data Distribution (Sliding Window)</h3>
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
-              <p className="text-xs text-dark-400">Mean X</p>
+              <p className="text-xs text-purple-300/50">Mean X</p>
               <p className="text-lg font-mono text-white">{(data.reduce((s, d) => s + d.x, 0) / data.length).toFixed(3)}</p>
             </div>
             <div>
-              <p className="text-xs text-dark-400">Mean Y</p>
+              <p className="text-xs text-purple-300/50">Mean Y</p>
               <p className="text-lg font-mono text-white">{(data.reduce((s, d) => s + d.y, 0) / data.length).toFixed(3)}</p>
             </div>
             <div>
-              <p className="text-xs text-dark-400">Window Size</p>
+              <p className="text-xs text-purple-300/50">Window Size</p>
               <p className="text-lg font-mono text-white">{data.length}</p>
             </div>
           </div>

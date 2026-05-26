@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { useConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
+import { Package } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
 
 export default function FeatureStore() {
@@ -87,7 +88,7 @@ export default function FeatureStore() {
     }
   };
 
-  if (!user) return <div className="text-dark-400 text-center py-20">Sign in to access Feature Store</div>;
+  if (!user) return <div className="text-purple-300/50 text-center py-20">Sign in to access Feature Store</div>;
 
   return (
     <div className="space-y-6">
@@ -95,7 +96,7 @@ export default function FeatureStore() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Feature Store</h1>
-          <p className="text-dark-400 mt-1">Centralized feature repository with versioning and lineage tracking</p>
+          <p className="text-purple-300/50 mt-1">Centralized feature repository with versioning and lineage tracking</p>
         </div>
         <button onClick={() => setShowCreate(true)} className="btn-primary" aria-label="Create new feature">
           + New Feature
@@ -118,7 +119,7 @@ export default function FeatureStore() {
         <CardSkeleton count={6} />
       ) : features.length === 0 ? (
         <EmptyState
-          icon="🗃️"
+          icon={Package}
           title="No features yet"
           description="Create your first feature transformation to build a reusable feature pipeline."
           actionLabel="New Feature"
@@ -131,26 +132,26 @@ export default function FeatureStore() {
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="text-white font-semibold">{f.name}</h3>
-                  <p className="text-dark-400 text-sm mt-1">v{f.version}</p>
+                  <p className="text-purple-300/50 text-sm mt-1">v{f.version}</p>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={() => computeFeature(f)} className="text-primary-400 hover:text-primary-300 text-sm transition-colors" aria-label={`Run ${f.name}`}>▶ Run</button>
+                  <button onClick={() => computeFeature(f)} className="text-purple-400 hover:text-purple-300 text-sm transition-colors" aria-label={`Run ${f.name}`}>▶ Run</button>
                   <button onClick={() => handleDelete(f._id)} className="text-red-400 hover:text-red-300 text-sm transition-colors" aria-label={`Delete ${f.name}`}>✕</button>
                 </div>
               </div>
-              {f.description && <p className="text-dark-400 text-sm mt-2">{f.description}</p>}
+              {f.description && <p className="text-purple-300/50 text-sm mt-2">{f.description}</p>}
               {f.code && (
-                <pre className="mt-3 bg-dark-900 rounded-lg p-3 text-xs text-dark-300 overflow-x-auto max-h-24">{f.code}</pre>
+                <pre className="mt-3 bg-dark-900 rounded-lg p-3 text-xs text-purple-200/70 overflow-x-auto max-h-24">{f.code}</pre>
               )}
               <div className="mt-3 flex flex-wrap gap-1">
                 {f.tags?.map(tag => (
-                  <span key={tag} className="text-xs bg-primary-500/10 text-primary-400 px-2 py-0.5 rounded">{tag}</span>
+                  <span key={tag} className="text-xs bg-purple-500/10 text-purple-300 px-2 py-0.5 rounded">{tag}</span>
                 ))}
               </div>
               {f.datasetName && (
-                <p className="text-xs text-dark-500 mt-2">Dataset: {f.datasetName}</p>
+                <p className="text-xs text-purple-300/40 mt-2">Dataset: {f.datasetName}</p>
               )}
-              <p className="text-xs text-dark-500 mt-1">{new Date(f.createdAt).toLocaleDateString()}</p>
+              <p className="text-xs text-purple-300/40 mt-1">{new Date(f.createdAt).toLocaleDateString()}</p>
             </div>
           ))}
         </div>
@@ -159,9 +160,9 @@ export default function FeatureStore() {
       {/* Computed Result Modal */}
       {selectedFeature && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" role="dialog" aria-modal="true" aria-label="Feature result">
-          <div className="bg-dark-800 border border-dark-700 rounded-xl p-6 w-full max-w-lg animate-fade-in">
+          <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6 w-full max-w-lg animate-fade-in">
             <h2 className="text-white font-semibold mb-2">Feature: {selectedFeature.name} (v{selectedFeature.version})</h2>
-            <p className="text-dark-400 text-sm mb-4">Computed Result:</p>
+            <p className="text-purple-300/50 text-sm mb-4">Computed Result:</p>
             <pre className="bg-dark-900 rounded-lg p-4 text-sm text-dark-200 overflow-auto max-h-64">
               {JSON.stringify(selectedFeature.computedResult, null, 2)}
             </pre>
@@ -173,32 +174,32 @@ export default function FeatureStore() {
       {/* Create Modal */}
       {showCreate && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" role="dialog" aria-modal="true" aria-label="Create feature">
-          <div className="bg-dark-800 border border-dark-700 rounded-xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto animate-fade-in">
+          <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto animate-fade-in">
             <h2 className="text-white font-semibold mb-4">Create Feature</h2>
             <form onSubmit={handleCreate} className="space-y-4" noValidate>
               <div>
-                <label className="text-dark-400 text-sm" htmlFor="feat-name">Name</label>
+                <label className="text-purple-300/50 text-sm" htmlFor="feat-name">Name</label>
                 <input id="feat-name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required
                   className="w-full mt-1 input-field" placeholder="age_normalized" />
               </div>
               <div>
-                <label className="text-dark-400 text-sm" htmlFor="feat-desc">Description</label>
+                <label className="text-purple-300/50 text-sm" htmlFor="feat-desc">Description</label>
                 <input id="feat-desc" value={form.description} onChange={e => setForm({ ...form, description: e.target.value })}
                   className="w-full mt-1 input-field" placeholder="Normalize age to 0-1 range" />
               </div>
               <div>
-                <label className="text-dark-400 text-sm" htmlFor="feat-code">Transformation Code (JS function body, receives `data` array)</label>
+                <label className="text-purple-300/50 text-sm" htmlFor="feat-code">Transformation Code (JS function body, receives `data` array)</label>
                 <textarea id="feat-code" value={form.code} onChange={e => setForm({ ...form, code: e.target.value })} rows={5}
                   className="w-full mt-1 input-field font-mono text-sm"
                   placeholder="const max = Math.max(...data);\nreturn data.map(x => x / max);" />
               </div>
               <div>
-                <label className="text-dark-400 text-sm" htmlFor="feat-dataset">Dataset Name (optional)</label>
+                <label className="text-purple-300/50 text-sm" htmlFor="feat-dataset">Dataset Name (optional)</label>
                 <input id="feat-dataset" value={form.datasetName} onChange={e => setForm({ ...form, datasetName: e.target.value })}
                   className="w-full mt-1 input-field" />
               </div>
               <div>
-                <label className="text-dark-400 text-sm" htmlFor="feat-tags">Tags (comma-separated)</label>
+                <label className="text-purple-300/50 text-sm" htmlFor="feat-tags">Tags (comma-separated)</label>
                 <input id="feat-tags" value={form.tags} onChange={e => setForm({ ...form, tags: e.target.value })}
                   className="w-full mt-1 input-field" placeholder="normalization, preprocessing" />
               </div>

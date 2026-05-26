@@ -27,7 +27,7 @@ export default function HuggingFaceExport({ modelName = 'my-model' }) {
   };
 
   return (
-    <div className="bg-dark-800 border border-dark-700 rounded-xl p-5">
+    <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-5">
       <div className="flex items-center gap-2 mb-4">
         <span className="text-xl">🤗</span>
         <h3 className="text-lg font-semibold text-white">Push to HuggingFace</h3>
@@ -40,19 +40,19 @@ export default function HuggingFaceExport({ modelName = 'my-model' }) {
               <span className="text-green-400">✓</span>
               <p className="text-sm text-green-400 font-medium">Model pushed successfully!</p>
             </div>
-            <p className="text-sm text-dark-300">Your model is now available at:</p>
+            <p className="text-sm text-purple-200/70">Your model is now available at:</p>
             <a
               href={result.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-primary-400 hover:text-primary-300 break-all"
+              className="text-sm text-purple-400 hover:text-primary-300 break-all"
             >
               {result.url}
             </a>
           </div>
           <button
             onClick={handleReset}
-            className="px-4 py-2 border border-dark-600 text-dark-300 rounded-lg text-sm hover:bg-dark-700 transition-colors"
+            className="px-4 py-2 border border-dark-600 text-purple-200/70 rounded-lg text-sm hover:bg-purple-500/15 transition-colors"
           >
             Push Another Model
           </button>
@@ -60,7 +60,7 @@ export default function HuggingFaceExport({ modelName = 'my-model' }) {
       ) : (
         <form onSubmit={handleExport} className="space-y-4">
           <div>
-            <label className="block text-sm text-dark-300 mb-1">Model Name</label>
+            <label className="block text-sm text-purple-200/70 mb-1">Model Name</label>
             <input
               type="text"
               value={config.name}
@@ -70,7 +70,7 @@ export default function HuggingFaceExport({ modelName = 'my-model' }) {
             />
           </div>
           <div>
-            <label className="block text-sm text-dark-300 mb-1">Description</label>
+            <label className="block text-sm text-purple-200/70 mb-1">Description</label>
             <textarea
               value={config.description}
               onChange={(e) => setConfig(prev => ({ ...prev, description: e.target.value }))}
@@ -80,7 +80,7 @@ export default function HuggingFaceExport({ modelName = 'my-model' }) {
             />
           </div>
           <div>
-            <label className="block text-sm text-dark-300 mb-1">Tags (comma-separated)</label>
+            <label className="block text-sm text-purple-200/70 mb-1">Tags (comma-separated)</label>
             <input
               type="text"
               value={config.tags}
@@ -97,7 +97,7 @@ export default function HuggingFaceExport({ modelName = 'my-model' }) {
               onChange={(e) => setConfig(prev => ({ ...prev, private: e.target.checked }))}
               className="rounded border-dark-600 bg-dark-700 text-primary-500"
             />
-            <label htmlFor="hf-private" className="text-sm text-dark-300">Private model</label>
+            <label htmlFor="hf-private" className="text-sm text-purple-200/70">Private model</label>
           </div>
           <button
             type="submit"

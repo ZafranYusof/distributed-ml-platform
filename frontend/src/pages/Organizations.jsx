@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { useConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
+import { Users } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
 
 export default function Organizations() {
@@ -100,7 +101,7 @@ export default function Organizations() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Organizations</h1>
-          <p className="text-dark-400 mt-1">Multi-tenant team workspaces</p>
+          <p className="text-purple-300/50 mt-1">Multi-tenant team workspaces</p>
         </div>
         <button onClick={() => setShowCreate(true)} className="btn-primary" aria-label="Create new organization">
           Create Organization
@@ -111,7 +112,7 @@ export default function Organizations() {
       <div className="card p-4">
         <form onSubmit={acceptInvite} className="flex gap-3 items-end">
           <div className="flex-1">
-            <label className="text-xs text-dark-400" htmlFor="invite-token">Have an invite token?</label>
+            <label className="text-xs text-purple-300/50" htmlFor="invite-token">Have an invite token?</label>
             <input
               id="invite-token"
               value={acceptToken}
@@ -132,7 +133,7 @@ export default function Organizations() {
           <h2 className="text-lg font-semibold text-white mb-4">Create Organization</h2>
           <form onSubmit={createOrg} className="space-y-4" noValidate>
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="org-name">Organization Name</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="org-name">Organization Name</label>
               <input
                 id="org-name"
                 value={name}
@@ -145,7 +146,7 @@ export default function Organizations() {
               {formErrors.name && <p className="field-error">{formErrors.name}</p>}
             </div>
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="org-desc">Description</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="org-desc">Description</label>
               <textarea
                 id="org-desc"
                 value={description}
@@ -169,7 +170,7 @@ export default function Organizations() {
           <h2 className="text-lg font-semibold text-white mb-4">Invite Member</h2>
           <form onSubmit={inviteMember} className="space-y-4" noValidate>
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="invite-email">Email Address</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="invite-email">Email Address</label>
               <input
                 id="invite-email"
                 value={inviteEmail}
@@ -183,7 +184,7 @@ export default function Organizations() {
               {formErrors.inviteEmail && <p className="field-error">{formErrors.inviteEmail}</p>}
             </div>
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="invite-role">Role</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="invite-role">Role</label>
               <select id="invite-role" value={inviteRole} onChange={e => setInviteRole(e.target.value)} className="w-full input-field">
                 <option value="admin">Admin</option>
                 <option value="member">Member</option>
@@ -203,7 +204,7 @@ export default function Organizations() {
         <CardSkeleton count={3} />
       ) : orgs.length === 0 ? (
         <EmptyState
-          icon="🏢"
+          icon={Users}
           title="No organizations yet"
           description="Create an organization to collaborate with your team, or accept an invite to join one."
           actionLabel="Create Organization"
@@ -216,8 +217,8 @@ export default function Organizations() {
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-white">{org.name}</h3>
-                  {org.description && <p className="text-dark-400 text-sm mt-1">{org.description}</p>}
-                  <p className="text-xs text-dark-500 mt-2">{org.members?.length || 0} members</p>
+                  {org.description && <p className="text-purple-300/50 text-sm mt-1">{org.description}</p>}
+                  <p className="text-xs text-purple-300/40 mt-2">{org.members?.length || 0} members</p>
                 </div>
                 <div className="flex gap-2">
                   <button
@@ -229,7 +230,7 @@ export default function Organizations() {
                   </button>
                   <button
                     onClick={() => setSelectedOrg(selectedOrg === org._id ? null : org._id)}
-                    className="px-3 py-1.5 text-xs bg-dark-700 text-dark-300 rounded-lg hover:bg-dark-600 transition-colors"
+                    className="px-3 py-1.5 text-xs bg-purple-500/15 text-purple-200/70 rounded-lg hover:bg-purple-500/20 transition-colors"
                     aria-expanded={selectedOrg === org._id}
                   >
                     {selectedOrg === org._id ? 'Hide' : 'Members'}
@@ -237,26 +238,26 @@ export default function Organizations() {
                 </div>
               </div>
               {selectedOrg === org._id && (
-                <div className="mt-4 border-t border-dark-700 pt-4 animate-fade-in">
+                <div className="mt-4 border-t border-purple-500/20 pt-4 animate-fade-in">
                   <div className="space-y-2">
                     {org.members?.map((m, i) => (
                       <div key={i} className="flex items-center justify-between py-2 px-3 bg-dark-900 rounded-lg">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center">
-                            <span className="text-primary-400 text-xs font-bold">
+                            <span className="text-purple-400 text-xs font-bold">
                               {m.userId?.username?.[0]?.toUpperCase() || '?'}
                             </span>
                           </div>
                           <div>
                             <p className="text-sm text-white">{m.userId?.username || 'Unknown'}</p>
-                            <p className="text-xs text-dark-500">{m.userId?.email}</p>
+                            <p className="text-xs text-purple-300/40">{m.userId?.email}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
                           <span className={`text-xs px-2 py-0.5 rounded ${
                             m.role === 'admin' ? 'bg-yellow-500/20 text-yellow-400' :
                             m.role === 'member' ? 'bg-blue-500/20 text-blue-400' :
-                            'bg-dark-600 text-dark-300'
+                            'bg-dark-600 text-purple-200/70'
                           }`}>{m.role}</span>
                           {m.role !== 'admin' && (
                             <button

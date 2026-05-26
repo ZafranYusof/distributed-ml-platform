@@ -98,7 +98,7 @@ export default function OnboardingTour({ onComplete }) {
 
       {/* Tooltip */}
       <div
-        className="fixed z-[9999] bg-dark-800 dark:bg-dark-800 border border-primary-500/30 rounded-xl shadow-2xl p-5 w-[350px] transition-all duration-300"
+        className="fixed z-[9999] bg-dark-800 dark:bg-dark-800/40 border border-primary-500/30 rounded-xl shadow-2xl p-5 w-[350px] transition-all duration-300"
         style={{ top: `${position.top}px`, left: `${position.left}px` }}
       >
         {/* Arrow */}
@@ -117,12 +117,12 @@ export default function OnboardingTour({ onComplete }) {
         </div>
 
         <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
-        <p className="text-dark-300 text-sm mb-4">{step.content}</p>
+        <p className="text-purple-200/70 text-sm mb-4">{step.content}</p>
 
         <div className="flex items-center justify-between">
           <button
             onClick={completeTour}
-            className="text-xs text-dark-400 hover:text-dark-200 transition-colors"
+            className="text-xs text-purple-300/50 hover:text-dark-200 transition-colors"
           >
             Skip tour
           </button>
@@ -130,7 +130,7 @@ export default function OnboardingTour({ onComplete }) {
             {currentStep > 0 && (
               <button
                 onClick={handlePrev}
-                className="px-3 py-1.5 text-sm text-dark-300 hover:text-white border border-dark-600 rounded-lg transition-colors"
+                className="px-3 py-1.5 text-sm text-purple-200/70 hover:text-white border border-dark-600 rounded-lg transition-colors"
               >
                 Back
               </button>

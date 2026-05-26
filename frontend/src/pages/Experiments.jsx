@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { useConfirmDialog } from '../components/ui/ConfirmDialog';
 import { TableSkeleton } from '../components/ui/SkeletonLoader';
+import { FlaskConical } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
 import SearchFilterBar from '../components/ui/SearchFilterBar';
 
@@ -115,11 +116,11 @@ export default function Experiments() {
       case 'completed': return 'bg-green-500/20 text-green-400';
       case 'running': return 'bg-yellow-500/20 text-yellow-400';
       case 'failed': return 'bg-red-500/20 text-red-400';
-      default: return 'bg-dark-700 text-dark-400';
+      default: return 'bg-purple-500/15 text-purple-300/50';
     }
   };
 
-  if (!user) return <div className="text-dark-400 text-center py-20">Sign in to track experiments</div>;
+  if (!user) return <div className="text-purple-300/50 text-center py-20">Sign in to track experiments</div>;
 
   return (
     <div className="space-y-6">
@@ -127,7 +128,7 @@ export default function Experiments() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Experiment Tracking</h1>
-          <p className="text-dark-400 mt-1">Log, compare, and analyze training experiments</p>
+          <p className="text-purple-300/50 mt-1">Log, compare, and analyze training experiments</p>
         </div>
         <div className="flex gap-2">
           {compareIds.length >= 2 && (
@@ -161,11 +162,11 @@ export default function Experiments() {
 
       {/* Create Form */}
       {showCreate && (
-        <form onSubmit={handleCreate} className="bg-dark-800 border border-dark-700 rounded-lg p-6 space-y-4 animate-fade-in">
+        <form onSubmit={handleCreate} className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6 space-y-4 animate-fade-in">
           <h3 className="text-lg font-semibold text-white">Log New Experiment</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-dark-400 mb-1">Name</label>
+              <label className="block text-sm text-purple-300/50 mb-1">Name</label>
               <input
                 type="text"
                 value={form.name}
@@ -177,11 +178,11 @@ export default function Experiments() {
               {formErrors.name && <p className="field-error">{formErrors.name}</p>}
             </div>
             <div>
-              <label className="block text-sm text-dark-400 mb-1">Tags (comma-separated)</label>
+              <label className="block text-sm text-purple-300/50 mb-1">Tags (comma-separated)</label>
               <input type="text" value={form.tags} onChange={(e) => setForm(prev => ({ ...prev, tags: e.target.value }))} className="w-full input-field" />
             </div>
             <div>
-              <label className="block text-sm text-dark-400 mb-1">Params (JSON)</label>
+              <label className="block text-sm text-purple-300/50 mb-1">Params (JSON)</label>
               <textarea
                 value={form.params}
                 onChange={(e) => { setForm(prev => ({ ...prev, params: e.target.value })); setFormErrors(prev => ({ ...prev, params: '' })); }}
@@ -192,7 +193,7 @@ export default function Experiments() {
               {formErrors.params && <p className="field-error">{formErrors.params}</p>}
             </div>
             <div>
-              <label className="block text-sm text-dark-400 mb-1">Metrics (JSON)</label>
+              <label className="block text-sm text-purple-300/50 mb-1">Metrics (JSON)</label>
               <textarea
                 value={form.metrics}
                 onChange={(e) => { setForm(prev => ({ ...prev, metrics: e.target.value })); setFormErrors(prev => ({ ...prev, metrics: '' })); }}
@@ -212,39 +213,39 @@ export default function Experiments() {
 
       {/* Comparison View */}
       {compareData && (
-        <div className="bg-dark-800 border border-dark-700 rounded-lg p-6 animate-fade-in">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6 animate-fade-in">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white">Experiment Comparison</h3>
-            <button onClick={() => { setCompareData(null); setCompareIds([]); }} className="text-sm text-dark-400 hover:text-white" aria-label="Close comparison">✕ Close</button>
+            <button onClick={() => { setCompareData(null); setCompareIds([]); }} className="text-sm text-purple-300/50 hover:text-white" aria-label="Close comparison">✕ Close</button>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm" role="table">
               <thead>
-                <tr className="text-dark-400 border-b border-dark-700">
+                <tr className="text-purple-300/50 border-b border-purple-500/20">
                   <th className="text-left py-2 px-3" scope="col">Property</th>
                   {compareData.map(exp => <th key={exp._id} className="text-left py-2 px-3" scope="col">{exp.name}</th>)}
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-dark-700/50">
-                  <td className="py-2 px-3 text-dark-400">Status</td>
+                <tr className="border-b border-purple-500/20/50">
+                  <td className="py-2 px-3 text-purple-300/50">Status</td>
                   {compareData.map(exp => <td key={exp._id} className="py-2 px-3"><span className={`text-xs px-2 py-0.5 rounded-full ${getStatusColor(exp.status)}`}>{exp.status}</span></td>)}
                 </tr>
-                <tr className="border-b border-dark-700/50">
-                  <td className="py-2 px-3 text-dark-400">Params</td>
-                  {compareData.map(exp => <td key={exp._id} className="py-2 px-3 text-dark-300 text-xs font-mono">{JSON.stringify(exp.params)}</td>)}
+                <tr className="border-b border-purple-500/20/50">
+                  <td className="py-2 px-3 text-purple-300/50">Params</td>
+                  {compareData.map(exp => <td key={exp._id} className="py-2 px-3 text-purple-200/70 text-xs font-mono">{JSON.stringify(exp.params)}</td>)}
                 </tr>
-                <tr className="border-b border-dark-700/50">
-                  <td className="py-2 px-3 text-dark-400">Metrics</td>
-                  {compareData.map(exp => <td key={exp._id} className="py-2 px-3 text-dark-300 text-xs font-mono">{JSON.stringify(exp.metrics)}</td>)}
+                <tr className="border-b border-purple-500/20/50">
+                  <td className="py-2 px-3 text-purple-300/50">Metrics</td>
+                  {compareData.map(exp => <td key={exp._id} className="py-2 px-3 text-purple-200/70 text-xs font-mono">{JSON.stringify(exp.metrics)}</td>)}
                 </tr>
-                <tr className="border-b border-dark-700/50">
-                  <td className="py-2 px-3 text-dark-400">Tags</td>
-                  {compareData.map(exp => <td key={exp._id} className="py-2 px-3 text-dark-300">{exp.tags?.join(', ')}</td>)}
+                <tr className="border-b border-purple-500/20/50">
+                  <td className="py-2 px-3 text-purple-300/50">Tags</td>
+                  {compareData.map(exp => <td key={exp._id} className="py-2 px-3 text-purple-200/70">{exp.tags?.join(', ')}</td>)}
                 </tr>
                 <tr>
-                  <td className="py-2 px-3 text-dark-400">Date</td>
-                  {compareData.map(exp => <td key={exp._id} className="py-2 px-3 text-dark-300">{new Date(exp.createdAt).toLocaleDateString()}</td>)}
+                  <td className="py-2 px-3 text-purple-300/50">Date</td>
+                  {compareData.map(exp => <td key={exp._id} className="py-2 px-3 text-purple-200/70">{new Date(exp.createdAt).toLocaleDateString()}</td>)}
                 </tr>
               </tbody>
             </table>
@@ -257,7 +258,7 @@ export default function Experiments() {
         <TableSkeleton rows={6} cols={6} />
       ) : experiments.length === 0 ? (
         <EmptyState
-          icon="🧪"
+          icon={FlaskConical}
           title="No experiments yet"
           description="Run your first experiment to start tracking metrics, parameters, and results."
           actionLabel="Log an Experiment"
@@ -267,7 +268,7 @@ export default function Experiments() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm" role="table" aria-label="Experiments list">
             <thead>
-              <tr className="text-dark-400 border-b border-dark-700">
+              <tr className="text-purple-300/50 border-b border-purple-500/20">
                 <th className="text-left py-3 px-3 w-8" scope="col"><span className="sr-only">Select</span></th>
                 <th className="text-left py-3 px-3" scope="col">Name</th>
                 <th className="text-left py-3 px-3" scope="col">Status</th>
@@ -279,27 +280,27 @@ export default function Experiments() {
             </thead>
             <tbody>
               {experiments.map(exp => (
-                <tr key={exp._id} className={`border-b border-dark-700/50 hover:bg-dark-800/50 transition-colors ${compareIds.includes(exp._id) ? 'bg-primary-500/5' : ''}`}>
+                <tr key={exp._id} className={`border-b border-purple-500/20/50 hover:bg-purple-500/10/50 transition-colors ${compareIds.includes(exp._id) ? 'bg-primary-500/5' : ''}`}>
                   <td className="py-3 px-3">
                     <input
                       type="checkbox"
                       checked={compareIds.includes(exp._id)}
                       onChange={() => toggleCompare(exp._id)}
-                      className="rounded border-dark-600"
+                      className="rounded border-purple-500/30"
                       aria-label={`Select ${exp.name} for comparison`}
                     />
                   </td>
                   <td className="py-3 px-3 text-white font-medium">{exp.name}</td>
                   <td className="py-3 px-3"><span className={`text-xs px-2 py-0.5 rounded-full ${getStatusColor(exp.status)}`}>{exp.status}</span></td>
                   <td className="py-3 px-3">
-                    <div className="flex gap-1 flex-wrap">{exp.tags?.map(t => <span key={t} className="text-xs bg-dark-700 text-dark-300 px-1.5 py-0.5 rounded">{t}</span>)}</div>
+                    <div className="flex gap-1 flex-wrap">{exp.tags?.map(t => <span key={t} className="text-xs bg-purple-500/15 text-purple-200/70 px-1.5 py-0.5 rounded">{t}</span>)}</div>
                   </td>
-                  <td className="py-3 px-3 text-dark-300 text-xs font-mono max-w-xs truncate">{JSON.stringify(exp.metrics)}</td>
-                  <td className="py-3 px-3 text-dark-400">{new Date(exp.createdAt).toLocaleDateString()}</td>
+                  <td className="py-3 px-3 text-purple-200/70 text-xs font-mono max-w-xs truncate">{JSON.stringify(exp.metrics)}</td>
+                  <td className="py-3 px-3 text-purple-300/50">{new Date(exp.createdAt).toLocaleDateString()}</td>
                   <td className="py-3 px-3">
                     <button
                       onClick={() => handleDelete(exp._id)}
-                      className="text-dark-500 hover:text-red-400 text-xs transition-colors"
+                      className="text-purple-300/40 hover:text-red-400 text-xs transition-colors"
                       aria-label={`Delete ${exp.name}`}
                     >
                       🗑

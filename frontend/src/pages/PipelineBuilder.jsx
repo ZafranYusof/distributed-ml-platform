@@ -16,7 +16,7 @@ const nodeStyles = {
   'data-source': { bg: 'bg-blue-500/20', border: 'border-blue-500/40', icon: '📁', color: '#3b82f6' },
   'preprocessing': { bg: 'bg-purple-500/20', border: 'border-purple-500/40', icon: '🔧', color: '#a855f7' },
   'model': { bg: 'bg-primary-500/20', border: 'border-primary-500/40', icon: '🧠', color: '#06b6d4' },
-  'training': { bg: 'bg-yellow-500/20', border: 'border-yellow-500/40', icon: '🚀', color: '#eab308' },
+  'training': { bg: 'bg-yellow-500/20', border: 'border-yellow-500/40', icon: '🚀', color: '#06b6d4' },
   'evaluation': { bg: 'bg-green-500/20', border: 'border-green-500/40', icon: '📊', color: '#22c55e' },
   'export': { bg: 'bg-orange-500/20', border: 'border-orange-500/40', icon: '💾', color: '#f97316' },
 };
@@ -25,16 +25,16 @@ function PipelineNode({ data }) {
   const style = nodeStyles[data.nodeType] || nodeStyles['model'];
   return (
     <div className={`px-4 py-3 rounded-lg border ${style.bg} ${style.border} min-w-[160px]`}>
-      <Handle type="target" position={Position.Left} className="!bg-dark-400 !w-3 !h-3 !border-2 !border-dark-600" />
+      <Handle type="target" position={Position.Left} className="!bg-dark-400 !w-3 !h-3 !border-2 !border-purple-500/30" />
       <div className="flex items-center gap-2">
         <span className="text-lg">{style.icon}</span>
         <div>
-          <p className="text-sm font-medium text-dark-100">{data.label}</p>
-          <p className="text-xs text-dark-400">{data.description || data.nodeType}</p>
+          <p className="text-sm font-medium text-white">{data.label}</p>
+          <p className="text-xs text-purple-300/50">{data.description || data.nodeType}</p>
         </div>
       </div>
       {data.config && (
-        <div className="mt-2 text-xs text-dark-500 border-t border-dark-600 pt-2">
+        <div className="mt-2 text-xs text-purple-300/40 border-t border-purple-500/30 pt-2">
           {Object.entries(data.config).slice(0, 3).map(([k, v]) => (
             <div key={k}>{k}: {String(v)}</div>
           ))}
@@ -186,7 +186,7 @@ export default function PipelineBuilder() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-dark-50">Pipeline Builder</h2>
-          <p className="text-dark-400 mt-1">Visual drag & drop ML pipeline editor</p>
+          <p className="text-purple-300/50 mt-1">Visual drag & drop ML pipeline editor</p>
         </div>
         <div className="flex gap-2">
           {selectedNode && (
@@ -206,7 +206,7 @@ export default function PipelineBuilder() {
 
       {/* Node Palette */}
       <div className="card">
-        <p className="text-sm text-dark-400 mb-3">Add nodes to your pipeline:</p>
+        <p className="text-sm text-purple-300/50 mb-3">Add nodes to your pipeline:</p>
         <div className="flex gap-2 flex-wrap">
           {Object.entries(nodeStyles).map(([type, style]) => (
             <button
@@ -233,14 +233,14 @@ export default function PipelineBuilder() {
           onPaneClick={() => setSelectedNode(null)}
           nodeTypes={nodeTypes}
           fitView
-          className="bg-dark-950"
+          className="bg-transparent"
         >
-          <Background color="#334155" gap={20} />
-          <Controls className="!bg-dark-800 !border-dark-600 !rounded-lg [&>button]:!bg-dark-700 [&>button]:!border-dark-600 [&>button]:!text-dark-300" />
+          <Background color="#2d1b69" gap={20} />
+          <Controls className="!bg-dark-800/40 !border-purple-500/30 !rounded-lg [&>button]:!bg-purple-500/15 [&>button]:!border-purple-500/30 [&>button]:!text-purple-200/70" />
           <MiniMap
             nodeColor={() => '#06b6d4'}
             maskColor="rgba(2, 6, 23, 0.7)"
-            className="!bg-dark-900 !border-dark-700 !rounded-lg"
+            className="!bg-dark-900 !border-purple-500/20 !rounded-lg"
           />
         </ReactFlow>
       </div>
@@ -248,16 +248,16 @@ export default function PipelineBuilder() {
       {/* Execution Log */}
       {executionLog.length > 0 && (
         <div className="card">
-          <h3 className="text-lg font-semibold text-dark-100 mb-4">📋 Execution Log</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">📋 Execution Log</h3>
           <div className="space-y-2">
             {executionLog.map((log, i) => (
-              <div key={i} className="flex items-center gap-3 bg-dark-800 rounded-lg px-4 py-2 border border-dark-600">
+              <div key={i} className="flex items-center gap-3 bg-dark-800/40 rounded-lg px-4 py-2 border border-purple-500/30">
                 <span className="text-lg">
                   {log.status === 'running' ? '⏳' : '✅'}
                 </span>
                 <div className="flex-1">
                   <p className="text-sm text-dark-200">{log.label}</p>
-                  <p className="text-xs text-dark-500">{log.type}</p>
+                  <p className="text-xs text-purple-300/40">{log.type}</p>
                 </div>
                 <div className="text-right">
                   {log.status === 'completed' ? (

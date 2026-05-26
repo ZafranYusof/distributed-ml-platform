@@ -71,7 +71,7 @@ function Breadcrumb() {
 
   return (
     <nav aria-label="Breadcrumb" className="mb-4">
-      <ol className="flex items-center gap-1.5 text-sm text-dark-400">
+      <ol className="flex items-center gap-1.5 text-sm text-purple-300/50">
         {crumbs.map((crumb, idx) => (
           <li key={crumb.path} className="flex items-center gap-1.5">
             {idx > 0 && (
@@ -82,7 +82,7 @@ function Breadcrumb() {
             {idx === crumbs.length - 1 ? (
               <span className="text-dark-200 font-medium" aria-current="page">{crumb.label}</span>
             ) : (
-              <Link to={crumb.path} className="hover:text-primary-400 transition-colors">
+              <Link to={crumb.path} className="hover:text-purple-400 transition-colors">
                 {crumb.label}
               </Link>
             )}

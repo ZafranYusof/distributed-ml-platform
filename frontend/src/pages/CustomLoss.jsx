@@ -92,31 +92,31 @@ export default function CustomLoss() {
     fetchLosses();
   };
 
-  if (!user) return <div className="text-dark-400 text-center py-20">Sign in to create custom loss functions</div>;
+  if (!user) return <div className="text-purple-300/50 text-center py-20">Sign in to create custom loss functions</div>;
 
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-white">Custom Loss Functions</h1>
-        <p className="text-dark-400 mt-1">Write, validate, and test custom loss functions in JavaScript</p>
+        <p className="text-purple-300/50 mt-1">Write, validate, and test custom loss functions in JavaScript</p>
       </div>
 
       {/* Editor */}
-      <div className="bg-dark-800 border border-dark-700 rounded-lg p-6 space-y-4">
+      <div className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6 space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm text-dark-400 mb-1">Function Name</label>
-            <input type="text" value={form.name} onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value }))} placeholder="e.g. huber_loss" className="w-full bg-dark-900 border border-dark-600 text-dark-200 rounded-lg px-3 py-2 text-sm" />
+            <label className="block text-sm text-purple-300/50 mb-1">Function Name</label>
+            <input type="text" value={form.name} onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value }))} placeholder="e.g. huber_loss" className="w-full bg-dark-900 border border-purple-500/30 text-dark-200 rounded-lg px-3 py-2 text-sm" />
           </div>
           <div>
-            <label className="block text-sm text-dark-400 mb-1">Description</label>
-            <input type="text" value={form.description} onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))} placeholder="Brief description" className="w-full bg-dark-900 border border-dark-600 text-dark-200 rounded-lg px-3 py-2 text-sm" />
+            <label className="block text-sm text-purple-300/50 mb-1">Description</label>
+            <input type="text" value={form.description} onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))} placeholder="Brief description" className="w-full bg-dark-900 border border-purple-500/30 text-dark-200 rounded-lg px-3 py-2 text-sm" />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm text-dark-400 mb-1">Loss Function Code</label>
-          <div className="bg-dark-900 border border-dark-600 rounded-lg overflow-hidden">
+          <label className="block text-sm text-purple-300/50 mb-1">Loss Function Code</label>
+          <div className="bg-dark-900 border border-purple-500/30 rounded-lg overflow-hidden">
             <Editor
               value={form.code}
               onValueChange={(code) => setForm(prev => ({ ...prev, code }))}
@@ -128,12 +128,12 @@ export default function CustomLoss() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button onClick={handleValidate} className="px-4 py-2 bg-dark-700 text-dark-300 hover:text-white rounded-lg text-sm transition-colors">✓ Validate Syntax</button>
-          <button onClick={handleTest} className="px-4 py-2 bg-dark-700 text-dark-300 hover:text-white rounded-lg text-sm transition-colors">▶ Test with Sample</button>
-          <button onClick={handleSave} disabled={!form.name} className="px-4 py-2 bg-primary-500 text-white rounded-lg text-sm font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors">
+          <button onClick={handleValidate} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm transition-colors">✓ Validate Syntax</button>
+          <button onClick={handleTest} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm transition-colors">▶ Test with Sample</button>
+          <button onClick={handleSave} disabled={!form.name} className="px-4 py-2 bg-gradient-btn text-white rounded-lg text-sm font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors">
             {editing ? '💾 Update' : '💾 Save to Library'}
           </button>
-          {editing && <button onClick={() => { setEditing(null); setForm({ name: '', description: '', code: form.code }); }} className="px-4 py-2 bg-dark-700 text-dark-300 rounded-lg text-sm">Cancel Edit</button>}
+          {editing && <button onClick={() => { setEditing(null); setForm({ name: '', description: '', code: form.code }); }} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 rounded-lg text-sm">Cancel Edit</button>}
         </div>
 
         {/* Validation Result */}
@@ -155,16 +155,16 @@ export default function CustomLoss() {
       <div>
         <h3 className="text-lg font-semibold text-white mb-3">Loss Function Library</h3>
         {loading ? (
-          <div className="text-dark-400 text-center py-6"><div class="animate-pulse space-y-3"><div class="h-4 bg-dark-700 rounded w-3/4"></div><div class="h-4 bg-dark-700 rounded w-1/2"></div></div></div>
+          <div className="text-purple-300/50 text-center py-6"><div class="animate-pulse space-y-3"><div class="h-4 bg-purple-500/15 rounded w-3/4"></div><div class="h-4 bg-purple-500/15 rounded w-1/2"></div></div></div>
         ) : losses.length === 0 ? (
-          <div className="text-center py-10 text-dark-400 bg-dark-800 border border-dark-700 rounded-lg">
+          <div className="text-center py-10 text-purple-300/50 bg-dark-800/40 border border-purple-500/20 rounded-lg">
             <p className="text-3xl mb-2">📐</p>
             <p>No custom loss functions saved yet.</p>
           </div>
         ) : (
           <div className="space-y-3">
             {losses.map(loss => (
-              <div key={loss._id} className="bg-dark-800 border border-dark-700 rounded-lg p-4">
+              <div key={loss._id} className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <span className="text-white font-medium">{loss.name}</span>
@@ -173,12 +173,12 @@ export default function CustomLoss() {
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button onClick={() => handleEdit(loss)} className="text-xs px-2 py-1 bg-dark-700 text-dark-300 hover:text-white rounded">Edit</button>
-                    <button onClick={() => handleDelete(loss._id)} className="text-xs px-2 py-1 bg-dark-700 text-red-400 hover:bg-red-500/10 rounded">Delete</button>
+                    <button onClick={() => handleEdit(loss)} className="text-xs px-2 py-1 bg-purple-500/15 text-purple-200/70 hover:text-white rounded">Edit</button>
+                    <button onClick={() => handleDelete(loss._id)} className="text-xs px-2 py-1 bg-purple-500/15 text-red-400 hover:bg-red-500/10 rounded">Delete</button>
                   </div>
                 </div>
-                {loss.description && <p className="text-dark-400 text-sm mt-1">{loss.description}</p>}
-                <pre className="mt-2 text-xs text-dark-300 bg-dark-900 rounded p-3 overflow-auto max-h-24">{loss.code}</pre>
+                {loss.description && <p className="text-purple-300/50 text-sm mt-1">{loss.description}</p>}
+                <pre className="mt-2 text-xs text-purple-200/70 bg-dark-900 rounded p-3 overflow-auto max-h-24">{loss.code}</pre>
               </div>
             ))}
           </div>

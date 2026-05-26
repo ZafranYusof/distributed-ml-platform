@@ -232,7 +232,7 @@ export default function Inference() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-dark-50">Inference</h2>
-          <p className="text-dark-400 mt-1">Make predictions with your trained model</p>
+          <p className="text-purple-300/50 mt-1">Make predictions with your trained model</p>
         </div>
         {modelReady && (
           <div className="flex items-center gap-2">
@@ -261,14 +261,14 @@ export default function Inference() {
         <div className="card text-center py-12">
           <div className="text-4xl mb-3">🤖</div>
           <p className="text-dark-200 font-medium">No trained models available</p>
-          <p className="text-dark-400 text-sm mt-1">Train a model first from the Dashboard</p>
+          <p className="text-purple-300/50 text-sm mt-1">Train a model first from the Dashboard</p>
         </div>
       ) : (
         <>
           {/* Session Selector */}
           {sessions.length > 1 && (
             <div className="card">
-              <label className="block text-sm text-dark-300 mb-2">Select Model Session</label>
+              <label className="block text-sm text-purple-200/70 mb-2">Select Model Session</label>
               <select
                 value={selectedSession}
                 onChange={(e) => setSelectedSession(e.target.value)}
@@ -284,11 +284,11 @@ export default function Inference() {
           {/* Input Form */}
           {normData && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-dark-100 mb-4">📝 Input Features</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">📝 Input Features</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {normData.featureCols.map((col, idx) => (
                   <div key={col}>
-                    <label className="block text-sm text-dark-300 mb-1">{col}</label>
+                    <label className="block text-sm text-purple-200/70 mb-1">{col}</label>
                     <input
                       type="number"
                       step="any"
@@ -297,7 +297,7 @@ export default function Inference() {
                       className="input-field w-full"
                       placeholder={`Enter ${col}`}
                     />
-                    <p className="text-xs text-dark-500 mt-0.5">
+                    <p className="text-xs text-purple-300/40 mt-0.5">
                       {normData.method === 'min-max' && normData.mins && (
                         <>Range: {normData.mins[idx]?.toFixed(2)} - {normData.maxs[idx]?.toFixed(2)}</>
                       )}
@@ -324,28 +324,28 @@ export default function Inference() {
           {/* Prediction Result */}
           {prediction && (
             <div className="card border-primary-500/30">
-              <h3 className="text-lg font-semibold text-dark-100 mb-4">🎯 Prediction Result</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">🎯 Prediction Result</h3>
               {prediction.type === 'classification' ? (
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">🏷️</span>
                     <div>
-                      <p className="text-2xl font-bold text-primary-400">{prediction.label}</p>
-                      <p className="text-dark-400 text-sm">Confidence: {prediction.confidence}%</p>
+                      <p className="text-2xl font-bold text-purple-400">{prediction.label}</p>
+                      <p className="text-purple-300/50 text-sm">Confidence: {prediction.confidence}%</p>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-sm text-dark-300 font-medium">Class Probabilities:</p>
+                    <p className="text-sm text-purple-200/70 font-medium">Class Probabilities:</p>
                     {prediction.probabilities.map(p => (
                       <div key={p.label} className="flex items-center gap-3">
-                        <span className="text-sm text-dark-300 w-24">{p.label}</span>
-                        <div className="flex-1 bg-dark-800 rounded-full h-2">
+                        <span className="text-sm text-purple-200/70 w-24">{p.label}</span>
+                        <div className="flex-1 bg-dark-800/40 rounded-full h-2">
                           <div
-                            className="h-2 rounded-full bg-primary-500 transition-all"
+                            className="h-2 rounded-full bg-gradient-btn transition-all"
                             style={{ width: `${p.probability}%` }}
                           ></div>
                         </div>
-                        <span className="text-sm text-dark-400 w-12 text-right">{p.probability}%</span>
+                        <span className="text-sm text-purple-300/50 w-12 text-right">{p.probability}%</span>
                       </div>
                     ))}
                   </div>
@@ -354,8 +354,8 @@ export default function Inference() {
                 <div className="flex items-center gap-3">
                   <span className="text-3xl">📊</span>
                   <div>
-                    <p className="text-2xl font-bold text-primary-400">{prediction.value}</p>
-                    <p className="text-dark-400 text-sm">Predicted value</p>
+                    <p className="text-2xl font-bold text-purple-400">{prediction.value}</p>
+                    <p className="text-purple-300/50 text-sm">Predicted value</p>
                   </div>
                 </div>
               )}
@@ -365,19 +365,19 @@ export default function Inference() {
           {/* Export Info */}
           {modelReady && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-dark-100 mb-3">📦 Export Formats</h3>
+              <h3 className="text-lg font-semibold text-white mb-3">📦 Export Formats</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div className="bg-dark-800 rounded-lg p-3">
-                  <p className="text-sm font-medium text-dark-100">JSON</p>
-                  <p className="text-xs text-dark-400 mt-1">Full model with weights, normalization params, and config. Easy to reload.</p>
+                <div className="bg-dark-800/40 rounded-lg p-3">
+                  <p className="text-sm font-medium text-white">JSON</p>
+                  <p className="text-xs text-purple-300/50 mt-1">Full model with weights, normalization params, and config. Easy to reload.</p>
                 </div>
-                <div className="bg-dark-800 rounded-lg p-3">
-                  <p className="text-sm font-medium text-dark-100">Binary (.bin)</p>
-                  <p className="text-xs text-dark-400 mt-1">Compact Float32 weights + separate metadata JSON. Smaller file size.</p>
+                <div className="bg-dark-800/40 rounded-lg p-3">
+                  <p className="text-sm font-medium text-white">Binary (.bin)</p>
+                  <p className="text-xs text-purple-300/50 mt-1">Compact Float32 weights + separate metadata JSON. Smaller file size.</p>
                 </div>
-                <div className="bg-dark-800 rounded-lg p-3">
-                  <p className="text-sm font-medium text-dark-100">ONNX-like</p>
-                  <p className="text-xs text-dark-400 mt-1">Structured graph format for interoperability with other ML frameworks.</p>
+                <div className="bg-dark-800/40 rounded-lg p-3">
+                  <p className="text-sm font-medium text-white">ONNX-like</p>
+                  <p className="text-xs text-purple-300/50 mt-1">Structured graph format for interoperability with other ML frameworks.</p>
                 </div>
               </div>
             </div>

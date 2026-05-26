@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { useConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
+import { Tag, MousePointer } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
 
 export default function Annotations() {
@@ -141,7 +142,7 @@ export default function Annotations() {
     return projectData.annotations.filter(a => a.rowIndex === rowIndex);
   };
 
-  if (!user) return <div className="text-dark-400 text-center py-20">Sign in to manage annotations</div>;
+  if (!user) return <div className="text-purple-300/50 text-center py-20">Sign in to manage annotations</div>;
 
   return (
     <div className="space-y-6">
@@ -149,7 +150,7 @@ export default function Annotations() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Collaborative Annotations</h1>
-          <p className="text-dark-400 mt-1">Label data collaboratively with agreement metrics and consensus voting</p>
+          <p className="text-purple-300/50 mt-1">Label data collaboratively with agreement metrics and consensus voting</p>
         </div>
         <button onClick={() => setShowCreate(!showCreate)} className="btn-primary" aria-label="Create new annotation project">
           + New Project
@@ -158,11 +159,11 @@ export default function Annotations() {
 
       {/* Create Form */}
       {showCreate && (
-        <form onSubmit={handleCreate} className="bg-dark-800 border border-dark-700 rounded-lg p-6 space-y-4 animate-fade-in" noValidate>
+        <form onSubmit={handleCreate} className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6 space-y-4 animate-fade-in" noValidate>
           <h2 className="text-lg font-semibold text-white">Create Annotation Project</h2>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-dark-400 mb-1" htmlFor="ann-name">Project Name</label>
+              <label className="block text-sm text-purple-300/50 mb-1" htmlFor="ann-name">Project Name</label>
               <input
                 id="ann-name"
                 type="text"
@@ -175,7 +176,7 @@ export default function Annotations() {
               {formErrors.name && <p className="field-error">{formErrors.name}</p>}
             </div>
             <div>
-              <label className="block text-sm text-dark-400 mb-1" htmlFor="ann-labels">Labels (comma-separated)</label>
+              <label className="block text-sm text-purple-300/50 mb-1" htmlFor="ann-labels">Labels (comma-separated)</label>
               <input
                 id="ann-labels"
                 type="text"
@@ -188,8 +189,8 @@ export default function Annotations() {
             </div>
           </div>
           <div>
-            <label className="block text-sm text-dark-400 mb-1">Upload CSV Data</label>
-            <input type="file" accept=".csv" onChange={handleFileUpload} className="text-dark-300 text-sm" aria-label="Upload CSV data file" />
+            <label className="block text-sm text-purple-300/50 mb-1">Upload CSV Data</label>
+            <input type="file" accept=".csv" onChange={handleFileUpload} className="text-purple-200/70 text-sm" aria-label="Upload CSV data file" />
             {formErrors.data && <p className="field-error">{formErrors.data}</p>}
           </div>
           <div className="flex gap-3">
@@ -202,12 +203,12 @@ export default function Annotations() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Projects List */}
         <div className="space-y-3">
-          <h3 className="text-sm font-medium text-dark-400 uppercase tracking-wide">Projects</h3>
+          <h3 className="text-sm font-medium text-purple-300/50 uppercase tracking-wide">Projects</h3>
           {loading ? (
             <CardSkeleton count={3} />
           ) : projects.length === 0 ? (
             <EmptyState
-              icon="🏷"
+              icon={Tag}
               title="No annotation projects"
               description="Create a project to start labeling data collaboratively."
               actionLabel="New Project"
@@ -228,13 +229,13 @@ export default function Annotations() {
                   <span className="text-white text-sm font-medium">{p.name}</span>
                   <button
                     onClick={(e) => { e.stopPropagation(); handleDelete(p._id); }}
-                    className="text-dark-500 hover:text-red-400 text-xs transition-colors"
+                    className="text-purple-300/40 hover:text-red-400 text-xs transition-colors"
                     aria-label={`Delete ${p.name}`}
                   >
                     🗑
                   </button>
                 </div>
-                <div className="flex items-center gap-2 mt-1 text-xs text-dark-500">
+                <div className="flex items-center gap-2 mt-1 text-xs text-purple-300/40">
                   <span>{p.totalRows} rows</span>
                   <span>{p.labels?.length} labels</span>
                 </div>
@@ -247,7 +248,7 @@ export default function Annotations() {
         <div className="lg:col-span-2">
           {!selectedProject ? (
             <EmptyState
-              icon="👈"
+              icon={MousePointer}
               title="Select a project"
               description="Choose an annotation project from the list to start labeling data."
             />
@@ -257,27 +258,27 @@ export default function Annotations() {
               {stats && (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   <div className="card p-3 text-center">
-                    <p className="text-xl font-bold text-primary-400">{stats.progress.toFixed(1)}%</p>
-                    <p className="text-xs text-dark-400">Progress</p>
+                    <p className="text-xl font-bold text-purple-400">{stats.progress.toFixed(1)}%</p>
+                    <p className="text-xs text-purple-300/50">Progress</p>
                   </div>
                   <div className="card p-3 text-center">
                     <p className="text-xl font-bold text-green-400">{stats.annotatedRows}/{stats.totalRows}</p>
-                    <p className="text-xs text-dark-400">Annotated</p>
+                    <p className="text-xs text-purple-300/50">Annotated</p>
                   </div>
                   <div className="card p-3 text-center">
                     <p className="text-xl font-bold text-yellow-400">{(stats.agreement * 100).toFixed(1)}%</p>
-                    <p className="text-xs text-dark-400">Agreement (κ)</p>
+                    <p className="text-xs text-purple-300/50">Agreement (κ)</p>
                   </div>
                   <div className="card p-3 text-center">
                     <p className="text-xl font-bold text-white">{stats.annotators?.length || 0}</p>
-                    <p className="text-xs text-dark-400">Annotators</p>
+                    <p className="text-xs text-purple-300/50">Annotators</p>
                   </div>
                 </div>
               )}
 
               {/* Annotator Name */}
               <div className="flex items-center gap-3 card p-3">
-                <label htmlFor="annotator-name" className="text-sm text-dark-400">Annotating as:</label>
+                <label htmlFor="annotator-name" className="text-sm text-purple-300/50">Annotating as:</label>
                 <input
                   id="annotator-name"
                   type="text"
@@ -292,11 +293,11 @@ export default function Annotations() {
 
               {/* Data Table with Annotation */}
               {projectData?.data && (
-                <div className="bg-dark-800 border border-dark-700 rounded-lg overflow-hidden">
+                <div className="bg-dark-800/40 border border-purple-500/20 rounded-lg overflow-hidden">
                   <div className="overflow-x-auto max-h-96">
                     <table className="w-full text-xs" role="table" aria-label="Annotation data">
-                      <thead className="sticky top-0 bg-dark-800">
-                        <tr className="text-dark-400 border-b border-dark-700">
+                      <thead className="sticky top-0 bg-dark-800/40">
+                        <tr className="text-purple-300/50 border-b border-purple-500/20">
                           <th className="text-left py-2 px-3" scope="col">#</th>
                           {projectData.data[0]?.map((col, i) => (
                             <th key={i} className="text-left py-2 px-3" scope="col">{col}</th>
@@ -309,10 +310,10 @@ export default function Annotations() {
                           const rowAnns = getRowAnnotations(idx + 1);
                           const currentLabel = rowAnns.length > 0 ? rowAnns[rowAnns.length - 1].label : null;
                           return (
-                            <tr key={idx} className="border-b border-dark-700/30 hover:bg-dark-700/20 transition-colors">
-                              <td className="py-2 px-3 text-dark-500">{idx + 1}</td>
+                            <tr key={idx} className="border-b border-purple-500/20/30 hover:bg-purple-500/15/20 transition-colors">
+                              <td className="py-2 px-3 text-purple-300/40">{idx + 1}</td>
                               {row.map((cell, i) => (
-                                <td key={i} className="py-2 px-3 text-dark-300 max-w-32 truncate">{cell}</td>
+                                <td key={i} className="py-2 px-3 text-purple-200/70 max-w-32 truncate">{cell}</td>
                               ))}
                               <td className="py-2 px-3">
                                 <div className="flex items-center gap-1 flex-wrap" role="group" aria-label={`Labels for row ${idx + 1}`}>
@@ -320,7 +321,7 @@ export default function Annotations() {
                                     <button
                                       key={label}
                                       onClick={() => handleAnnotate(idx + 1, label)}
-                                      className={`px-2 py-0.5 rounded text-xs transition-colors ${currentLabel === label ? 'bg-primary-500 text-white' : 'bg-dark-700 text-dark-400 hover:text-white hover:bg-dark-600'}`}
+                                      className={`px-2 py-0.5 rounded text-xs transition-colors ${currentLabel === label ? 'bg-gradient-btn text-white' : 'bg-purple-500/15 text-purple-300/50 hover:text-white hover:bg-purple-500/20'}`}
                                       aria-pressed={currentLabel === label}
                                     >
                                       {label}
@@ -335,7 +336,7 @@ export default function Annotations() {
                     </table>
                   </div>
                   {projectData.data.length > 51 && (
-                    <div className="p-2 text-center text-xs text-dark-500 border-t border-dark-700">
+                    <div className="p-2 text-center text-xs text-purple-300/40 border-t border-purple-500/20">
                       Showing first 50 rows of {projectData.data.length - 1}
                     </div>
                   )}

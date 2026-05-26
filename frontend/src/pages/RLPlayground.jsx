@@ -257,31 +257,31 @@ export default function RLPlayground() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-white">Reinforcement Learning Playground</h1>
-        <p className="text-dark-400 mt-1">Train agents in custom environments with visual feedback</p>
+        <p className="text-purple-300/50 mt-1">Train agents in custom environments with visual feedback</p>
       </div>
 
       {/* Environment & Algorithm Selection */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-dark-800 rounded-xl p-4 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-3">Environment</h3>
+        <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-3">Environment</h3>
           <div className="grid grid-cols-3 gap-2">
             {Object.entries(ENVIRONMENTS).map(([key, val]) => (
               <button key={key} onClick={() => setEnv(key)} disabled={training}
-                className={`p-3 rounded-lg border text-center ${env === key ? 'border-primary-500 bg-primary-500/10' : 'border-dark-600 bg-dark-900'} hover:border-primary-500/50`}>
+                className={`p-3 rounded-lg border text-center ${env === key ? 'border-primary-500 bg-primary-500/10' : 'border-purple-500/30 bg-dark-900'} hover:border-primary-500/50`}>
                 <span className="text-2xl">{val.icon}</span>
                 <p className="text-xs text-white mt-1">{val.name}</p>
               </button>
             ))}
           </div>
         </div>
-        <div className="bg-dark-800 rounded-xl p-4 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-3">Algorithm</h3>
+        <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-3">Algorithm</h3>
           <div className="grid grid-cols-3 gap-2">
             {Object.entries(ALGORITHMS).map(([key, val]) => (
               <button key={key} onClick={() => setAlgo(key)} disabled={training}
-                className={`p-3 rounded-lg border text-center ${algo === key ? 'border-primary-500 bg-primary-500/10' : 'border-dark-600 bg-dark-900'} hover:border-primary-500/50`}>
+                className={`p-3 rounded-lg border text-center ${algo === key ? 'border-primary-500 bg-primary-500/10' : 'border-purple-500/30 bg-dark-900'} hover:border-primary-500/50`}>
                 <p className="text-xs text-white font-medium">{val.name}</p>
-                <p className="text-xs text-dark-500 mt-1">{val.description}</p>
+                <p className="text-xs text-purple-300/40 mt-1">{val.description}</p>
               </button>
             ))}
           </div>
@@ -289,32 +289,32 @@ export default function RLPlayground() {
       </div>
 
       {/* Hyperparameters */}
-      <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-        <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Hyperparameters</h3>
+      <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+        <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Hyperparameters</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div>
-            <label className="text-xs text-dark-400">Learning Rate</label>
+            <label className="text-xs text-purple-300/50">Learning Rate</label>
             <input type="number" min={0.001} max={1} step={0.01} value={config.lr}
               onChange={e => setConfig(p => ({ ...p, lr: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={training} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={training} />
           </div>
           <div>
-            <label className="text-xs text-dark-400">Discount (γ)</label>
+            <label className="text-xs text-purple-300/50">Discount (γ)</label>
             <input type="number" min={0} max={1} step={0.01} value={config.gamma}
               onChange={e => setConfig(p => ({ ...p, gamma: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={training} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={training} />
           </div>
           <div>
-            <label className="text-xs text-dark-400">Epsilon (ε)</label>
+            <label className="text-xs text-purple-300/50">Epsilon (ε)</label>
             <input type="number" min={0} max={1} step={0.01} value={config.epsilon}
               onChange={e => setConfig(p => ({ ...p, epsilon: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={training} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={training} />
           </div>
           <div>
-            <label className="text-xs text-dark-400">Episodes</label>
+            <label className="text-xs text-purple-300/50">Episodes</label>
             <input type="number" min={10} max={1000} value={config.episodes}
               onChange={e => setConfig(p => ({ ...p, episodes: +e.target.value }))}
-              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white" disabled={training} />
+              className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white" disabled={training} />
           </div>
         </div>
         <button onClick={startTraining} disabled={training}
@@ -325,8 +325,8 @@ export default function RLPlayground() {
 
       {/* Environment Visualization */}
       {env === 'gridworld' && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Grid World</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Grid World</h3>
           <div className="grid grid-cols-5 gap-1 w-fit mx-auto">
             {Array.from({ length: 25 }, (_, i) => {
               const x = i % 5, y = Math.floor(i / 5);
@@ -339,38 +339,38 @@ export default function RLPlayground() {
                   isGoal ? 'bg-green-500/30 border-green-500' :
                   isAgent ? 'bg-primary-500/30 border-primary-500' :
                   isPath ? 'bg-yellow-500/20 border-yellow-500/50' :
-                  'bg-dark-900 border-dark-600'
+                  'bg-dark-900 border-purple-500/30'
                 }`} style={qVal && !isGoal && !isAgent ? { backgroundColor: `rgba(6, 182, 212, ${Math.min(1, qVal.value / 10) * 0.3})` } : {}}>
                   {isGoal ? '🎯' : isAgent ? '🤖' : isPath ? '·' : ''}
-                  {qVal && !isGoal && !isAgent && <span className="text-xs text-dark-400">{qVal.value.toFixed(1)}</span>}
+                  {qVal && !isGoal && !isAgent && <span className="text-xs text-purple-300/50">{qVal.value.toFixed(1)}</span>}
                 </div>
               );
             })}
           </div>
-          <div className="flex gap-4 mt-3 justify-center text-xs text-dark-400">
-            <span>🤖 Agent</span><span>🎯 Goal</span><span className="text-primary-400">■ Q-value intensity</span>
+          <div className="flex gap-4 mt-3 justify-center text-xs text-purple-300/50">
+            <span>🤖 Agent</span><span>🎯 Goal</span><span className="text-purple-400">■ Q-value intensity</span>
           </div>
         </div>
       )}
 
       {env === 'cartpole' && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Cart Pole</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Cart Pole</h3>
           <div className="flex justify-center">
             <svg width="300" height="150" className="bg-dark-900 rounded-lg">
-              <line x1="0" y1="120" x2="300" y2="120" stroke="#334155" strokeWidth="2" />
+              <line x1="0" y1="120" x2="300" y2="120" stroke="#2d1b69" strokeWidth="2" />
               <rect x={140 + cartState.x * 50} y="100" width="40" height="20" fill="#06b6d4" rx="3" />
               <line
                 x1={160 + cartState.x * 50}
                 y1="100"
                 x2={160 + cartState.x * 50 + Math.sin(cartState.angle) * 60}
                 y2={100 - Math.cos(cartState.angle) * 60}
-                stroke="#f59e0b" strokeWidth="4" strokeLinecap="round"
+                stroke="#6366F1" strokeWidth="4" strokeLinecap="round"
               />
               <circle
                 cx={160 + cartState.x * 50 + Math.sin(cartState.angle) * 60}
                 cy={100 - Math.cos(cartState.angle) * 60}
-                r="6" fill="#f59e0b"
+                r="6" fill="#6366F1"
               />
             </svg>
           </div>
@@ -378,19 +378,19 @@ export default function RLPlayground() {
       )}
 
       {env === 'trading' && tradingState.prices.length > 0 && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Trading Simulation</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Trading Simulation</h3>
           <div className="flex gap-4 mb-3 text-sm">
-            <span className="text-dark-400">Portfolio Value: <span className="text-green-400 font-bold">${tradingState.cash.toFixed(0)}</span></span>
-            <span className="text-dark-400">P&L: <span className={tradingState.cash >= 1000 ? 'text-green-400' : 'text-red-400'}>
+            <span className="text-purple-300/50">Portfolio Value: <span className="text-green-400 font-bold">${tradingState.cash.toFixed(0)}</span></span>
+            <span className="text-purple-300/50">P&L: <span className={tradingState.cash >= 1000 ? 'text-green-400' : 'text-red-400'}>
               {tradingState.cash >= 1000 ? '+' : ''}{(tradingState.cash - 1000).toFixed(0)}
             </span></span>
           </div>
           <ResponsiveContainer width="100%" height={150}>
             <LineChart data={tradingState.prices.map((p, i) => ({ t: i, price: p }))}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="t" stroke="#64748b" />
-              <YAxis stroke="#64748b" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+              <XAxis dataKey="t" stroke="#6b5b95" />
+              <YAxis stroke="#6b5b95" />
               <Line type="monotone" dataKey="price" stroke="#06b6d4" strokeWidth={1.5} dot={false} />
             </LineChart>
           </ResponsiveContainer>
@@ -399,14 +399,14 @@ export default function RLPlayground() {
 
       {/* Reward Curve */}
       {rewardHistory.length > 0 && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Reward Curve</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Reward Curve</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={rewardHistory}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="episode" stroke="#64748b" />
-              <YAxis stroke="#64748b" />
-              <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+              <XAxis dataKey="episode" stroke="#6b5b95" />
+              <YAxis stroke="#6b5b95" />
+              <Tooltip contentStyle={{ background: '#1E1045', border: '1px solid #2d1b69', borderRadius: '8px' }} />
               <Line type="monotone" dataKey="reward" stroke="#10b981" strokeWidth={1.5} dot={false} name="Reward" />
             </LineChart>
           </ResponsiveContainer>
@@ -415,14 +415,14 @@ export default function RLPlayground() {
 
       {/* Episode Length */}
       {episodeLengths.length > 0 && (
-        <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-          <h3 className="text-sm font-semibold text-dark-300 uppercase mb-4">Episode Length</h3>
+        <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+          <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-4">Episode Length</h3>
           <ResponsiveContainer width="100%" height={150}>
             <LineChart data={episodeLengths}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="episode" stroke="#64748b" />
-              <YAxis stroke="#64748b" />
-              <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+              <XAxis dataKey="episode" stroke="#6b5b95" />
+              <YAxis stroke="#6b5b95" />
+              <Tooltip contentStyle={{ background: '#1E1045', border: '1px solid #2d1b69', borderRadius: '8px' }} />
               <Line type="monotone" dataKey="length" stroke="#8b5cf6" strokeWidth={1.5} dot={false} name="Steps" />
             </LineChart>
           </ResponsiveContainer>

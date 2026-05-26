@@ -84,8 +84,8 @@ export default function ModelInterpretability({ weights, featureNames, predictio
   if (!featureNames || featureNames.length === 0) {
     return (
       <div className="card">
-        <h3 className="text-lg font-semibold text-dark-100 mb-4">🔍 Model Interpretability</h3>
-        <p className="text-dark-400 text-sm">Train a model first to see interpretability results.</p>
+        <h3 className="text-lg font-semibold text-white mb-4">🔍 Model Interpretability</h3>
+        <p className="text-purple-300/50 text-sm">Train a model first to see interpretability results.</p>
       </div>
     );
   }
@@ -94,16 +94,16 @@ export default function ModelInterpretability({ weights, featureNames, predictio
     <div className="space-y-6">
       {/* Feature Importance */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-dark-100 mb-4">📊 Feature Importance</h3>
-        <p className="text-xs text-dark-500 mb-4">Relative importance of each feature based on model weights (permutation importance approximation)</p>
+        <h3 className="text-lg font-semibold text-white mb-4">📊 Feature Importance</h3>
+        <p className="text-xs text-purple-300/40 mb-4">Relative importance of each feature based on model weights (permutation importance approximation)</p>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={featureImportance} layout="vertical" margin={{ left: 80 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis type="number" domain={[0, 1]} tick={{ fill: '#94a3b8', fontSize: 11 }} />
-              <YAxis type="category" dataKey="feature" tick={{ fill: '#94a3b8', fontSize: 11 }} width={80} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+              <XAxis type="number" domain={[0, 1]} tick={{ fill: '#A78BFA', fontSize: 11 }} />
+              <YAxis type="category" dataKey="feature" tick={{ fill: '#A78BFA', fontSize: 11 }} width={80} />
               <Tooltip
-                contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
+                contentStyle={{ backgroundColor: '#1E1045', border: '1px solid #2d1b69', borderRadius: '8px' }}
                 formatter={(value) => [value.toFixed(4), 'Importance']}
               />
               <Bar dataKey="importance" fill="#06b6d4" radius={[0, 4, 4, 0]} />
@@ -114,8 +114,8 @@ export default function ModelInterpretability({ weights, featureNames, predictio
 
       {/* Partial Dependence Plots */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-dark-100 mb-4">📈 Partial Dependence Plot</h3>
-        <p className="text-xs text-dark-500 mb-4">Shows how a feature affects the model prediction while averaging out other features</p>
+        <h3 className="text-lg font-semibold text-white mb-4">📈 Partial Dependence Plot</h3>
+        <p className="text-xs text-purple-300/40 mb-4">Shows how a feature affects the model prediction while averaging out other features</p>
 
         <div className="flex gap-2 mb-4 flex-wrap">
           {featureImportance.slice(0, 6).map(f => (
@@ -125,7 +125,7 @@ export default function ModelInterpretability({ weights, featureNames, predictio
               className={`px-3 py-1 rounded-lg text-xs transition-colors ${
                 selectedFeature === f.feature
                   ? 'bg-primary-500/20 text-primary-300 border border-primary-500/30'
-                  : 'bg-dark-800 text-dark-400 border border-dark-600 hover:border-dark-400'
+                  : 'bg-dark-800 text-purple-300/50 border border-dark-600 hover:border-dark-400'
               }`}
             >
               {f.feature}
@@ -137,15 +137,15 @@ export default function ModelInterpretability({ weights, featureNames, predictio
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={pdpData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
                 <XAxis
                   dataKey="value"
-                  tick={{ fill: '#94a3b8', fontSize: 11 }}
-                  label={{ value: selectedFeature, position: 'bottom', fill: '#94a3b8', fontSize: 11 }}
+                  tick={{ fill: '#A78BFA', fontSize: 11 }}
+                  label={{ value: selectedFeature, position: 'bottom', fill: '#A78BFA', fontSize: 11 }}
                 />
-                <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} label={{ value: 'Prediction', angle: -90, fill: '#94a3b8', fontSize: 11 }} />
+                <YAxis tick={{ fill: '#A78BFA', fontSize: 11 }} label={{ value: 'Prediction', angle: -90, fill: '#A78BFA', fontSize: 11 }} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
+                  contentStyle={{ backgroundColor: '#1E1045', border: '1px solid #2d1b69', borderRadius: '8px' }}
                   labelStyle={{ color: '#e2e8f0' }}
                 />
                 <Line type="monotone" dataKey="prediction" stroke="#06b6d4" strokeWidth={2} dot={false} />
@@ -153,7 +153,7 @@ export default function ModelInterpretability({ weights, featureNames, predictio
             </ResponsiveContainer>
           </div>
         ) : (
-          <div className="h-48 flex items-center justify-center text-dark-500 text-sm">
+          <div className="h-48 flex items-center justify-center text-purple-300/40 text-sm">
             Select a feature above to view its partial dependence plot
           </div>
         )}

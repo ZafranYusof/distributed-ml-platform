@@ -12,6 +12,7 @@
     "@tensorflow/tfjs": "4.22.0",
     "@xyflow/react": "^12.10.2",
     "framer-motion": "^11.18.0",
+    "lucide-react": "0.454.0",
     "papaparse": "5.4.1",
     "prismjs": "^1.30.0",
     "react": "19.1.0",

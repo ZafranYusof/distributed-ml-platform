@@ -117,46 +117,46 @@ export default function Federated() {
     simulateRound(0);
   };
 
-  if (!user) return <div className="text-dark-400 text-center py-20">Sign in to use Federated Learning</div>;
+  if (!user) return <div className="text-purple-300/50 text-center py-20">Sign in to use Federated Learning</div>;
 
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-white">Federated Learning</h1>
-        <p className="text-dark-400 mt-1">Simulate privacy-preserving distributed training with FedAvg aggregation</p>
+        <p className="text-purple-300/50 mt-1">Simulate privacy-preserving distributed training with FedAvg aggregation</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Configuration */}
-        <div className="bg-dark-800 border border-dark-700 rounded-xl p-6">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6">
           <h3 className="text-white font-semibold mb-4">Configuration</h3>
           <div className="space-y-4">
             <div>
-              <label className="text-dark-400 text-sm">Number of Clients</label>
+              <label className="text-purple-300/50 text-sm">Number of Clients</label>
               <input type="range" min={2} max={10} value={numClients} onChange={e => setNumClients(parseInt(e.target.value))}
                 className="w-full mt-1 accent-cyan-500" />
               <span className="text-dark-200 text-sm">{numClients} clients</span>
             </div>
             <div>
-              <label className="text-dark-400 text-sm">Communication Rounds</label>
+              <label className="text-purple-300/50 text-sm">Communication Rounds</label>
               <input type="range" min={5} max={30} value={rounds} onChange={e => setRounds(parseInt(e.target.value))}
                 className="w-full mt-1 accent-cyan-500" />
               <span className="text-dark-200 text-sm">{rounds} rounds</span>
             </div>
             <div>
-              <label className="text-dark-400 text-sm">Local Epochs per Round</label>
+              <label className="text-purple-300/50 text-sm">Local Epochs per Round</label>
               <input type="range" min={1} max={10} value={localEpochs} onChange={e => setLocalEpochs(parseInt(e.target.value))}
                 className="w-full mt-1 accent-cyan-500" />
               <span className="text-dark-200 text-sm">{localEpochs} epochs</span>
             </div>
-            <div className="border-t border-dark-700 pt-4">
+            <div className="border-t border-purple-500/20 pt-4">
               <label className="flex items-center gap-3 cursor-pointer">
                 <input type="checkbox" checked={diffPrivacy} onChange={e => setDiffPrivacy(e.target.checked)} className="accent-cyan-500" />
                 <span className="text-dark-200 text-sm">Differential Privacy</span>
               </label>
               {diffPrivacy && (
                 <div className="mt-3">
-                  <label className="text-dark-400 text-xs">Noise Scale (ε)</label>
+                  <label className="text-purple-300/50 text-xs">Noise Scale (ε)</label>
                   <input type="range" min={0.01} max={1} step={0.01} value={noiseScale} onChange={e => setNoiseScale(parseFloat(e.target.value))}
                     className="w-full mt-1 accent-cyan-500" />
                   <span className="text-dark-200 text-xs">{noiseScale.toFixed(2)}</span>
@@ -164,18 +164,18 @@ export default function Federated() {
               )}
             </div>
             <button onClick={runFederated} disabled={running}
-              className="w-full px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed">
+              className="w-full px-4 py-2 bg-gradient-btn text-white rounded-lg hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed">
               {running ? `Training... ${progress.toFixed(0)}%` : 'Start Federated Training'}
             </button>
           </div>
 
           {/* Client visualization */}
           <div className="mt-6">
-            <p className="text-dark-400 text-xs mb-2">Clients:</p>
+            <p className="text-purple-300/50 text-xs mb-2">Clients:</p>
             <div className="grid grid-cols-5 gap-2">
               {Array.from({ length: numClients }, (_, i) => (
                 <div key={i} className="flex flex-col items-center">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs ${running ? 'bg-green-500/20 text-green-400 animate-pulse' : 'bg-dark-700 text-dark-400'}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs ${running ? 'bg-green-500/20 text-green-400 animate-pulse' : 'bg-purple-500/15 text-purple-300/50'}`}>
                     {i + 1}
                   </div>
                 </div>
@@ -187,13 +187,13 @@ export default function Federated() {
         {/* Results */}
         <div className="lg:col-span-2 space-y-6">
           {running && (
-            <div className="bg-dark-800 border border-dark-700 rounded-xl p-6">
+            <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6">
               <div className="flex items-center gap-3">
                 <div className="animate-spin w-5 h-5 border-2 border-primary-400 border-t-transparent rounded-full"></div>
                 <span className="text-dark-200">Training in progress... Round {Math.ceil(progress / 100 * rounds)}/{rounds}</span>
               </div>
-              <div className="mt-3 w-full bg-dark-700 rounded-full h-2">
-                <div className="bg-primary-500 h-2 rounded-full transition-all" style={{ width: `${progress}%` }}></div>
+              <div className="mt-3 w-full bg-purple-500/15 rounded-full h-2">
+                <div className="bg-gradient-btn h-2 rounded-full transition-all" style={{ width: `${progress}%` }}></div>
               </div>
             </div>
           )}
@@ -201,34 +201,34 @@ export default function Federated() {
           {results && (
             <>
               {/* Global convergence */}
-              <div className="bg-dark-800 border border-dark-700 rounded-xl p-6">
+              <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6">
                 <h3 className="text-white font-semibold mb-4">Global Model Convergence</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <LineChart data={results.roundResults}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                    <XAxis dataKey="round" stroke="#64748b" />
-                    <YAxis stroke="#64748b" domain={[0, 100]} />
-                    <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155' }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+                    <XAxis dataKey="round" stroke="#6b5b95" />
+                    <YAxis stroke="#6b5b95" domain={[0, 100]} />
+                    <Tooltip contentStyle={{ backgroundColor: '#1E1045', border: '1px solid #2d1b69' }} />
                     <Legend />
                     <Line type="monotone" dataKey="globalAccuracy" name="Global Accuracy" stroke="#06b6d4" strokeWidth={2} />
-                    <Line type="monotone" dataKey="avgClientAccuracy" name="Avg Client Accuracy" stroke="#f59e0b" strokeWidth={2} strokeDasharray="5 5" />
+                    <Line type="monotone" dataKey="avgClientAccuracy" name="Avg Client Accuracy" stroke="#6366F1" strokeWidth={2} strokeDasharray="5 5" />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
 
               {/* Per-client metrics */}
-              <div className="bg-dark-800 border border-dark-700 rounded-xl p-6">
+              <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6">
                 <h3 className="text-white font-semibold mb-4">Per-Client Accuracy</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <LineChart>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                    <XAxis dataKey="round" stroke="#64748b" type="number" domain={[1, results.rounds]} />
-                    <YAxis stroke="#64748b" domain={[0, 100]} />
-                    <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155' }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+                    <XAxis dataKey="round" stroke="#6b5b95" type="number" domain={[1, results.rounds]} />
+                    <YAxis stroke="#6b5b95" domain={[0, 100]} />
+                    <Tooltip contentStyle={{ backgroundColor: '#1E1045', border: '1px solid #2d1b69' }} />
                     <Legend />
                     {results.clientMetrics.map((metrics, i) => (
                       <Line key={i} data={metrics} type="monotone" dataKey="accuracy" name={`Client ${i + 1}`}
-                        stroke={['#06b6d4', '#f59e0b', '#10b981', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6', '#f97316', '#6366f1', '#84cc16'][i]}
+                        stroke={['#06b6d4', '#6366F1', '#10b981', '#8b5cf6', '#ef4444', '#ec4899', '#14b8a6', '#f97316', '#6366f1', '#84cc16'][i]}
                         strokeWidth={1.5} dot={false} />
                     ))}
                   </LineChart>
@@ -237,20 +237,20 @@ export default function Federated() {
 
               {/* Summary stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-dark-800 border border-dark-700 rounded-xl p-4">
-                  <p className="text-dark-400 text-xs">Final Global Acc</p>
-                  <p className="text-2xl font-bold text-primary-400">{results.roundResults[results.roundResults.length - 1].globalAccuracy}%</p>
+                <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-4">
+                  <p className="text-purple-300/50 text-xs">Final Global Acc</p>
+                  <p className="text-2xl font-bold text-purple-400">{results.roundResults[results.roundResults.length - 1].globalAccuracy}%</p>
                 </div>
-                <div className="bg-dark-800 border border-dark-700 rounded-xl p-4">
-                  <p className="text-dark-400 text-xs">Clients</p>
+                <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-4">
+                  <p className="text-purple-300/50 text-xs">Clients</p>
                   <p className="text-2xl font-bold text-dark-200">{results.numClients}</p>
                 </div>
-                <div className="bg-dark-800 border border-dark-700 rounded-xl p-4">
-                  <p className="text-dark-400 text-xs">Rounds</p>
+                <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-4">
+                  <p className="text-purple-300/50 text-xs">Rounds</p>
                   <p className="text-2xl font-bold text-dark-200">{results.rounds}</p>
                 </div>
-                <div className="bg-dark-800 border border-dark-700 rounded-xl p-4">
-                  <p className="text-dark-400 text-xs">Privacy</p>
+                <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-4">
+                  <p className="text-purple-300/50 text-xs">Privacy</p>
                   <p className="text-lg font-bold text-dark-200">{diffPrivacy ? `ε=${noiseScale}` : 'Off'}</p>
                 </div>
               </div>
@@ -258,8 +258,8 @@ export default function Federated() {
           )}
 
           {!results && !running && (
-            <div className="bg-dark-800 border border-dark-700 rounded-xl p-6 flex items-center justify-center h-64">
-              <div className="text-center text-dark-400">
+            <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6 flex items-center justify-center h-64">
+              <div className="text-center text-purple-300/50">
                 <p className="text-4xl mb-4">🔒</p>
                 <p>Configure and start federated training to see results</p>
                 <p className="text-xs mt-2">Each client trains locally, only gradients are shared</p>

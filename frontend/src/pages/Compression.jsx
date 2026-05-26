@@ -129,7 +129,7 @@ export default function Compression() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-white">Model Compression</h1>
-        <p className="text-dark-400 mt-1">Reduce model size with quantization, pruning, and knowledge distillation</p>
+        <p className="text-purple-300/50 mt-1">Reduce model size with quantization, pruning, and knowledge distillation</p>
       </div>
 
       {/* Technique Selection */}
@@ -142,24 +142,24 @@ export default function Compression() {
           <div
             key={t.id}
             onClick={() => { setTechnique(t.id); setResults(null); }}
-            className={`bg-dark-800 border rounded-lg p-4 cursor-pointer transition-colors ${technique === t.id ? 'border-primary-500 bg-primary-500/5' : 'border-dark-700 hover:border-dark-600'}`}
+            className={`bg-dark-800/40 border rounded-lg p-4 cursor-pointer transition-colors ${technique === t.id ? 'border-primary-500 bg-primary-500/5' : 'border-purple-500/20 hover:border-purple-500/30'}`}
           >
             <div className="text-2xl mb-2">{t.icon}</div>
             <h3 className="text-white font-medium">{t.name}</h3>
-            <p className="text-dark-400 text-xs mt-1">{t.desc}</p>
+            <p className="text-purple-300/50 text-xs mt-1">{t.desc}</p>
           </div>
         ))}
       </div>
 
       {/* Configuration */}
-      <div className="bg-dark-800 border border-dark-700 rounded-lg p-6">
+      <div className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6">
         <h3 className="text-lg font-semibold text-white mb-4">Configuration</h3>
 
         {technique === 'quantization' && (
           <div>
-            <label className="block text-sm text-dark-400 mb-2">Target Bit Width: {config.quantization.bits}-bit</label>
+            <label className="block text-sm text-purple-300/50 mb-2">Target Bit Width: {config.quantization.bits}-bit</label>
             <input type="range" min="2" max="16" step="2" value={config.quantization.bits} onChange={(e) => setConfig(prev => ({ ...prev, quantization: { bits: parseInt(e.target.value) } }))} className="w-full max-w-md" />
-            <div className="flex justify-between text-xs text-dark-500 max-w-md mt-1">
+            <div className="flex justify-between text-xs text-purple-300/40 max-w-md mt-1">
               <span>2-bit (aggressive)</span>
               <span>8-bit (standard)</span>
               <span>16-bit (mild)</span>
@@ -169,90 +169,90 @@ export default function Compression() {
 
         {technique === 'pruning' && (
           <div>
-            <label className="block text-sm text-dark-400 mb-2">Weight Threshold: {config.pruning.threshold.toFixed(2)}</label>
+            <label className="block text-sm text-purple-300/50 mb-2">Weight Threshold: {config.pruning.threshold.toFixed(2)}</label>
             <input type="range" min="0.01" max="1" step="0.01" value={config.pruning.threshold} onChange={(e) => setConfig(prev => ({ ...prev, pruning: { threshold: parseFloat(e.target.value) } }))} className="w-full max-w-md" />
-            <p className="text-xs text-dark-500 mt-1">Weights with absolute value below this threshold will be zeroed out</p>
+            <p className="text-xs text-purple-300/40 mt-1">Weights with absolute value below this threshold will be zeroed out</p>
           </div>
         )}
 
         {technique === 'distillation' && (
           <div className="space-y-4">
             <div>
-              <label className="block text-sm text-dark-400 mb-2">Teacher Model Layers</label>
+              <label className="block text-sm text-purple-300/50 mb-2">Teacher Model Layers</label>
               <div className="flex items-center gap-2">
                 {config.distillation.teacherLayers.map((l, i) => (
-                  <span key={i} className="bg-dark-900 border border-dark-600 text-dark-200 px-3 py-1 rounded text-sm">{l}</span>
+                  <span key={i} className="bg-dark-900 border border-purple-500/30 text-dark-200 px-3 py-1 rounded text-sm">{l}</span>
                 ))}
-                <span className="text-dark-500 text-xs">(fixed)</span>
+                <span className="text-purple-300/40 text-xs">(fixed)</span>
               </div>
             </div>
             <div>
-              <label className="block text-sm text-dark-400 mb-2">Student Model Layers</label>
+              <label className="block text-sm text-purple-300/50 mb-2">Student Model Layers</label>
               <div className="flex items-center gap-2">
                 {config.distillation.studentLayers.map((l, i) => (
                   <input key={i} type="number" value={l} onChange={(e) => {
                     const newLayers = [...config.distillation.studentLayers];
                     newLayers[i] = parseInt(e.target.value) || 1;
                     setConfig(prev => ({ ...prev, distillation: { ...prev.distillation, studentLayers: newLayers } }));
-                  }} className="w-16 bg-dark-900 border border-dark-600 text-dark-200 rounded px-2 py-1 text-sm" />
+                  }} className="w-16 bg-dark-900 border border-purple-500/30 text-dark-200 rounded px-2 py-1 text-sm" />
                 ))}
-                <button onClick={() => setConfig(prev => ({ ...prev, distillation: { ...prev.distillation, studentLayers: [...prev.distillation.studentLayers, 8] } }))} className="text-primary-400 text-sm hover:text-primary-300">+ Add</button>
+                <button onClick={() => setConfig(prev => ({ ...prev, distillation: { ...prev.distillation, studentLayers: [...prev.distillation.studentLayers, 8] } }))} className="text-purple-400 text-sm hover:text-purple-300">+ Add</button>
               </div>
             </div>
           </div>
         )}
 
-        <button onClick={handleRun} disabled={running} className="mt-4 px-6 py-3 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors">
+        <button onClick={handleRun} disabled={running} className="mt-4 px-6 py-3 bg-gradient-btn text-white rounded-lg font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors">
           {running ? '⏳ Compressing...' : '🗜 Run Compression'}
         </button>
       </div>
 
       {/* Results */}
       {results && (
-        <div className="bg-dark-800 border border-dark-700 rounded-lg p-6">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Compression Results — {results.technique}</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <div className="bg-dark-900 rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-white">{formatBytes(results.originalSize)}</p>
-              <p className="text-xs text-dark-400 mt-1">Original Size</p>
+              <p className="text-xs text-purple-300/50 mt-1">Original Size</p>
             </div>
             <div className="bg-dark-900 rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-green-400">{formatBytes(results.compressedSize)}</p>
-              <p className="text-xs text-dark-400 mt-1">Compressed Size</p>
+              <p className="text-xs text-purple-300/50 mt-1">Compressed Size</p>
             </div>
             <div className="bg-dark-900 rounded-lg p-4 text-center">
-              <p className="text-2xl font-bold text-primary-400">{results.compressionRatio}%</p>
-              <p className="text-xs text-dark-400 mt-1">Size Reduction</p>
+              <p className="text-2xl font-bold text-purple-400">{results.compressionRatio}%</p>
+              <p className="text-xs text-purple-300/50 mt-1">Size Reduction</p>
             </div>
             <div className="bg-dark-900 rounded-lg p-4 text-center">
               <p className="text-2xl font-bold text-yellow-400">{results.accuracyImpact}</p>
-              <p className="text-xs text-dark-400 mt-1">Accuracy Impact</p>
+              <p className="text-xs text-purple-300/50 mt-1">Accuracy Impact</p>
             </div>
           </div>
 
           {/* Details */}
           <div className="bg-dark-900 rounded-lg p-4">
-            <h4 className="text-sm font-medium text-dark-300 mb-2">Details</h4>
-            <pre className="text-xs text-dark-400 overflow-auto">{JSON.stringify(results.details, null, 2)}</pre>
+            <h4 className="text-sm font-medium text-purple-200/70 mb-2">Details</h4>
+            <pre className="text-xs text-purple-300/50 overflow-auto">{JSON.stringify(results.details, null, 2)}</pre>
           </div>
 
           {/* Visual comparison bar */}
           <div className="mt-4">
-            <p className="text-sm text-dark-400 mb-2">Size Comparison</p>
+            <p className="text-sm text-purple-300/50 mb-2">Size Comparison</p>
             <div className="space-y-2">
               <div className="flex items-center gap-3">
-                <span className="text-xs text-dark-400 w-20">Original</span>
-                <div className="flex-1 bg-dark-700 rounded-full h-4">
+                <span className="text-xs text-purple-300/50 w-20">Original</span>
+                <div className="flex-1 bg-purple-500/15 rounded-full h-4">
                   <div className="bg-dark-500 h-4 rounded-full" style={{ width: '100%' }}></div>
                 </div>
-                <span className="text-xs text-dark-400">{formatBytes(results.originalSize)}</span>
+                <span className="text-xs text-purple-300/50">{formatBytes(results.originalSize)}</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-xs text-dark-400 w-20">Compressed</span>
-                <div className="flex-1 bg-dark-700 rounded-full h-4">
-                  <div className="bg-primary-500 h-4 rounded-full transition-all" style={{ width: `${(results.compressedSize / results.originalSize) * 100}%` }}></div>
+                <span className="text-xs text-purple-300/50 w-20">Compressed</span>
+                <div className="flex-1 bg-purple-500/15 rounded-full h-4">
+                  <div className="bg-gradient-btn h-4 rounded-full transition-all" style={{ width: `${(results.compressedSize / results.originalSize) * 100}%` }}></div>
                 </div>
-                <span className="text-xs text-primary-400">{formatBytes(results.compressedSize)}</span>
+                <span className="text-xs text-purple-400">{formatBytes(results.compressedSize)}</span>
               </div>
             </div>
           </div>

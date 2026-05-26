@@ -207,15 +207,15 @@ export default function AutoML() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h2 className="text-2xl font-bold text-dark-50">AutoML</h2>
-        <p className="text-dark-400 mt-1">Automatic hyperparameter search to find the best model configuration</p>
+        <p className="text-purple-300/50 mt-1">Automatic hyperparameter search to find the best model configuration</p>
       </div>
 
       {/* Dataset Selection */}
       {!dataset ? (
         <div className="card space-y-4">
-          <h3 className="text-lg font-semibold text-dark-100">📁 Select Dataset</h3>
+          <h3 className="text-lg font-semibold text-white">📁 Select Dataset</h3>
           <div
-            className="border-2 border-dashed rounded-xl p-8 text-center border-dark-600 hover:border-dark-400 cursor-pointer transition-colors"
+            className="border-2 border-dashed rounded-xl p-8 text-center border-purple-500/30 hover:border-dark-400 cursor-pointer transition-colors"
             onClick={() => document.getElementById('automl-file-input').click()}
           >
             <div className="text-3xl mb-2">📂</div>
@@ -230,13 +230,13 @@ export default function AutoML() {
           </div>
           <div className="grid grid-cols-3 gap-3">
             <button onClick={() => loadSample('iris')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-dark-100">🌸 Iris</div>
+              <div className="text-sm font-medium text-white">🌸 Iris</div>
             </button>
             <button onClick={() => loadSample('housing')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-dark-100">🏠 Housing</div>
+              <div className="text-sm font-medium text-white">🏠 Housing</div>
             </button>
             <button onClick={() => loadSample('sequence')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-dark-100">📈 Sine Wave</div>
+              <div className="text-sm font-medium text-white">📈 Sine Wave</div>
             </button>
           </div>
         </div>
@@ -248,18 +248,18 @@ export default function AutoML() {
               <div className="flex items-center gap-3">
                 <span className="text-2xl">📊</span>
                 <div>
-                  <p className="font-medium text-dark-100">{dataset.name}</p>
-                  <p className="text-sm text-dark-400">{dataset.rows} rows · {dataset.columns.length} columns</p>
+                  <p className="font-medium text-white">{dataset.name}</p>
+                  <p className="text-sm text-purple-300/50">{dataset.rows} rows · {dataset.columns.length} columns</p>
                 </div>
               </div>
-              <button onClick={() => { setDataset(null); setResults([]); setBestResult(null); }} className="text-dark-400 hover:text-red-400 text-sm">
+              <button onClick={() => { setDataset(null); setResults([]); setBestResult(null); }} className="text-purple-300/50 hover:text-red-400 text-sm">
                 Change
               </button>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-dark-300 mb-1">Target Column</label>
+                <label className="block text-sm text-purple-200/70 mb-1">Target Column</label>
                 <select
                   value={targetColumn}
                   onChange={(e) => setTargetColumn(e.target.value)}
@@ -283,36 +283,36 @@ export default function AutoML() {
               </div>
             </div>
 
-            <div className="mt-4 p-3 bg-dark-800 rounded-lg border border-dark-600">
-              <p className="text-xs text-dark-400 mb-2">Search Space:</p>
-              <div className="grid grid-cols-3 gap-4 text-xs text-dark-300">
-                <div><span className="text-dark-500">Learning Rates:</span> 0.001, 0.01, 0.05, 0.1</div>
-                <div><span className="text-dark-500">Batch Sizes:</span> 16, 32, 64</div>
-                <div><span className="text-dark-500">Architectures:</span> [32], [64,32], [128,64], [64,32,16]</div>
+            <div className="mt-4 p-3 bg-dark-800/40 rounded-lg border border-purple-500/30">
+              <p className="text-xs text-purple-300/50 mb-2">Search Space:</p>
+              <div className="grid grid-cols-3 gap-4 text-xs text-purple-200/70">
+                <div><span className="text-purple-300/40">Learning Rates:</span> 0.001, 0.01, 0.05, 0.1</div>
+                <div><span className="text-purple-300/40">Batch Sizes:</span> 16, 32, 64</div>
+                <div><span className="text-purple-300/40">Architectures:</span> [32], [64,32], [128,64], [64,32,16]</div>
               </div>
-              <p className="text-xs text-dark-500 mt-2">Total configurations: 48 · 30 epochs each</p>
+              <p className="text-xs text-purple-300/40 mt-2">Total configurations: 48 · 30 epochs each</p>
             </div>
           </div>
 
           {/* Progress */}
           {(running || results.length > 0) && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-dark-100 mb-4">
+              <h3 className="text-lg font-semibold text-white mb-4">
                 {running ? '⏳ Search Progress' : '✅ Search Complete'}
               </h3>
               <div className="mb-4">
-                <div className="flex justify-between text-sm text-dark-400 mb-1">
+                <div className="flex justify-between text-sm text-purple-300/50 mb-1">
                   <span>Configuration {progress.current} / {progress.total}</span>
                   <span>{Math.round((progress.current / progress.total) * 100)}%</span>
                 </div>
-                <div className="w-full bg-dark-700 rounded-full h-3">
+                <div className="w-full bg-purple-500/15 rounded-full h-3">
                   <div
-                    className="bg-primary-500 h-3 rounded-full transition-all duration-300"
+                    className="bg-gradient-btn h-3 rounded-full transition-all duration-300"
                     style={{ width: `${(progress.current / progress.total) * 100}%` }}
                   ></div>
                 </div>
                 {progress.currentConfig && running && (
-                  <p className="text-xs text-dark-500 mt-2">
+                  <p className="text-xs text-purple-300/40 mt-2">
                     Testing: LR={progress.currentConfig.learningRate}, Batch={progress.currentConfig.batchSize}, Layers=[{progress.currentConfig.layers.join(',')}]
                   </p>
                 )}
@@ -323,22 +323,22 @@ export default function AutoML() {
           {/* Best Result */}
           {bestResult && (
             <div className="card border-primary-500/30">
-              <h3 className="text-lg font-semibold text-primary-400 mb-3">🏆 Best Configuration</h3>
+              <h3 className="text-lg font-semibold text-purple-400 mb-3">🏆 Best Configuration</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-dark-800 rounded-lg p-3">
-                  <p className="text-xs text-dark-400">Learning Rate</p>
-                  <p className="text-lg font-bold text-dark-100">{bestResult.config.learningRate}</p>
+                <div className="bg-dark-800/40 rounded-lg p-3">
+                  <p className="text-xs text-purple-300/50">Learning Rate</p>
+                  <p className="text-lg font-bold text-white">{bestResult.config.learningRate}</p>
                 </div>
-                <div className="bg-dark-800 rounded-lg p-3">
-                  <p className="text-xs text-dark-400">Batch Size</p>
-                  <p className="text-lg font-bold text-dark-100">{bestResult.config.batchSize}</p>
+                <div className="bg-dark-800/40 rounded-lg p-3">
+                  <p className="text-xs text-purple-300/50">Batch Size</p>
+                  <p className="text-lg font-bold text-white">{bestResult.config.batchSize}</p>
                 </div>
-                <div className="bg-dark-800 rounded-lg p-3">
-                  <p className="text-xs text-dark-400">Architecture</p>
-                  <p className="text-lg font-bold text-dark-100">[{bestResult.config.layers.join(', ')}]</p>
+                <div className="bg-dark-800/40 rounded-lg p-3">
+                  <p className="text-xs text-purple-300/50">Architecture</p>
+                  <p className="text-lg font-bold text-white">[{bestResult.config.layers.join(', ')}]</p>
                 </div>
-                <div className="bg-dark-800 rounded-lg p-3">
-                  <p className="text-xs text-dark-400">Test Loss</p>
+                <div className="bg-dark-800/40 rounded-lg p-3">
+                  <p className="text-xs text-purple-300/50">Test Loss</p>
                   <p className="text-lg font-bold text-green-400">{bestResult.testLoss.toFixed(6)}</p>
                 </div>
               </div>
@@ -348,17 +348,17 @@ export default function AutoML() {
           {/* Results Table */}
           {results.length > 0 && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-dark-100 mb-4">📋 All Results (Ranked)</h3>
+              <h3 className="text-lg font-semibold text-white mb-4">📋 All Results (Ranked)</h3>
               <div className="overflow-x-auto max-h-96 overflow-y-auto">
                 <table className="w-full text-sm">
                   <thead className="sticky top-0 bg-dark-900">
-                    <tr className="border-b border-dark-700">
-                      <th className="text-left py-2 px-3 text-dark-400">#</th>
-                      <th className="text-left py-2 px-3 text-dark-400">Layers</th>
-                      <th className="text-right py-2 px-3 text-dark-400">LR</th>
-                      <th className="text-right py-2 px-3 text-dark-400">Batch</th>
-                      <th className="text-right py-2 px-3 text-dark-400">Train Loss</th>
-                      <th className="text-right py-2 px-3 text-dark-400">Test Loss</th>
+                    <tr className="border-b border-purple-500/20">
+                      <th className="text-left py-2 px-3 text-purple-300/50">#</th>
+                      <th className="text-left py-2 px-3 text-purple-300/50">Layers</th>
+                      <th className="text-right py-2 px-3 text-purple-300/50">LR</th>
+                      <th className="text-right py-2 px-3 text-purple-300/50">Batch</th>
+                      <th className="text-right py-2 px-3 text-purple-300/50">Train Loss</th>
+                      <th className="text-right py-2 px-3 text-purple-300/50">Test Loss</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -366,13 +366,13 @@ export default function AutoML() {
                       .filter(r => r.testLoss !== Infinity)
                       .sort((a, b) => a.testLoss - b.testLoss)
                       .map((r, i) => (
-                        <tr key={i} className={`border-b border-dark-800 ${i === 0 ? 'bg-primary-500/5' : 'hover:bg-dark-800/50'}`}>
-                          <td className="py-2 px-3 text-dark-300">{i + 1}</td>
+                        <tr key={i} className={`border-b border-dark-800 ${i === 0 ? 'bg-primary-500/5' : 'hover:bg-purple-500/10/50'}`}>
+                          <td className="py-2 px-3 text-purple-200/70">{i + 1}</td>
                           <td className="py-2 px-3 text-dark-200 font-mono">[{r.config.layers.join(',')}]</td>
-                          <td className="text-right py-2 px-3 text-dark-300 font-mono">{r.config.learningRate}</td>
-                          <td className="text-right py-2 px-3 text-dark-300">{r.config.batchSize}</td>
-                          <td className="text-right py-2 px-3 text-dark-300 font-mono">{r.trainLoss.toFixed(6)}</td>
-                          <td className="text-right py-2 px-3 text-dark-300 font-mono">{r.testLoss.toFixed(6)}</td>
+                          <td className="text-right py-2 px-3 text-purple-200/70 font-mono">{r.config.learningRate}</td>
+                          <td className="text-right py-2 px-3 text-purple-200/70">{r.config.batchSize}</td>
+                          <td className="text-right py-2 px-3 text-purple-200/70 font-mono">{r.trainLoss.toFixed(6)}</td>
+                          <td className="text-right py-2 px-3 text-purple-200/70 font-mono">{r.testLoss.toFixed(6)}</td>
                         </tr>
                       ))}
                   </tbody>

@@ -147,7 +147,7 @@ export default function ABTesting() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-dark-50">A/B Testing</h2>
-          <p className="text-dark-400 mt-1">Compare model performance with traffic splitting</p>
+          <p className="text-purple-300/50 mt-1">Compare model performance with traffic splitting</p>
         </div>
         <button onClick={() => setShowCreate(!showCreate)} className="btn-primary flex items-center gap-2">
           <span>🔬</span> New A/B Test
@@ -157,10 +157,10 @@ export default function ABTesting() {
       {/* Create Form */}
       {showCreate && (
         <div className="card border-primary-500/20">
-          <h3 className="text-lg font-semibold text-dark-100 mb-4">🔬 Create A/B Test</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">🔬 Create A/B Test</h3>
           <form onSubmit={handleCreate} className="space-y-4">
             <div>
-              <label className="block text-sm text-dark-300 mb-1">Test Name</label>
+              <label className="block text-sm text-purple-200/70 mb-1">Test Name</label>
               <input
                 type="text"
                 value={form.name}
@@ -172,7 +172,7 @@ export default function ABTesting() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-dark-300 mb-1">Model A Name</label>
+                <label className="block text-sm text-purple-200/70 mb-1">Model A Name</label>
                 <input
                   type="text"
                   value={form.modelAName}
@@ -182,7 +182,7 @@ export default function ABTesting() {
                 />
               </div>
               <div>
-                <label className="block text-sm text-dark-300 mb-1">Model B Name</label>
+                <label className="block text-sm text-purple-200/70 mb-1">Model B Name</label>
                 <input
                   type="text"
                   value={form.modelBName}
@@ -193,7 +193,7 @@ export default function ABTesting() {
               </div>
             </div>
             <div>
-              <label className="block text-sm text-dark-300 mb-1">
+              <label className="block text-sm text-purple-200/70 mb-1">
                 Traffic Split (Model A: {form.trafficSplit}% / Model B: {100 - form.trafficSplit}%)
               </label>
               <input
@@ -205,7 +205,7 @@ export default function ABTesting() {
                 onChange={(e) => setForm(prev => ({ ...prev, trafficSplit: parseInt(e.target.value) }))}
                 className="w-full"
               />
-              <div className="flex justify-between text-xs text-dark-500 mt-1">
+              <div className="flex justify-between text-xs text-purple-300/40 mt-1">
                 <span>Model A heavy</span>
                 <span>Equal</span>
                 <span>Model B heavy</span>
@@ -225,13 +225,13 @@ export default function ABTesting() {
       {loading ? (
         <div className="text-center py-12">
           <div className="text-4xl animate-pulse">⏳</div>
-          <p className="text-dark-400 mt-2">Loading tests...</p>
+          <p className="text-purple-300/50 mt-2">Loading tests...</p>
         </div>
       ) : tests.length === 0 ? (
         <div className="card text-center py-12">
           <div className="text-4xl mb-3">🔬</div>
-          <p className="text-dark-300 font-medium">No A/B tests yet</p>
-          <p className="text-dark-500 text-sm mt-1">Create a test to compare model performance</p>
+          <p className="text-purple-200/70 font-medium">No A/B tests yet</p>
+          <p className="text-purple-300/40 text-sm mt-1">Create a test to compare model performance</p>
         </div>
       ) : (
         <div className="space-y-4">
@@ -241,8 +241,8 @@ export default function ABTesting() {
                 <div className="flex items-center gap-4">
                   <div className={`w-3 h-3 rounded-full ${test.status === 'active' ? 'bg-green-400 animate-pulse' : test.status === 'paused' ? 'bg-yellow-400' : 'bg-dark-500'}`}></div>
                   <div>
-                    <h4 className="font-medium text-dark-100">{test.name}</h4>
-                    <p className="text-xs text-dark-400">
+                    <h4 className="font-medium text-white">{test.name}</h4>
+                    <p className="text-xs text-purple-300/50">
                       {test.modelA?.name} ({test.trafficSplit}%) vs {test.modelB?.name} ({100 - test.trafficSplit}%)
                     </p>
                   </div>
@@ -251,7 +251,7 @@ export default function ABTesting() {
                   <button
                     onClick={() => simulatePredictions(test._id)}
                     disabled={simulating || test.status !== 'active'}
-                    className="text-xs bg-primary-500/10 text-primary-400 border border-primary-500/20 px-3 py-1 rounded-lg hover:bg-primary-500/20 transition-colors disabled:opacity-50"
+                    className="text-xs bg-purple-500/10 text-purple-300 border border-primary-500/20 px-3 py-1 rounded-lg hover:bg-primary-500/20 transition-colors disabled:opacity-50"
                   >
                     {simulating ? '⏳' : '▶️'} Simulate
                   </button>
@@ -260,7 +260,7 @@ export default function ABTesting() {
                       setSelectedTest(test._id === selectedTest ? null : test._id);
                       if (test._id !== selectedTest) fetchTestDetail(test._id);
                     }}
-                    className="text-xs bg-dark-800 text-dark-300 border border-dark-600 px-3 py-1 rounded-lg hover:border-dark-400 transition-colors"
+                    className="text-xs bg-dark-800/40 text-purple-200/70 border border-purple-500/30 px-3 py-1 rounded-lg hover:border-dark-400 transition-colors"
                   >
                     {selectedTest === test._id ? 'Hide' : 'Details'}
                   </button>
@@ -269,26 +269,26 @@ export default function ABTesting() {
                   ) : test.status === 'paused' ? (
                     <button onClick={() => updateStatus(test._id, 'active')} className="text-xs text-green-400 hover:text-green-300">▶️</button>
                   ) : null}
-                  <button onClick={() => deleteTest(test._id)} className="text-xs text-dark-500 hover:text-red-400">🗑️</button>
+                  <button onClick={() => deleteTest(test._id)} className="text-xs text-purple-300/40 hover:text-red-400">🗑️</button>
                 </div>
               </div>
 
               {/* Summary Stats */}
               <div className="mt-3 grid grid-cols-4 gap-3">
-                <div className="bg-dark-800 rounded-lg p-2 border border-dark-600 text-center">
-                  <p className="text-xs text-dark-500">Total</p>
+                <div className="bg-dark-800/40 rounded-lg p-2 border border-purple-500/30 text-center">
+                  <p className="text-xs text-purple-300/40">Total</p>
                   <p className="text-sm font-bold text-dark-200">{test.summary?.totalRequests || 0}</p>
                 </div>
-                <div className="bg-dark-800 rounded-lg p-2 border border-dark-600 text-center">
-                  <p className="text-xs text-dark-500">Model A</p>
+                <div className="bg-dark-800/40 rounded-lg p-2 border border-purple-500/30 text-center">
+                  <p className="text-xs text-purple-300/40">Model A</p>
                   <p className="text-sm font-bold text-blue-400">{test.summary?.modelARequests || 0}</p>
                 </div>
-                <div className="bg-dark-800 rounded-lg p-2 border border-dark-600 text-center">
-                  <p className="text-xs text-dark-500">Model B</p>
+                <div className="bg-dark-800/40 rounded-lg p-2 border border-purple-500/30 text-center">
+                  <p className="text-xs text-purple-300/40">Model B</p>
                   <p className="text-sm font-bold text-purple-400">{test.summary?.modelBRequests || 0}</p>
                 </div>
-                <div className="bg-dark-800 rounded-lg p-2 border border-dark-600 text-center">
-                  <p className="text-xs text-dark-500">Winner</p>
+                <div className="bg-dark-800/40 rounded-lg p-2 border border-purple-500/30 text-center">
+                  <p className="text-xs text-purple-300/40">Winner</p>
                   <p className="text-sm font-bold text-green-400">
                     {test.summary?.totalRequests > 0
                       ? (test.summary.modelAAvgError <= test.summary.modelBAvgError ? 'A' : 'B')
@@ -299,17 +299,17 @@ export default function ABTesting() {
 
               {/* Detail View */}
               {selectedTest === test._id && testDetail && (
-                <div className="mt-4 border-t border-dark-700 pt-4">
+                <div className="mt-4 border-t border-purple-500/20 pt-4">
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div className="bg-blue-500/5 border border-blue-500/20 rounded-lg p-3">
                       <p className="text-sm font-medium text-blue-400">{testDetail.modelA?.name}</p>
-                      <p className="text-xs text-dark-400 mt-1">Avg Error: {testDetail.summary?.modelAAvgError?.toFixed(4) || 'N/A'}</p>
-                      <p className="text-xs text-dark-400">Requests: {testDetail.summary?.modelARequests || 0}</p>
+                      <p className="text-xs text-purple-300/50 mt-1">Avg Error: {testDetail.summary?.modelAAvgError?.toFixed(4) || 'N/A'}</p>
+                      <p className="text-xs text-purple-300/50">Requests: {testDetail.summary?.modelARequests || 0}</p>
                     </div>
                     <div className="bg-purple-500/5 border border-purple-500/20 rounded-lg p-3">
                       <p className="text-sm font-medium text-purple-400">{testDetail.modelB?.name}</p>
-                      <p className="text-xs text-dark-400 mt-1">Avg Error: {testDetail.summary?.modelBAvgError?.toFixed(4) || 'N/A'}</p>
-                      <p className="text-xs text-dark-400">Requests: {testDetail.summary?.modelBRequests || 0}</p>
+                      <p className="text-xs text-purple-300/50 mt-1">Avg Error: {testDetail.summary?.modelBAvgError?.toFixed(4) || 'N/A'}</p>
+                      <p className="text-xs text-purple-300/50">Requests: {testDetail.summary?.modelBRequests || 0}</p>
                     </div>
                   </div>
 
@@ -318,10 +318,10 @@ export default function ABTesting() {
                     <div className="h-48">
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={getChartData()}>
-                          <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                          <XAxis dataKey="batch" tick={{ fill: '#94a3b8', fontSize: 11 }} label={{ value: 'Batch', fill: '#94a3b8', fontSize: 11 }} />
-                          <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} label={{ value: 'Avg Error', angle: -90, fill: '#94a3b8', fontSize: 11 }} />
-                          <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }} />
+                          <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+                          <XAxis dataKey="batch" tick={{ fill: '#A78BFA', fontSize: 11 }} label={{ value: 'Batch', fill: '#A78BFA', fontSize: 11 }} />
+                          <YAxis tick={{ fill: '#A78BFA', fontSize: 11 }} label={{ value: 'Avg Error', angle: -90, fill: '#A78BFA', fontSize: 11 }} />
+                          <Tooltip contentStyle={{ backgroundColor: '#1E1045', border: '1px solid #2d1b69', borderRadius: '8px' }} />
                           <Legend />
                           <Line type="monotone" dataKey="modelA" stroke="#3b82f6" strokeWidth={2} dot={false} name={testDetail.modelA?.name} />
                           <Line type="monotone" dataKey="modelB" stroke="#a855f7" strokeWidth={2} dot={false} name={testDetail.modelB?.name} />

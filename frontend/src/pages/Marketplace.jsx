@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import EmptyState from '../components/ui/EmptyState';
+import { Store } from 'lucide-react';
 import SearchFilterBar from '../components/ui/SearchFilterBar';
 
 export default function Marketplace() {
@@ -108,7 +109,7 @@ export default function Marketplace() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-dark-50">Model Marketplace</h1>
-          <p className="text-dark-400 mt-1">Browse, share, and download community models</p>
+          <p className="text-purple-300/50 mt-1">Browse, share, and download community models</p>
         </div>
         {user && (
           <button onClick={() => setShowPublish(!showPublish)} className="btn-primary flex items-center gap-2" aria-label="Publish a model">
@@ -120,11 +121,11 @@ export default function Marketplace() {
       {/* Publish Form */}
       {showPublish && (
         <div className="card border-primary-500/20 animate-fade-in">
-          <h2 className="text-lg font-semibold text-dark-100 mb-4">📤 Publish a Model</h2>
+          <h2 className="text-lg font-semibold text-white mb-4">📤 Publish a Model</h2>
           <form onSubmit={handlePublish} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-dark-300 mb-1" htmlFor="model-name">Model Name</label>
+                <label className="block text-sm text-purple-200/70 mb-1" htmlFor="model-name">Model Name</label>
                 <input
                   id="model-name"
                   type="text"
@@ -138,7 +139,7 @@ export default function Marketplace() {
                 {formErrors.name && <p className="field-error">{formErrors.name}</p>}
               </div>
               <div>
-                <label className="block text-sm text-dark-300 mb-1" htmlFor="model-tags">Tags (comma-separated)</label>
+                <label className="block text-sm text-purple-200/70 mb-1" htmlFor="model-tags">Tags (comma-separated)</label>
                 <input
                   id="model-tags"
                   type="text"
@@ -150,7 +151,7 @@ export default function Marketplace() {
               </div>
             </div>
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="model-desc">Description</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="model-desc">Description</label>
               <textarea
                 id="model-desc"
                 value={publishForm.description}
@@ -164,7 +165,7 @@ export default function Marketplace() {
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm text-dark-300 mb-1">Task Type</label>
+                <label className="block text-sm text-purple-200/70 mb-1">Task Type</label>
                 <select
                   value={publishForm.taskType}
                   onChange={(e) => setPublishForm(prev => ({ ...prev, taskType: e.target.value }))}
@@ -175,7 +176,7 @@ export default function Marketplace() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm text-dark-300 mb-1">Accuracy</label>
+                <label className="block text-sm text-purple-200/70 mb-1">Accuracy</label>
                 <input
                   type="number"
                   step="0.01"
@@ -188,7 +189,7 @@ export default function Marketplace() {
                 />
               </div>
               <div>
-                <label className="block text-sm text-dark-300 mb-1">Loss</label>
+                <label className="block text-sm text-purple-200/70 mb-1">Loss</label>
                 <input
                   type="number"
                   step="0.001"
@@ -229,7 +230,7 @@ export default function Marketplace() {
         <CardSkeleton count={6} />
       ) : models.length === 0 ? (
         <EmptyState
-          icon="🏪"
+          icon={Store}
           title="No models published yet"
           description="Be the first to publish a model and share it with the community."
           actionLabel="Publish a Model"
@@ -241,26 +242,26 @@ export default function Marketplace() {
             <div key={model._id} className="card card-hover">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h3 className="font-medium text-dark-100">{model.name}</h3>
-                  <p className="text-xs text-dark-500">by {model.authorName}</p>
+                  <h3 className="font-medium text-white">{model.name}</h3>
+                  <p className="text-xs text-purple-300/40">by {model.authorName}</p>
                 </div>
-                <span className="text-xs bg-dark-800 px-2 py-1 rounded text-dark-400">
+                <span className="text-xs bg-dark-800/40 px-2 py-1 rounded text-purple-300/50">
                   {model.metrics?.taskType || 'general'}
                 </span>
               </div>
-              <p className="text-sm text-dark-400 mb-3 line-clamp-2">{model.description}</p>
+              <p className="text-sm text-purple-300/50 mb-3 line-clamp-2">{model.description}</p>
               
               {model.tags?.length > 0 && (
                 <div className="flex flex-wrap gap-1 mb-3">
                   {model.tags.map(tag => (
-                    <span key={tag} className="px-2 py-0.5 bg-primary-500/10 text-primary-400 rounded text-xs">
+                    <span key={tag} className="px-2 py-0.5 bg-purple-500/10 text-purple-300 rounded text-xs">
                       {tag}
                     </span>
                   ))}
                 </div>
               )}
 
-              <div className="flex gap-4 text-xs text-dark-400 mb-3">
+              <div className="flex gap-4 text-xs text-purple-300/50 mb-3">
                 {model.metrics?.accuracy && (
                   <span>Acc: <span className="text-green-400">{(model.metrics.accuracy * 100).toFixed(1)}%</span></span>
                 )}
@@ -269,11 +270,11 @@ export default function Marketplace() {
                 )}
               </div>
 
-              <div className="flex items-center justify-between pt-3 border-t border-dark-700">
-                <span className="text-xs text-dark-500">⬇️ {model.downloads} downloads</span>
+              <div className="flex items-center justify-between pt-3 border-t border-purple-500/20">
+                <span className="text-xs text-purple-300/40">⬇️ {model.downloads} downloads</span>
                 <button
                   onClick={() => handleDownload(model._id)}
-                  className="text-xs bg-primary-500/10 text-primary-400 border border-primary-500/20 px-3 py-1 rounded-lg hover:bg-primary-500/20 transition-colors"
+                  className="text-xs bg-purple-500/10 text-purple-300 border border-primary-500/20 px-3 py-1 rounded-lg hover:bg-primary-500/20 transition-colors"
                   aria-label={`Download ${model.name}`}
                 >
                   Download

@@ -43,7 +43,7 @@ export default function AdminDashboard() {
         <span className="text-2xl">👑</span>
         <div>
           <h1 className="text-2xl font-bold text-white">Admin Dashboard</h1>
-          <p className="text-dark-400 text-sm">Platform overview and management</p>
+          <p className="text-purple-300/50 text-sm">Platform overview and management</p>
         </div>
         <span className="ml-3 px-2 py-0.5 text-xs bg-yellow-500/20 text-yellow-400 rounded-full border border-yellow-500/30">Admin</span>
       </div>
@@ -58,19 +58,19 @@ export default function AdminDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Popular Models */}
-        <div className="bg-dark-800 border border-dark-700 rounded-xl p-5">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-5">
           <h3 className="text-lg font-semibold text-white mb-4">Popular Models (Top 5)</h3>
           <div className="space-y-3">
             {(stats?.popularModels || []).length === 0 ? (
-              <p className="text-dark-400 text-sm">No training data yet</p>
+              <p className="text-purple-300/50 text-sm">No training data yet</p>
             ) : (
               stats.popularModels.map((m, i) => (
                 <div key={i} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm text-dark-500">#{i + 1}</span>
+                    <span className="text-sm text-purple-300/40">#{i + 1}</span>
                     <span className="text-sm text-dark-200">{m.model}</span>
                   </div>
-                  <span className="text-sm text-primary-400 font-medium">{m.count} runs</span>
+                  <span className="text-sm text-purple-400 font-medium">{m.count} runs</span>
                 </div>
               ))
             )}
@@ -78,22 +78,22 @@ export default function AdminDashboard() {
         </div>
 
         {/* Users Over Time */}
-        <div className="bg-dark-800 border border-dark-700 rounded-xl p-5">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-5">
           <h3 className="text-lg font-semibold text-white mb-4">User Registrations (30d)</h3>
           {usersOverTime.length === 0 ? (
-            <p className="text-dark-400 text-sm">No data available</p>
+            <p className="text-purple-300/50 text-sm">No data available</p>
           ) : (
             <div className="space-y-2">
               {usersOverTime.slice(-10).map((d, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <span className="text-xs text-dark-500 w-20">{d.date.slice(5)}</span>
-                  <div className="flex-1 bg-dark-700 rounded-full h-4">
+                  <span className="text-xs text-purple-300/40 w-20">{d.date.slice(5)}</span>
+                  <div className="flex-1 bg-purple-500/15 rounded-full h-4">
                     <div
-                      className="bg-primary-500 h-4 rounded-full"
+                      className="bg-gradient-btn h-4 rounded-full"
                       style={{ width: `${Math.min(100, (d.count / Math.max(...usersOverTime.map(x => x.count))) * 100)}%` }}
                     />
                   </div>
-                  <span className="text-xs text-dark-300 w-8">{d.count}</span>
+                  <span className="text-xs text-purple-200/70 w-8">{d.count}</span>
                 </div>
               ))}
             </div>
@@ -101,22 +101,22 @@ export default function AdminDashboard() {
         </div>
 
         {/* Training Per Day */}
-        <div className="bg-dark-800 border border-dark-700 rounded-xl p-5">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-5">
           <h3 className="text-lg font-semibold text-white mb-4">Training Jobs (30d)</h3>
           {trainingPerDay.length === 0 ? (
-            <p className="text-dark-400 text-sm">No data available</p>
+            <p className="text-purple-300/50 text-sm">No data available</p>
           ) : (
             <div className="space-y-2">
               {trainingPerDay.slice(-10).map((d, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <span className="text-xs text-dark-500 w-20">{d.date.slice(5)}</span>
-                  <div className="flex-1 bg-dark-700 rounded-full h-4">
+                  <span className="text-xs text-purple-300/40 w-20">{d.date.slice(5)}</span>
+                  <div className="flex-1 bg-purple-500/15 rounded-full h-4">
                     <div
                       className="bg-green-500 h-4 rounded-full"
                       style={{ width: `${Math.min(100, (d.count / Math.max(...trainingPerDay.map(x => x.count))) * 100)}%` }}
                     />
                   </div>
-                  <span className="text-xs text-dark-300 w-8">{d.count}</span>
+                  <span className="text-xs text-purple-200/70 w-8">{d.count}</span>
                 </div>
               ))}
             </div>
@@ -124,17 +124,17 @@ export default function AdminDashboard() {
         </div>
 
         {/* Recent Activity */}
-        <div className="bg-dark-800 border border-dark-700 rounded-xl p-5">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-5">
           <h3 className="text-lg font-semibold text-white mb-4">Recent Activity</h3>
           <div className="space-y-2 max-h-64 overflow-y-auto">
             {(stats?.recentActivity || []).length === 0 ? (
-              <p className="text-dark-400 text-sm">No recent activity</p>
+              <p className="text-purple-300/50 text-sm">No recent activity</p>
             ) : (
               stats.recentActivity.map((a, i) => (
                 <div key={i} className="flex items-center gap-2 text-sm">
-                  <span className="text-dark-500">{new Date(a.timestamp).toLocaleTimeString()}</span>
-                  <span className="text-dark-300">{a.userId?.username || 'User'}</span>
-                  <span className="text-dark-500">—</span>
+                  <span className="text-purple-300/40">{new Date(a.timestamp).toLocaleTimeString()}</span>
+                  <span className="text-purple-200/70">{a.userId?.username || 'User'}</span>
+                  <span className="text-purple-300/40">—</span>
                   <span className="text-dark-200">{a.event}</span>
                 </div>
               ))

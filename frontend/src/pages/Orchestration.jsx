@@ -12,8 +12,6 @@ import {
 import '@xyflow/react/dist/style.css';
 import { useToast } from '../components/ui/Toast';
 
-const API = 'http://localhost:5005/api/orchestration';
-
 const NODE_TYPES = [
   { type: 'data-load', label: 'Data Load', icon: '📥', color: 'bg-blue-500/20 border-blue-500/40' },
   { type: 'preprocess', label: 'Preprocess', icon: '🔧', color: 'bg-yellow-500/20 border-yellow-500/40' },
@@ -25,7 +23,7 @@ const NODE_TYPES = [
 ];
 
 export default function Orchestration() {
-  const { token } = useAuth();
+  const { authFetch } = useAuth();
   const toast = useToast();
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
@@ -38,13 +36,11 @@ export default function Orchestration() {
   const nodeIdRef = useRef(1);
   const runIntervalRef = useRef(null);
 
-  const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-
   useEffect(() => { fetchPipelines(); return () => { if (runIntervalRef.current) clearInterval(runIntervalRef.current); }; }, []);
 
   const fetchPipelines = async () => {
     try {
-      const res = await fetch(API, { headers });
+      const res = await authFetch('/api/orchestration');
       const data = await res.json();
       setPipelines(Array.isArray(data) ? data : []);
     } catch (err) { }
@@ -62,7 +58,7 @@ export default function Orchestration() {
       type: 'default',
       position: { x: 100 + Math.random() * 400, y: 100 + Math.random() * 300 },
       data: { label: `${nodeType.icon} ${nodeType.label}` },
-      style: { background: '#1e293b', border: '1px solid #334155', color: '#fff', borderRadius: '8px', padding: '10px' }
+      style: { background: '#1E1045', border: '1px solid #2d1b69', color: '#fff', borderRadius: '8px', padding: '10px' }
     };
     setNodes(prev => [...prev, newNode]);
   };
@@ -76,9 +72,9 @@ export default function Orchestration() {
         edges: edges.map(e => ({ id: e.id, source: e.source, target: e.target }))
       };
       if (selectedPipeline) {
-        await fetch(`${API}/${selectedPipeline._id}`, { method: 'PUT', headers, body: JSON.stringify(body) });
+        await authFetch(`/api/orchestration/${selectedPipeline._id}`, { method: 'PUT', body: JSON.stringify(body) });
       } else {
-        await fetch(API, { method: 'POST', headers, body: JSON.stringify(body) });
+        await authFetch('/api/orchestration', { method: 'POST', body: JSON.stringify(body) });
       }
       fetchPipelines();
       setPipelineName('');
@@ -93,7 +89,7 @@ export default function Orchestration() {
       type: 'default',
       position: n.position || { x: 100, y: 100 },
       data: { label: n.label },
-      style: { background: '#1e293b', border: '1px solid #334155', color: '#fff', borderRadius: '8px', padding: '10px' }
+      style: { background: '#1E1045', border: '1px solid #2d1b69', color: '#fff', borderRadius: '8px', padding: '10px' }
     }));
     const loadedEdges = (pipeline.edges || []).map(e => ({
       id: e.id || `${e.source}-${e.target}`,
@@ -109,7 +105,7 @@ export default function Orchestration() {
   const runPipeline = async () => {
     if (!selectedPipeline) return;
     try {
-      const res = await fetch(`${API}/${selectedPipeline._id}/run`, { method: 'POST', headers });
+      const res = await authFetch(`/api/orchestration/${selectedPipeline._id}/run`, { method: 'POST' });
       const run = await res.json();
       setActiveRun(run);
       setTab('monitor');
@@ -177,13 +173,13 @@ export default function Orchestration() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">ML Pipeline Orchestration</h1>
-          <p className="text-dark-400 mt-1">Visual DAG editor with conditional execution and retry logic</p>
+          <p className="text-purple-300/50 mt-1">Visual DAG editor with conditional execution and retry logic</p>
         </div>
         <div className="flex gap-2">
-          <button onClick={() => setTab('editor')} className={`px-3 py-1.5 text-sm rounded-lg ${tab === 'editor' ? 'bg-primary-500 text-white' : 'bg-dark-700 text-dark-300'}`}>
+          <button onClick={() => setTab('editor')} className={`px-3 py-1.5 text-sm rounded-lg ${tab === 'editor' ? 'bg-gradient-btn text-white' : 'bg-purple-500/15 text-purple-200/70'}`}>
             Editor
           </button>
-          <button onClick={() => { setTab('monitor'); fetchRuns(); }} className={`px-3 py-1.5 text-sm rounded-lg ${tab === 'monitor' ? 'bg-primary-500 text-white' : 'bg-dark-700 text-dark-300'}`}>
+          <button onClick={() => { setTab('monitor'); fetchRuns(); }} className={`px-3 py-1.5 text-sm rounded-lg ${tab === 'monitor' ? 'bg-gradient-btn text-white' : 'bg-purple-500/15 text-purple-200/70'}`}>
             Monitor
           </button>
         </div>
@@ -192,9 +188,9 @@ export default function Orchestration() {
       {tab === 'editor' && (
         <>
           {/* Node Palette */}
-          <div className="bg-dark-800 rounded-xl p-4 border border-dark-700">
+          <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20">
             <div className="flex items-center gap-3 flex-wrap">
-              <span className="text-xs text-dark-400 uppercase font-semibold">Add Node:</span>
+              <span className="text-xs text-purple-300/50 uppercase font-semibold">Add Node:</span>
               {NODE_TYPES.map(nt => (
                 <button key={nt.type} onClick={() => addNode(nt.type)}
                   className={`px-3 py-1.5 text-xs rounded-lg border ${nt.color} text-white hover:opacity-80`}>
@@ -205,7 +201,7 @@ export default function Orchestration() {
           </div>
 
           {/* Flow Editor */}
-          <div className="bg-dark-800 rounded-xl border border-dark-700 overflow-hidden" style={{ height: 450 }}>
+          <div className="bg-dark-800/40 rounded-xl border border-purple-500/20 overflow-hidden" style={{ height: 450 }}>
             <ReactFlow
               nodes={nodes}
               edges={edges}
@@ -215,22 +211,22 @@ export default function Orchestration() {
               fitView
               style={{ background: '#0f172a' }}
             >
-              <Background color="#334155" gap={20} />
+              <Background color="#2d1b69" gap={20} />
               <Controls />
-              <MiniMap style={{ background: '#1e293b' }} nodeColor="#06b6d4" />
+              <MiniMap style={{ background: '#1E1045' }} nodeColor="#06b6d4" />
             </ReactFlow>
           </div>
 
           {/* Save / Load */}
-          <div className="bg-dark-800 rounded-xl p-4 border border-dark-700">
+          <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20">
             <div className="flex gap-3 items-end">
               <div className="flex-1">
-                <label className="text-xs text-dark-400">Pipeline Name</label>
+                <label className="text-xs text-purple-300/50">Pipeline Name</label>
                 <input value={pipelineName} onChange={e => setPipelineName(e.target.value)}
-                  className="w-full mt-1 px-3 py-2 bg-dark-900 border border-dark-600 rounded-lg text-white text-sm" placeholder="My Pipeline" />
+                  className="w-full mt-1 px-3 py-2 bg-dark-900 border border-purple-500/30 rounded-lg text-white text-sm" placeholder="My Pipeline" />
               </div>
               <button onClick={savePipeline} disabled={!pipelineName.trim() || nodes.length === 0}
-                className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 disabled:opacity-50">
+                className="px-4 py-2 bg-gradient-btn text-white rounded-lg hover:bg-primary-600 disabled:opacity-50">
                 Save
               </button>
               <button onClick={runPipeline} disabled={!selectedPipeline}
@@ -242,14 +238,14 @@ export default function Orchestration() {
 
           {/* Saved Pipelines */}
           {pipelines.length > 0 && (
-            <div className="bg-dark-800 rounded-xl p-4 border border-dark-700">
-              <h3 className="text-sm font-semibold text-dark-300 uppercase mb-3">Saved Pipelines</h3>
+            <div className="bg-dark-800/40 rounded-xl p-4 border border-purple-500/20">
+              <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-3">Saved Pipelines</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {pipelines.map(p => (
                   <button key={p._id} onClick={() => loadPipeline(p)}
-                    className={`text-left p-3 rounded-lg border ${selectedPipeline?._id === p._id ? 'border-primary-500 bg-primary-500/10' : 'border-dark-600 bg-dark-900'} hover:border-primary-500/50`}>
+                    className={`text-left p-3 rounded-lg border ${selectedPipeline?._id === p._id ? 'border-primary-500 bg-primary-500/10' : 'border-purple-500/30 bg-dark-900'} hover:border-primary-500/50`}>
                     <p className="text-sm text-white font-medium">{p.name}</p>
-                    <p className="text-xs text-dark-400 mt-1">{p.nodes?.length || 0} nodes · {p.edges?.length || 0} edges</p>
+                    <p className="text-xs text-purple-300/50 mt-1">{p.nodes?.length || 0} nodes · {p.edges?.length || 0} edges</p>
                   </button>
                 ))}
               </div>
@@ -261,7 +257,7 @@ export default function Orchestration() {
       {tab === 'monitor' && (
         <div className="space-y-4">
           {activeRun && (
-            <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
+            <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-white">Active Run</h3>
                 <span className={`px-2 py-1 text-xs rounded ${
@@ -279,10 +275,10 @@ export default function Orchestration() {
                       ns.status === 'success' ? 'text-green-400' :
                       ns.status === 'failed' ? 'text-red-400' :
                       ns.status === 'running' ? 'text-yellow-400' :
-                      'text-dark-400'
+                      'text-purple-300/50'
                     }`}>{ns.status}</span>
                     {ns.retries > 0 && <span className="text-xs text-orange-400">retries: {ns.retries}</span>}
-                    {ns.logs?.length > 0 && <span className="text-xs text-dark-500">{ns.logs[ns.logs.length - 1]}</span>}
+                    {ns.logs?.length > 0 && <span className="text-xs text-purple-300/40">{ns.logs[ns.logs.length - 1]}</span>}
                   </div>
                 ))}
               </div>
@@ -290,8 +286,8 @@ export default function Orchestration() {
           )}
 
           {runs.length > 0 && (
-            <div className="bg-dark-800 rounded-xl p-6 border border-dark-700">
-              <h3 className="text-sm font-semibold text-dark-300 uppercase mb-3">Run History</h3>
+            <div className="bg-dark-800/40 rounded-xl p-6 border border-purple-500/20">
+              <h3 className="text-sm font-semibold text-purple-200/70 uppercase mb-3">Run History</h3>
               <div className="space-y-2">
                 {runs.map((r, i) => (
                   <div key={i} className="flex items-center justify-between p-3 bg-dark-900 rounded-lg">
@@ -301,7 +297,7 @@ export default function Orchestration() {
                       r.status === 'failed' ? 'bg-red-500/20 text-red-400' :
                       'bg-yellow-500/20 text-yellow-400'
                     }`}>{r.status}</span>
-                    <span className="text-xs text-dark-500">{new Date(r.startedAt).toLocaleString()}</span>
+                    <span className="text-xs text-purple-300/40">{new Date(r.startedAt).toLocaleString()}</span>
                   </div>
                 ))}
               </div>

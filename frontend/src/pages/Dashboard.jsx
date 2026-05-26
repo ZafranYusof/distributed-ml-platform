@@ -150,12 +150,12 @@ export default function Dashboard() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-dark-50">Training Dashboard</h1>
-        <p className="text-dark-400 mt-1">Upload data, configure model, and start distributed training</p>
+        <p className="text-purple-300/50 mt-1">Upload data, configure model, and start distributed training</p>
       </div>
 
       {/* Dataset Upload */}
       <div className="card">
-        <h2 className="text-lg font-semibold text-dark-100 mb-4">📁 Dataset</h2>
+        <h2 className="text-lg font-semibold text-white mb-4">📁 Dataset</h2>
 
         {!dataset ? (
           <div className="space-y-4">
@@ -167,7 +167,7 @@ export default function Dashboard() {
               className={`border-2 border-dashed rounded-xl p-12 text-center transition-all cursor-pointer ${
                 dragActive
                   ? 'border-primary-400 bg-primary-500/5 scale-[1.01]'
-                  : 'border-dark-600 hover:border-dark-400'
+                  : 'border-purple-500/30 hover:border-dark-400'
               }`}
               onClick={() => document.getElementById('file-input').click()}
               role="button"
@@ -177,7 +177,7 @@ export default function Dashboard() {
             >
               <div className="text-4xl mb-3" aria-hidden="true">📂</div>
               <p className="text-dark-200 font-medium">Drop CSV file here or click to browse</p>
-              <p className="text-dark-500 text-sm mt-1">Supports .csv files up to 50MB</p>
+              <p className="text-purple-300/40 text-sm mt-1">Supports .csv files up to 50MB</p>
               <input
                 id="file-input"
                 type="file"
@@ -189,9 +189,9 @@ export default function Dashboard() {
             </div>
 
             <div className="flex items-center gap-4">
-              <div className="flex-1 h-px bg-dark-700"></div>
-              <span className="text-dark-500 text-sm">or use a sample dataset</span>
-              <div className="flex-1 h-px bg-dark-700"></div>
+              <div className="flex-1 h-px bg-purple-500/15"></div>
+              <span className="text-purple-300/40 text-sm">or use a sample dataset</span>
+              <div className="flex-1 h-px bg-purple-500/15"></div>
             </div>
 
             <div className="grid grid-cols-3 gap-3">
@@ -200,24 +200,24 @@ export default function Dashboard() {
                 disabled={loading}
                 className="card card-hover text-left"
               >
-                <div className="text-sm font-medium text-dark-100">🌸 Iris Dataset</div>
-                <div className="text-xs text-dark-400 mt-1">Classification · 150 samples · 4 features</div>
+                <div className="text-sm font-medium text-white">🌸 Iris Dataset</div>
+                <div className="text-xs text-purple-300/50 mt-1">Classification · 150 samples · 4 features</div>
               </button>
               <button
                 onClick={() => loadSample('housing')}
                 disabled={loading}
                 className="card card-hover text-left"
               >
-                <div className="text-sm font-medium text-dark-100">🏠 Housing Prices</div>
-                <div className="text-xs text-dark-400 mt-1">Regression · 200 samples · 4 features</div>
+                <div className="text-sm font-medium text-white">🏠 Housing Prices</div>
+                <div className="text-xs text-purple-300/50 mt-1">Regression · 200 samples · 4 features</div>
               </button>
               <button
                 onClick={() => loadSample('sequence')}
                 disabled={loading}
                 className="card card-hover text-left"
               >
-                <div className="text-sm font-medium text-dark-100">📈 Sine Wave</div>
-                <div className="text-xs text-dark-400 mt-1">Sequence · 500 samples · RNN ready</div>
+                <div className="text-sm font-medium text-white">📈 Sine Wave</div>
+                <div className="text-xs text-purple-300/50 mt-1">Sequence · 500 samples · RNN ready</div>
               </button>
             </div>
           </div>
@@ -227,13 +227,13 @@ export default function Dashboard() {
               <div className="flex items-center gap-3">
                 <span className="text-2xl" aria-hidden="true">📊</span>
                 <div>
-                  <p className="font-medium text-dark-100">{dataset.name}</p>
-                  <p className="text-sm text-dark-400">{dataset.rows} rows · {dataset.columns.length} columns</p>
+                  <p className="font-medium text-white">{dataset.name}</p>
+                  <p className="text-sm text-purple-300/50">{dataset.rows} rows · {dataset.columns.length} columns</p>
                 </div>
               </div>
               <button
                 onClick={() => { setDataset(null); setParsedData(null); }}
-                className="text-dark-400 hover:text-red-400 text-sm transition-colors"
+                className="text-purple-300/50 hover:text-red-400 text-sm transition-colors"
                 aria-label="Remove dataset"
               >
                 Remove
@@ -241,7 +241,7 @@ export default function Dashboard() {
             </div>
             <div className="flex flex-wrap gap-2">
               {dataset.columns.map(col => (
-                <span key={col} className="px-2 py-1 bg-dark-800 rounded text-xs text-dark-300">
+                <span key={col} className="px-2 py-1 bg-dark-800/40 rounded text-xs text-purple-200/70">
                   {col}
                 </span>
               ))}
@@ -253,10 +253,10 @@ export default function Dashboard() {
       {/* Model Configuration */}
       {dataset && (
         <div className="card animate-fade-in">
-          <h2 className="text-lg font-semibold text-dark-100 mb-4">⚙️ Model Configuration</h2>
+          <h2 className="text-lg font-semibold text-white mb-4">⚙️ Model Configuration</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="model-type">Model Architecture</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="model-type">Model Architecture</label>
               <select
                 id="model-type"
                 value={modelConfig.type}
@@ -271,7 +271,7 @@ export default function Dashboard() {
             </div>
 
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="target-col">Target Column</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="target-col">Target Column</label>
               <select
                 id="target-col"
                 value={modelConfig.targetColumn}
@@ -285,7 +285,7 @@ export default function Dashboard() {
             </div>
 
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="task-type">Task Type</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="task-type">Task Type</label>
               <select
                 id="task-type"
                 value={modelConfig.taskType}
@@ -299,7 +299,7 @@ export default function Dashboard() {
 
             {modelConfig.type === 'neural-network' && (
               <div>
-                <label className="block text-sm text-dark-300 mb-1" htmlFor="layers">Hidden Layers (comma-separated)</label>
+                <label className="block text-sm text-purple-200/70 mb-1" htmlFor="layers">Hidden Layers (comma-separated)</label>
                 <input
                   id="layers"
                   type="text"
@@ -314,7 +314,7 @@ export default function Dashboard() {
             {modelConfig.type === 'cnn' && (
               <>
                 <div>
-                  <label className="block text-sm text-dark-300 mb-1">Filters (comma-separated)</label>
+                  <label className="block text-sm text-purple-200/70 mb-1">Filters (comma-separated)</label>
                   <input
                     type="text"
                     value={modelConfig.filters.join(', ')}
@@ -324,7 +324,7 @@ export default function Dashboard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-dark-300 mb-1">Kernel Sizes</label>
+                  <label className="block text-sm text-purple-200/70 mb-1">Kernel Sizes</label>
                   <input
                     type="text"
                     value={modelConfig.kernelSizes.join(', ')}
@@ -334,7 +334,7 @@ export default function Dashboard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-dark-300 mb-1">Dense Layers After Conv</label>
+                  <label className="block text-sm text-purple-200/70 mb-1">Dense Layers After Conv</label>
                   <input
                     type="text"
                     value={modelConfig.layers.join(', ')}
@@ -349,7 +349,7 @@ export default function Dashboard() {
             {modelConfig.type === 'rnn' && (
               <>
                 <div>
-                  <label className="block text-sm text-dark-300 mb-1">RNN Type</label>
+                  <label className="block text-sm text-purple-200/70 mb-1">RNN Type</label>
                   <select
                     value={modelConfig.rnnType}
                     onChange={(e) => setModelConfig(prev => ({ ...prev, rnnType: e.target.value }))}
@@ -361,7 +361,7 @@ export default function Dashboard() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm text-dark-300 mb-1">RNN Units (comma-separated)</label>
+                  <label className="block text-sm text-purple-200/70 mb-1">RNN Units (comma-separated)</label>
                   <input
                     type="text"
                     value={modelConfig.rnnUnits.join(', ')}
@@ -371,7 +371,7 @@ export default function Dashboard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-dark-300 mb-1">Sequence Length</label>
+                  <label className="block text-sm text-purple-200/70 mb-1">Sequence Length</label>
                   <input
                     type="number"
                     min="2"
@@ -382,7 +382,7 @@ export default function Dashboard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-dark-300 mb-1">Dense Layers After RNN</label>
+                  <label className="block text-sm text-purple-200/70 mb-1">Dense Layers After RNN</label>
                   <input
                     type="text"
                     value={modelConfig.layers.join(', ')}
@@ -395,7 +395,7 @@ export default function Dashboard() {
             )}
 
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="lr">Learning Rate</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="lr">Learning Rate</label>
               <input
                 id="lr"
                 type="number"
@@ -415,7 +415,7 @@ export default function Dashboard() {
             </div>
 
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="epochs">Epochs</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="epochs">Epochs</label>
               <input
                 id="epochs"
                 type="number"
@@ -434,7 +434,7 @@ export default function Dashboard() {
             </div>
 
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="batch-size">Batch Size</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="batch-size">Batch Size</label>
               <input
                 id="batch-size"
                 type="number"
@@ -453,7 +453,7 @@ export default function Dashboard() {
             </div>
 
             <div>
-              <label className="block text-sm text-dark-300 mb-1" htmlFor="workers">Number of Workers (Nodes)</label>
+              <label className="block text-sm text-purple-200/70 mb-1" htmlFor="workers">Number of Workers (Nodes)</label>
               <input
                 id="workers"
                 type="number"
@@ -467,7 +467,7 @@ export default function Dashboard() {
           </div>
 
           {/* Preprocessing Section */}
-          <div className="mt-6 border-t border-dark-700 pt-4">
+          <div className="mt-6 border-t border-purple-500/20 pt-4">
             <button
               onClick={() => setShowPreprocessing(!showPreprocessing)}
               className="flex items-center gap-2 text-dark-200 hover:text-dark-50 transition-colors"
@@ -480,7 +480,7 @@ export default function Dashboard() {
             {showPreprocessing && (
               <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in">
                 <div>
-                  <label className="block text-sm text-dark-300 mb-1" htmlFor="normalization">Normalization</label>
+                  <label className="block text-sm text-purple-200/70 mb-1" htmlFor="normalization">Normalization</label>
                   <select
                     id="normalization"
                     value={modelConfig.preprocessing.normalization}
@@ -494,7 +494,7 @@ export default function Dashboard() {
                 </div>
 
                 <div>
-                  <label className="block text-sm text-dark-300 mb-1" htmlFor="split-ratio">Train/Test Split Ratio</label>
+                  <label className="block text-sm text-purple-200/70 mb-1" htmlFor="split-ratio">Train/Test Split Ratio</label>
                   <div className="flex items-center gap-2">
                     <input
                       id="split-ratio"
@@ -511,11 +511,11 @@ export default function Dashboard() {
                       {Math.round(modelConfig.preprocessing.trainTestSplit * 100)}% / {Math.round((1 - modelConfig.preprocessing.trainTestSplit) * 100)}%
                     </span>
                   </div>
-                  <p className="text-xs text-dark-500 mt-1">Train / Test</p>
+                  <p className="text-xs text-purple-300/40 mt-1">Train / Test</p>
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm text-dark-300 mb-2">Feature Selection</label>
+                  <label className="block text-sm text-purple-200/70 mb-2">Feature Selection</label>
                   <div className="flex flex-wrap gap-2" role="group" aria-label="Feature selection">
                     {dataset.columns.filter(c => c !== modelConfig.targetColumn).map(col => (
                       <button
@@ -523,8 +523,8 @@ export default function Dashboard() {
                         onClick={() => toggleFeature(col)}
                         className={`px-3 py-1 rounded-lg text-xs transition-colors ${
                           modelConfig.preprocessing.selectedFeatures.includes(col)
-                            ? 'bg-primary-500/20 text-primary-300 border border-primary-500/30'
-                            : 'bg-dark-800 text-dark-400 border border-dark-600 hover:border-dark-400'
+                            ? 'bg-primary-500/20 text-purple-300 border border-primary-500/30'
+                            : 'bg-dark-800 text-purple-300/50 border border-purple-500/30 hover:border-dark-400'
                         }`}
                         aria-pressed={modelConfig.preprocessing.selectedFeatures.includes(col)}
                       >
@@ -532,7 +532,7 @@ export default function Dashboard() {
                       </button>
                     ))}
                   </div>
-                  <p className="text-xs text-dark-500 mt-1">Click to toggle features. Selected features will be used for training.</p>
+                  <p className="text-xs text-purple-300/40 mt-1">Click to toggle features. Selected features will be used for training.</p>
                 </div>
               </div>
             )}

@@ -31,7 +31,7 @@ export default function KaggleImport({ onImport }) {
   };
 
   return (
-    <div className="bg-dark-800 border border-dark-700 rounded-xl p-5">
+    <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-5">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <span className="text-xl">🏆</span>
@@ -40,7 +40,7 @@ export default function KaggleImport({ onImport }) {
       </div>
 
       <div className="relative mb-4">
-        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-purple-300/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
         <input
@@ -54,19 +54,19 @@ export default function KaggleImport({ onImport }) {
 
       <div className="space-y-2 max-h-80 overflow-y-auto">
         {filtered.map(dataset => (
-          <div key={dataset.id} className="flex items-center justify-between p-3 bg-dark-700/50 rounded-lg hover:bg-dark-700 transition-colors">
+          <div key={dataset.id} className="flex items-center justify-between p-3 bg-dark-700/50 rounded-lg hover:bg-purple-500/15 transition-colors">
             <div className="flex-1 min-w-0 mr-3">
               <p className="text-sm text-white font-medium truncate">{dataset.name}</p>
               <div className="flex items-center gap-2 mt-1">
-                <span className="text-xs text-dark-400">by {dataset.author}</span>
-                <span className="text-xs text-dark-500">•</span>
-                <span className="text-xs text-dark-400">{dataset.size}</span>
-                <span className="text-xs text-dark-500">•</span>
-                <span className="text-xs text-dark-400">↓ {dataset.downloads}</span>
+                <span className="text-xs text-purple-300/50">by {dataset.author}</span>
+                <span className="text-xs text-purple-300/40">•</span>
+                <span className="text-xs text-purple-300/50">{dataset.size}</span>
+                <span className="text-xs text-purple-300/40">•</span>
+                <span className="text-xs text-purple-300/50">↓ {dataset.downloads}</span>
               </div>
               <div className="flex gap-1 mt-1">
                 {dataset.tags.map(tag => (
-                  <span key={tag} className="text-xs bg-dark-600 text-dark-300 px-1.5 py-0.5 rounded">{tag}</span>
+                  <span key={tag} className="text-xs bg-dark-600 text-purple-200/70 px-1.5 py-0.5 rounded">{tag}</span>
                 ))}
               </div>
             </div>
@@ -77,8 +77,8 @@ export default function KaggleImport({ onImport }) {
                 imported.includes(dataset.id)
                   ? 'bg-green-500/10 border-green-500/30 text-green-400'
                   : importing === dataset.id
-                    ? 'bg-dark-600 border-dark-500 text-dark-300'
-                    : 'bg-primary-500/10 border-primary-500/30 text-primary-400 hover:bg-primary-500/20'
+                    ? 'bg-dark-600 border-dark-500 text-purple-200/70'
+                    : 'bg-primary-500/10 border-primary-500/30 text-purple-400 hover:bg-primary-500/20'
               }`}
             >
               {imported.includes(dataset.id) ? '✓ Imported' : importing === dataset.id ? 'Importing...' : 'Import'}

@@ -1,5 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNotifications } from '../context/NotificationContext';
+import {
+  Bell, CheckCircle, AlertTriangle, Mail, Rocket,
+  XCircle, Link, Pin
+} from 'lucide-react';
 
 export default function NotificationCenter() {
   const [open, setOpen] = useState(false);
@@ -18,14 +22,27 @@ export default function NotificationCenter() {
 
   const getIcon = (type) => {
     switch (type) {
-      case 'training_complete': return '✅';
-      case 'drift_detected': return '⚠️';
-      case 'invite_received': return '📨';
-      case 'deploy_success': return '🚀';
-      case 'deploy_fail': return '❌';
-      case 'system': return '🔔';
-      case 'webhook': return '🔗';
-      default: return '📌';
+      case 'training_complete': return CheckCircle;
+      case 'drift_detected': return AlertTriangle;
+      case 'invite_received': return Mail;
+      case 'deploy_success': return Rocket;
+      case 'deploy_fail': return XCircle;
+      case 'system': return Bell;
+      case 'webhook': return Link;
+      default: return Pin;
+    }
+  };
+
+  const getIconColor = (type) => {
+    switch (type) {
+      case 'training_complete': return 'text-green-400';
+      case 'drift_detected': return 'text-yellow-400';
+      case 'invite_received': return 'text-blue-400';
+      case 'deploy_success': return 'text-green-400';
+      case 'deploy_fail': return 'text-red-400';
+      case 'system': return 'text-purple-400';
+      case 'webhook': return 'text-cyan-400';
+      default: return 'text-purple-300/60';
     }
   };
 
@@ -41,12 +58,10 @@ export default function NotificationCenter() {
     <div className="relative" ref={panelRef}>
       <button
         onClick={() => setOpen(!open)}
-        className="relative p-2 text-dark-400 hover:text-white transition-colors rounded-lg hover:bg-dark-700"
+        className="relative p-2 text-purple-300/50 hover:text-white transition-colors rounded-lg hover:bg-purple-500/15"
         aria-label="Notifications"
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-        </svg>
+        <Bell className="w-5 h-5" />
         {unreadCount > 0 && (
           <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
             {unreadCount > 9 ? '9+' : unreadCount}
@@ -55,13 +70,13 @@ export default function NotificationCenter() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-80 bg-dark-800 border border-dark-600 rounded-xl shadow-2xl z-50 overflow-hidden">
-          <div className="flex items-center justify-between p-3 border-b border-dark-700">
+        <div className="absolute right-0 top-full mt-2 w-80 bg-dark-800/40 border border-dark-600 rounded-xl shadow-2xl z-50 overflow-hidden">
+          <div className="flex items-center justify-between p-3 border-b border-purple-500/20">
             <h3 className="text-sm font-semibold text-white">Notifications</h3>
             {unreadCount > 0 && (
               <button
                 onClick={markAllRead}
-                className="text-xs text-primary-400 hover:text-primary-300"
+                className="text-xs text-purple-400 hover:text-primary-300"
               >
                 Mark all read
               </button>
@@ -70,30 +85,34 @@ export default function NotificationCenter() {
 
           <div className="max-h-96 overflow-y-auto">
             {notifications.length === 0 ? (
-              <div className="p-6 text-center text-dark-400 text-sm">
+              <div className="p-6 text-center text-purple-300/50 text-sm">
                 No notifications yet
               </div>
             ) : (
-              notifications.slice(0, 20).map(notif => (
-                <div
-                  key={notif._id}
-                  onClick={() => !notif.read && markAsRead(notif._id)}
-                  className={`flex items-start gap-3 p-3 border-b border-dark-700/50 cursor-pointer hover:bg-dark-700/50 transition-colors ${
-                    !notif.read ? 'bg-primary-500/5' : ''
-                  }`}
-                >
-                  <span className="text-lg mt-0.5">{getIcon(notif.type)}</span>
-                  <div className="flex-1 min-w-0">
-                    <p className={`text-sm ${!notif.read ? 'text-white font-medium' : 'text-dark-300'}`}>
-                      {notif.message}
-                    </p>
-                    <p className="text-xs text-dark-500 mt-0.5">{timeAgo(notif.createdAt)}</p>
+              notifications.slice(0, 20).map(notif => {
+                const IconComponent = getIcon(notif.type);
+                const iconColor = getIconColor(notif.type);
+                return (
+                  <div
+                    key={notif._id}
+                    onClick={() => !notif.read && markAsRead(notif._id)}
+                    className={`flex items-start gap-3 p-3 border-b border-purple-500/20/50 cursor-pointer hover:bg-purple-500/15/50 transition-colors ${
+                      !notif.read ? 'bg-primary-500/5' : ''
+                    }`}
+                  >
+                    <IconComponent className={`w-5 h-5 mt-0.5 flex-shrink-0 ${iconColor}`} />
+                    <div className="flex-1 min-w-0">
+                      <p className={`text-sm ${!notif.read ? 'text-white font-medium' : 'text-purple-200/70'}`}>
+                        {notif.message}
+                      </p>
+                      <p className="text-xs text-purple-300/40 mt-0.5">{timeAgo(notif.createdAt)}</p>
+                    </div>
+                    {!notif.read && (
+                      <div className="w-2 h-2 rounded-full bg-primary-400 mt-2 flex-shrink-0" />
+                    )}
                   </div>
-                  {!notif.read && (
-                    <div className="w-2 h-2 rounded-full bg-primary-400 mt-2 flex-shrink-0" />
-                  )}
-                </div>
-              ))
+                );
+              })
             )}
           </div>
         </div>

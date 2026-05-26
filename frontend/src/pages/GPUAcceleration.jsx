@@ -127,12 +127,12 @@ export default function GPUAcceleration() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h2 className="text-2xl font-bold text-dark-50">GPU Acceleration</h2>
-        <p className="text-dark-400 mt-1">Detect WebGPU availability and compare CPU vs GPU performance</p>
+        <p className="text-purple-300/50 mt-1">Detect WebGPU availability and compare CPU vs GPU performance</p>
       </div>
 
       {/* Detection */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-dark-100 mb-4">🔍 Hardware Detection</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">🔍 Hardware Detection</h3>
         
         {gpuAvailable === null ? (
           <div className="text-center py-8">
@@ -163,7 +163,7 @@ export default function GPUAcceleration() {
                   <p className={`font-medium ${gpuAvailable ? 'text-green-400' : 'text-yellow-400'}`}>
                     {gpuAvailable ? 'WebGPU Available' : 'WebGPU Not Available'}
                   </p>
-                  <p className="text-sm text-dark-400">
+                  <p className="text-sm text-purple-300/50">
                     {gpuAvailable
                       ? 'Your browser supports GPU acceleration for ML training'
                       : gpuInfo?.error || 'GPU acceleration not available, using CPU fallback'}
@@ -174,25 +174,25 @@ export default function GPUAcceleration() {
 
             {gpuAvailable && gpuInfo && (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                <div className="bg-dark-800 rounded-lg p-3 border border-dark-600">
-                  <p className="text-xs text-dark-400">Vendor</p>
-                  <p className="text-sm font-medium text-dark-100">{gpuInfo.vendor}</p>
+                <div className="bg-dark-800/40 rounded-lg p-3 border border-purple-500/30">
+                  <p className="text-xs text-purple-300/50">Vendor</p>
+                  <p className="text-sm font-medium text-white">{gpuInfo.vendor}</p>
                 </div>
-                <div className="bg-dark-800 rounded-lg p-3 border border-dark-600">
-                  <p className="text-xs text-dark-400">Architecture</p>
-                  <p className="text-sm font-medium text-dark-100">{gpuInfo.architecture}</p>
+                <div className="bg-dark-800/40 rounded-lg p-3 border border-purple-500/30">
+                  <p className="text-xs text-purple-300/50">Architecture</p>
+                  <p className="text-sm font-medium text-white">{gpuInfo.architecture}</p>
                 </div>
-                <div className="bg-dark-800 rounded-lg p-3 border border-dark-600">
-                  <p className="text-xs text-dark-400">Device</p>
-                  <p className="text-sm font-medium text-dark-100">{gpuInfo.device}</p>
+                <div className="bg-dark-800/40 rounded-lg p-3 border border-purple-500/30">
+                  <p className="text-xs text-purple-300/50">Device</p>
+                  <p className="text-sm font-medium text-white">{gpuInfo.device}</p>
                 </div>
-                <div className="bg-dark-800 rounded-lg p-3 border border-dark-600">
-                  <p className="text-xs text-dark-400">Max Buffer Size</p>
-                  <p className="text-sm font-medium text-dark-100">{gpuInfo.maxBufferSize ? `${(gpuInfo.maxBufferSize / 1024 / 1024).toFixed(0)} MB` : 'N/A'}</p>
+                <div className="bg-dark-800/40 rounded-lg p-3 border border-purple-500/30">
+                  <p className="text-xs text-purple-300/50">Max Buffer Size</p>
+                  <p className="text-sm font-medium text-white">{gpuInfo.maxBufferSize ? `${(gpuInfo.maxBufferSize / 1024 / 1024).toFixed(0)} MB` : 'N/A'}</p>
                 </div>
-                <div className="bg-dark-800 rounded-lg p-3 border border-dark-600">
-                  <p className="text-xs text-dark-400">Max Workgroups</p>
-                  <p className="text-sm font-medium text-dark-100">{gpuInfo.maxComputeWorkgroupsPerDimension || 'N/A'}</p>
+                <div className="bg-dark-800/40 rounded-lg p-3 border border-purple-500/30">
+                  <p className="text-xs text-purple-300/50">Max Workgroups</p>
+                  <p className="text-sm font-medium text-white">{gpuInfo.maxComputeWorkgroupsPerDimension || 'N/A'}</p>
                 </div>
               </div>
             )}
@@ -202,14 +202,14 @@ export default function GPUAcceleration() {
 
       {/* Backend Toggle */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-dark-100 mb-4">⚙️ Training Backend</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">⚙️ Training Backend</h3>
         <div className="flex gap-4">
           <button
             onClick={() => setBackend('cpu')}
             className={`flex-1 p-4 rounded-lg border transition-colors ${
               backend === 'cpu'
-                ? 'bg-primary-500/10 border-primary-500/30 text-primary-400'
-                : 'bg-dark-800 border-dark-600 text-dark-300 hover:border-dark-400'
+                ? 'bg-primary-500/10 border-primary-500/30 text-purple-400'
+                : 'bg-dark-800 border-purple-500/30 text-purple-200/70 hover:border-dark-400'
             }`}
           >
             <div className="text-2xl mb-2">🖥️</div>
@@ -220,8 +220,8 @@ export default function GPUAcceleration() {
             onClick={() => setBackend('gpu')}
             className={`flex-1 p-4 rounded-lg border transition-colors ${
               backend === 'gpu'
-                ? 'bg-primary-500/10 border-primary-500/30 text-primary-400'
-                : 'bg-dark-800 border-dark-600 text-dark-300 hover:border-dark-400'
+                ? 'bg-primary-500/10 border-primary-500/30 text-purple-400'
+                : 'bg-dark-800 border-purple-500/30 text-purple-200/70 hover:border-dark-400'
             }`}
           >
             <div className="text-2xl mb-2">🎮</div>
@@ -232,16 +232,16 @@ export default function GPUAcceleration() {
             )}
           </button>
         </div>
-        <p className="text-xs text-dark-500 mt-3">
-          Selected backend: <span className="text-primary-400 font-medium">{backend === 'cpu' ? 'CPU (Web Workers)' : 'GPU (WebGL/WebGPU)'}</span>
+        <p className="text-xs text-purple-300/40 mt-3">
+          Selected backend: <span className="text-purple-400 font-medium">{backend === 'cpu' ? 'CPU (Web Workers)' : 'GPU (WebGL/WebGPU)'}</span>
           {' '}— This setting applies to new training sessions.
         </p>
       </div>
 
       {/* Benchmark */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-dark-100 mb-4">🏎️ Speed Comparison</h3>
-        <p className="text-sm text-dark-400 mb-4">
+        <h3 className="text-lg font-semibold text-white mb-4">🏎️ Speed Comparison</h3>
+        <p className="text-sm text-purple-300/50 mb-4">
           Run a matrix multiplication benchmark to compare CPU vs GPU performance on your hardware.
         </p>
 
@@ -268,11 +268,11 @@ export default function GPUAcceleration() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-dark-700">
-                    <th className="text-left py-2 px-3 text-dark-400">Matrix Size</th>
-                    <th className="text-right py-2 px-3 text-dark-400">CPU (ms)</th>
-                    <th className="text-right py-2 px-3 text-dark-400">GPU (ms)</th>
-                    <th className="text-right py-2 px-3 text-dark-400">Speedup</th>
+                  <tr className="border-b border-purple-500/20">
+                    <th className="text-left py-2 px-3 text-purple-300/50">Matrix Size</th>
+                    <th className="text-right py-2 px-3 text-purple-300/50">CPU (ms)</th>
+                    <th className="text-right py-2 px-3 text-purple-300/50">GPU (ms)</th>
+                    <th className="text-right py-2 px-3 text-purple-300/50">Speedup</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -282,8 +282,8 @@ export default function GPUAcceleration() {
                     return (
                       <tr key={i} className="border-b border-dark-800">
                         <td className="py-2 px-3 text-dark-200 font-mono">{cpuResult.size}x{cpuResult.size}</td>
-                        <td className="text-right py-2 px-3 text-dark-300 font-mono">{cpuResult.time.toFixed(1)}</td>
-                        <td className="text-right py-2 px-3 text-dark-300 font-mono">{gpuResult.time.toFixed(1)}</td>
+                        <td className="text-right py-2 px-3 text-purple-200/70 font-mono">{cpuResult.time.toFixed(1)}</td>
+                        <td className="text-right py-2 px-3 text-purple-200/70 font-mono">{gpuResult.time.toFixed(1)}</td>
                         <td className={`text-right py-2 px-3 font-mono font-bold ${speedup > 1 ? 'text-green-400' : 'text-yellow-400'}`}>
                           {speedup.toFixed(1)}x
                         </td>
@@ -293,7 +293,7 @@ export default function GPUAcceleration() {
                 </tbody>
               </table>
             </div>
-            <p className="text-xs text-dark-500 mt-3">
+            <p className="text-xs text-purple-300/40 mt-3">
               Benchmark: Matrix multiplication (A×B) averaged over 5 iterations per size.
               {benchmarkResults.gpu.some((g, i) => benchmarkResults.cpu[i].time / g.time > 2) && (
                 <span className="text-green-400"> GPU shows significant speedup for larger matrices!</span>

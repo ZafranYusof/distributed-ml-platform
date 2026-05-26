@@ -29,8 +29,8 @@ export default class ErrorBoundary extends Component {
         <div className="flex items-center justify-center min-h-[400px] p-6">
           <div className="text-center max-w-md">
             <div className="text-5xl mb-4">💥</div>
-            <h2 className="text-xl font-bold text-dark-100 mb-2">Something went wrong</h2>
-            <p className="text-dark-400 text-sm mb-6">
+            <h2 className="text-xl font-bold text-white mb-2">Something went wrong</h2>
+            <p className="text-purple-300/50 text-sm mb-6">
               {this.state.error?.message || 'An unexpected error occurred. Please try again.'}
             </p>
             <div className="flex items-center justify-center gap-3">
@@ -49,10 +49,10 @@ export default class ErrorBoundary extends Component {
             </div>
             {process.env.NODE_ENV === 'development' && this.state.errorInfo && (
               <details className="mt-6 text-left">
-                <summary className="text-xs text-dark-500 cursor-pointer hover:text-dark-300">
+                <summary className="text-xs text-purple-300/40 cursor-pointer hover:text-purple-200/70">
                   Stack trace
                 </summary>
-                <pre className="mt-2 text-xs text-dark-500 bg-dark-900 p-3 rounded-lg overflow-auto max-h-48">
+                <pre className="mt-2 text-xs text-purple-300/40 bg-dark-900 p-3 rounded-lg overflow-auto max-h-48">
                   {this.state.errorInfo.componentStack}
                 </pre>
               </details>

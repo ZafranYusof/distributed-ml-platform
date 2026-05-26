@@ -44,11 +44,11 @@ function ConfirmDialog({ isOpen, onClose, onConfirm, title, message, confirmLabe
   return (
     <div className="fixed inset-0 z-[9998] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div ref={dialogRef} className="relative bg-dark-900 border border-dark-700 rounded-xl p-6 max-w-md w-full shadow-2xl">
-        <h3 id="confirm-title" className="text-lg font-semibold text-dark-100 mb-2">
+      <div ref={dialogRef} className="relative bg-dark-900 border border-purple-500/20 rounded-xl p-6 max-w-md w-full shadow-2xl">
+        <h3 id="confirm-title" className="text-lg font-semibold text-white mb-2">
           {title}
         </h3>
-        <p className="text-dark-400 text-sm mb-6">{message}</p>
+        <p className="text-purple-300/50 text-sm mb-6">{message}</p>
         <div className="flex items-center justify-end gap-3">
           <button
             onClick={onClose}

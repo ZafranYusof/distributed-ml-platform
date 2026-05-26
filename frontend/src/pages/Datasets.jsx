@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { useConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
+import { Database } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
 import SearchFilterBar from '../components/ui/SearchFilterBar';
 import KaggleImport from '../components/KaggleImport';
@@ -115,7 +116,7 @@ export default function Datasets() {
     return ds.name?.toLowerCase().includes(q) || ds.description?.toLowerCase().includes(q) || ds.tags?.some(t => t.toLowerCase().includes(q));
   });
 
-  if (!user) return <div className="text-dark-400 text-center py-20">Sign in to manage datasets</div>;
+  if (!user) return <div className="text-purple-300/50 text-center py-20">Sign in to manage datasets</div>;
 
   return (
     <div className="space-y-6">
@@ -123,7 +124,7 @@ export default function Datasets() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Dataset Management</h1>
-          <p className="text-dark-400 mt-1">Upload, organize, version, and share datasets</p>
+          <p className="text-purple-300/50 mt-1">Upload, organize, version, and share datasets</p>
         </div>
         <button
           onClick={() => setShowUpload(!showUpload)}
@@ -155,11 +156,11 @@ export default function Datasets() {
 
       {/* Upload Form */}
       {showUpload && (
-        <form onSubmit={handleSubmit} className="bg-dark-800 border border-dark-700 rounded-lg p-6 space-y-4 animate-fade-in">
+        <form onSubmit={handleSubmit} className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6 space-y-4 animate-fade-in">
           <h3 className="text-lg font-semibold text-white">Upload New Dataset</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm text-dark-400 mb-1">Name</label>
+              <label className="block text-sm text-purple-300/50 mb-1">Name</label>
               <input
                 type="text"
                 value={form.name}
@@ -172,7 +173,7 @@ export default function Datasets() {
               {formErrors.name && <p id="name-error" className="field-error">{formErrors.name}</p>}
             </div>
             <div>
-              <label className="block text-sm text-dark-400 mb-1">Category</label>
+              <label className="block text-sm text-purple-300/50 mb-1">Category</label>
               <select value={form.category} onChange={(e) => setForm(prev => ({ ...prev, category: e.target.value }))} className="w-full input-field">
                 <option value="classification">Classification</option>
                 <option value="regression">Regression</option>
@@ -181,22 +182,22 @@ export default function Datasets() {
               </select>
             </div>
             <div>
-              <label className="block text-sm text-dark-400 mb-1">Tags (comma-separated)</label>
+              <label className="block text-sm text-purple-300/50 mb-1">Tags (comma-separated)</label>
               <input type="text" value={form.tags} onChange={(e) => setForm(prev => ({ ...prev, tags: e.target.value }))} placeholder="e.g. nlp, sentiment, large" className="w-full input-field" />
             </div>
             <div>
-              <label className="block text-sm text-dark-400 mb-1">Description</label>
+              <label className="block text-sm text-purple-300/50 mb-1">Description</label>
               <input type="text" value={form.description} onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))} className="w-full input-field" />
             </div>
           </div>
           <div>
-            <label className="block text-sm text-dark-400 mb-1">CSV File</label>
-            <input type="file" accept=".csv" onChange={handleFileUpload} className="text-dark-300 text-sm" aria-label="Upload CSV file" />
+            <label className="block text-sm text-purple-300/50 mb-1">CSV File</label>
+            <input type="file" accept=".csv" onChange={handleFileUpload} className="text-purple-200/70 text-sm" aria-label="Upload CSV file" />
             {formErrors.data && <p className="field-error">{formErrors.data}</p>}
           </div>
           <div className="flex items-center gap-2">
-            <input type="checkbox" checked={form.shared} onChange={(e) => setForm(prev => ({ ...prev, shared: e.target.checked }))} className="rounded border-dark-600" id="share-checkbox" />
-            <label htmlFor="share-checkbox" className="text-sm text-dark-300">Share with other users</label>
+            <input type="checkbox" checked={form.shared} onChange={(e) => setForm(prev => ({ ...prev, shared: e.target.checked }))} className="rounded border-purple-500/30" id="share-checkbox" />
+            <label htmlFor="share-checkbox" className="text-sm text-purple-200/70">Share with other users</label>
           </div>
           <div className="flex gap-3">
             <button type="submit" disabled={!form.data} className="btn-primary disabled:opacity-50">Upload</button>
@@ -210,7 +211,7 @@ export default function Datasets() {
         <CardSkeleton count={6} />
       ) : filteredDatasets.length === 0 ? (
         <EmptyState
-          icon="📁"
+          icon={Database}
           title="No datasets yet"
           description="Upload your first dataset to get started with training and experiments."
           actionLabel="Upload a Dataset"
@@ -223,32 +224,32 @@ export default function Datasets() {
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="text-white font-medium">{ds.name}</h3>
-                  <p className="text-dark-400 text-xs mt-1">{ds.description || 'No description'}</p>
+                  <p className="text-purple-300/50 text-xs mt-1">{ds.description || 'No description'}</p>
                 </div>
-                <span className="text-xs bg-dark-700 text-dark-300 px-2 py-0.5 rounded">v{ds.version}</span>
+                <span className="text-xs bg-purple-500/15 text-purple-200/70 px-2 py-0.5 rounded">v{ds.version}</span>
               </div>
               <div className="flex flex-wrap gap-1 mt-3">
                 {ds.tags?.map(tag => (
-                  <span key={tag} className="text-xs bg-primary-500/10 text-primary-400 px-2 py-0.5 rounded-full">{tag}</span>
+                  <span key={tag} className="text-xs bg-purple-500/10 text-purple-300 px-2 py-0.5 rounded-full">{tag}</span>
                 ))}
-                <span className="text-xs bg-dark-700 text-dark-400 px-2 py-0.5 rounded-full">{ds.category}</span>
+                <span className="text-xs bg-purple-500/15 text-purple-300/50 px-2 py-0.5 rounded-full">{ds.category}</span>
               </div>
-              <div className="flex items-center gap-4 mt-3 text-xs text-dark-500">
+              <div className="flex items-center gap-4 mt-3 text-xs text-purple-300/40">
                 <span>{ds.rows} rows</span>
                 <span>{ds.columns} cols</span>
                 <span>{(ds.fileSize / 1024).toFixed(1)} KB</span>
               </div>
-              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-dark-700">
+              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-purple-500/20">
                 <button
                   onClick={() => toggleShare(ds)}
-                  className={`text-xs px-2 py-1 rounded ${ds.shared ? 'bg-green-500/10 text-green-400' : 'bg-dark-700 text-dark-400'}`}
+                  className={`text-xs px-2 py-1 rounded ${ds.shared ? 'bg-green-500/10 text-green-400' : 'bg-purple-500/15 text-purple-300/50'}`}
                   aria-label={ds.shared ? 'Make private' : 'Share dataset'}
                 >
                   {ds.shared ? '🔗 Shared' : '🔒 Private'}
                 </button>
                 <button
                   onClick={() => handleDelete(ds._id)}
-                  className="text-xs px-2 py-1 rounded bg-dark-700 text-red-400 hover:bg-red-500/10 ml-auto"
+                  className="text-xs px-2 py-1 rounded bg-purple-500/15 text-red-400 hover:bg-red-500/10 ml-auto"
                   aria-label={`Delete ${ds.name}`}
                 >
                   Delete

@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 function SkeletonPulse({ className = '' }) {
   return (
-    <div className={`animate-shimmer bg-gradient-to-r from-dark-800 via-dark-700 to-dark-800 bg-[length:200%_100%] rounded ${className}`} />
+    <div className={`animate-shimmer bg-gradient-to-r from-purple-900/40 via-purple-700/30 to-purple-900/40 bg-[length:200%_100%] rounded ${className}`} />
   );
 }
 
@@ -10,7 +10,7 @@ export function CardSkeleton({ count = 3 }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="bg-dark-900 border border-dark-700 rounded-xl p-6 space-y-3">
+        <div key={i} className="bg-dark-800/50 backdrop-blur-md border border-purple-500/20 rounded-xl p-6 space-y-3">
           <SkeletonPulse className="h-5 w-3/4" />
           <SkeletonPulse className="h-4 w-1/2" />
           <div className="flex gap-2 pt-2">
@@ -27,13 +27,13 @@ export function CardSkeleton({ count = 3 }) {
 export function TableSkeleton({ rows = 5, cols = 5 }) {
   return (
     <div className="w-full space-y-2">
-      <div className="flex gap-4 pb-3 border-b border-dark-700">
+      <div className="flex gap-4 pb-3 border-b border-purple-500/20">
         {Array.from({ length: cols }).map((_, i) => (
           <SkeletonPulse key={i} className="h-4 flex-1" />
         ))}
       </div>
       {Array.from({ length: rows }).map((_, i) => (
-        <div key={i} className="flex gap-4 py-3 border-b border-dark-700/50">
+        <div key={i} className="flex gap-4 py-3 border-b border-purple-500/10">
           {Array.from({ length: cols }).map((_, j) => (
             <SkeletonPulse key={j} className="h-4 flex-1" />
           ))}
@@ -45,7 +45,7 @@ export function TableSkeleton({ rows = 5, cols = 5 }) {
 
 export function ChartSkeleton() {
   return (
-    <div className="bg-dark-900 border border-dark-700 rounded-xl p-6">
+    <div className="bg-dark-800/50 backdrop-blur-md border border-purple-500/20 rounded-xl p-6">
       <SkeletonPulse className="h-5 w-48 mb-4" />
       <div className="h-64 flex items-end gap-2 pt-4">
         {Array.from({ length: 12 }).map((_, i) => (

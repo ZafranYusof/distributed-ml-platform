@@ -114,43 +114,43 @@ export default function ActiveLearning() {
     setUncertainSamples(newUncertain);
   };
 
-  if (!user) return <div className="text-dark-400 text-center py-20">Sign in to use Active Learning</div>;
+  if (!user) return <div className="text-purple-300/50 text-center py-20">Sign in to use Active Learning</div>;
 
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-white">Active Learning</h1>
-        <p className="text-dark-400 mt-1">Iteratively label the most informative samples to maximize model performance</p>
+        <p className="text-purple-300/50 mt-1">Iteratively label the most informative samples to maximize model performance</p>
       </div>
 
       {phase === 'config' && (
         <div className="max-w-lg">
-          <div className="bg-dark-800 border border-dark-700 rounded-xl p-6 space-y-4">
+          <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6 space-y-4">
             <h3 className="text-white font-semibold">Configuration</h3>
             <div>
-              <label className="text-dark-400 text-sm">Initial Labeled Samples</label>
+              <label className="text-purple-300/50 text-sm">Initial Labeled Samples</label>
               <input type="number" value={config.initialLabeled} onChange={e => setConfig({ ...config, initialLabeled: parseInt(e.target.value) || 10 })}
-                className="w-full mt-1 bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-dark-200" />
+                className="w-full mt-1 bg-dark-900 border border-purple-500/30 rounded-lg px-3 py-2 text-dark-200" />
             </div>
             <div>
-              <label className="text-dark-400 text-sm">Unlabeled Pool Size</label>
+              <label className="text-purple-300/50 text-sm">Unlabeled Pool Size</label>
               <input type="number" value={config.poolSize} onChange={e => setConfig({ ...config, poolSize: parseInt(e.target.value) || 200 })}
-                className="w-full mt-1 bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-dark-200" />
+                className="w-full mt-1 bg-dark-900 border border-purple-500/30 rounded-lg px-3 py-2 text-dark-200" />
             </div>
             <div>
-              <label className="text-dark-400 text-sm">Query Size (samples per iteration)</label>
+              <label className="text-purple-300/50 text-sm">Query Size (samples per iteration)</label>
               <input type="number" value={config.querySize} onChange={e => setConfig({ ...config, querySize: parseInt(e.target.value) || 5 })}
-                className="w-full mt-1 bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-dark-200" />
+                className="w-full mt-1 bg-dark-900 border border-purple-500/30 rounded-lg px-3 py-2 text-dark-200" />
             </div>
             <div>
-              <label className="text-dark-400 text-sm">Uncertainty Strategy</label>
+              <label className="text-purple-300/50 text-sm">Uncertainty Strategy</label>
               <select value={config.strategy} onChange={e => setConfig({ ...config, strategy: e.target.value })}
-                className="w-full mt-1 bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-dark-200">
+                className="w-full mt-1 bg-dark-900 border border-purple-500/30 rounded-lg px-3 py-2 text-dark-200">
                 <option value="entropy">Entropy Sampling</option>
                 <option value="margin">Margin Sampling</option>
               </select>
             </div>
-            <button onClick={startActiveLearning} className="w-full px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600">
+            <button onClick={startActiveLearning} className="w-full px-4 py-2 bg-gradient-btn text-white rounded-lg hover:bg-primary-600">
               Start Active Learning
             </button>
           </div>
@@ -160,46 +160,46 @@ export default function ActiveLearning() {
       {phase === 'labeling' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Accuracy chart */}
-          <div className="lg:col-span-2 bg-dark-800 border border-dark-700 rounded-xl p-6">
+          <div className="lg:col-span-2 bg-dark-800/40 border border-purple-500/20 rounded-xl p-6">
             <h3 className="text-white font-semibold mb-4">Accuracy Improvement</h3>
             {accuracyHistory.length > 0 ? (
               <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={accuracyHistory}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                  <XAxis dataKey="iteration" stroke="#64748b" label={{ value: 'Iteration', position: 'bottom', fill: '#64748b' }} />
-                  <YAxis stroke="#64748b" domain={[0, 100]} />
-                  <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155' }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+                  <XAxis dataKey="iteration" stroke="#6b5b95" label={{ value: 'Iteration', position: 'bottom', fill: '#6b5b95' }} />
+                  <YAxis stroke="#6b5b95" domain={[0, 100]} />
+                  <Tooltip contentStyle={{ backgroundColor: '#1E1045', border: '1px solid #2d1b69' }} />
                   <Line type="monotone" dataKey="accuracy" stroke="#06b6d4" strokeWidth={2} dot={{ fill: '#06b6d4' }} />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
-              <p className="text-dark-400">Training initial model...</p>
+              <p className="text-purple-300/50">Training initial model...</p>
             )}
             <div className="flex gap-6 mt-4 text-sm">
-              <span className="text-dark-400">Iteration: <span className="text-dark-200">{iteration}</span></span>
-              <span className="text-dark-400">Labeled: <span className="text-primary-400">{labeledCount}/{config.poolSize}</span></span>
-              <span className="text-dark-400">Strategy: <span className="text-dark-200">{config.strategy}</span></span>
+              <span className="text-purple-300/50">Iteration: <span className="text-dark-200">{iteration}</span></span>
+              <span className="text-purple-300/50">Labeled: <span className="text-purple-400">{labeledCount}/{config.poolSize}</span></span>
+              <span className="text-purple-300/50">Strategy: <span className="text-dark-200">{config.strategy}</span></span>
             </div>
           </div>
 
           {/* Uncertain samples to label */}
-          <div className="bg-dark-800 border border-dark-700 rounded-xl p-6">
+          <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6">
             <h3 className="text-white font-semibold mb-2">Label These Samples</h3>
-            <p className="text-dark-400 text-xs mb-4">Most uncertain samples (highest {config.strategy})</p>
+            <p className="text-purple-300/50 text-xs mb-4">Most uncertain samples (highest {config.strategy})</p>
             <div className="space-y-3">
               {uncertainSamples.map((sample, i) => (
-                <div key={i} className="bg-dark-900 rounded-lg p-3 border border-dark-700">
-                  <div className="flex justify-between text-xs text-dark-400 mb-2">
+                <div key={i} className="bg-dark-900 rounded-lg p-3 border border-purple-500/20">
+                  <div className="flex justify-between text-xs text-purple-300/50 mb-2">
                     <span>x1: {sample.x1}, x2: {sample.x2}</span>
                     <span className="text-yellow-400">U: {sample.uncertainty}</span>
                   </div>
-                  <div className="w-full bg-dark-700 rounded-full h-1.5">
+                  <div className="w-full bg-purple-500/15 rounded-full h-1.5">
                     <div className="bg-yellow-500 h-1.5 rounded-full" style={{ width: `${sample.uncertainty * 100}%` }}></div>
                   </div>
                 </div>
               ))}
             </div>
-            <button onClick={() => labelSamples()} className="w-full mt-4 px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 text-sm">
+            <button onClick={() => labelSamples()} className="w-full mt-4 px-4 py-2 bg-gradient-btn text-white rounded-lg hover:bg-primary-600 text-sm">
               Label All & Retrain
             </button>
           </div>
@@ -211,31 +211,31 @@ export default function ActiveLearning() {
           <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-6 text-center">
             <p className="text-4xl mb-2">✅</p>
             <h3 className="text-green-400 font-semibold text-lg">Active Learning Complete</h3>
-            <p className="text-dark-400 mt-2">Achieved target accuracy with {labeledCount} labeled samples ({((labeledCount / config.poolSize) * 100).toFixed(0)}% of pool)</p>
+            <p className="text-purple-300/50 mt-2">Achieved target accuracy with {labeledCount} labeled samples ({((labeledCount / config.poolSize) * 100).toFixed(0)}% of pool)</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-dark-800 border border-dark-700 rounded-xl p-6">
+            <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-4">Accuracy Over Iterations</h3>
               <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={accuracyHistory}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                  <XAxis dataKey="iteration" stroke="#64748b" />
-                  <YAxis stroke="#64748b" domain={[0, 100]} />
-                  <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155' }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+                  <XAxis dataKey="iteration" stroke="#6b5b95" />
+                  <YAxis stroke="#6b5b95" domain={[0, 100]} />
+                  <Tooltip contentStyle={{ backgroundColor: '#1E1045', border: '1px solid #2d1b69' }} />
                   <Line type="monotone" dataKey="accuracy" stroke="#06b6d4" strokeWidth={2} dot={{ fill: '#06b6d4' }} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
 
-            <div className="bg-dark-800 border border-dark-700 rounded-xl p-6">
+            <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6">
               <h3 className="text-white font-semibold mb-4">Labels Per Iteration</h3>
               <ResponsiveContainer width="100%" height={250}>
                 <BarChart data={accuracyHistory}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                  <XAxis dataKey="iteration" stroke="#64748b" />
-                  <YAxis stroke="#64748b" />
-                  <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155' }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#2d1b69" />
+                  <XAxis dataKey="iteration" stroke="#6b5b95" />
+                  <YAxis stroke="#6b5b95" />
+                  <Tooltip contentStyle={{ backgroundColor: '#1E1045', border: '1px solid #2d1b69' }} />
                   <Bar dataKey="labeled" fill="#06b6d4" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
@@ -243,22 +243,22 @@ export default function ActiveLearning() {
           </div>
 
           <div className="grid grid-cols-3 gap-4">
-            <div className="bg-dark-800 border border-dark-700 rounded-xl p-4 text-center">
-              <p className="text-dark-400 text-xs">Final Accuracy</p>
-              <p className="text-2xl font-bold text-primary-400">{accuracyHistory[accuracyHistory.length - 1]?.accuracy}%</p>
+            <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-4 text-center">
+              <p className="text-purple-300/50 text-xs">Final Accuracy</p>
+              <p className="text-2xl font-bold text-purple-400">{accuracyHistory[accuracyHistory.length - 1]?.accuracy}%</p>
             </div>
-            <div className="bg-dark-800 border border-dark-700 rounded-xl p-4 text-center">
-              <p className="text-dark-400 text-xs">Total Iterations</p>
+            <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-4 text-center">
+              <p className="text-purple-300/50 text-xs">Total Iterations</p>
               <p className="text-2xl font-bold text-dark-200">{iteration}</p>
             </div>
-            <div className="bg-dark-800 border border-dark-700 rounded-xl p-4 text-center">
-              <p className="text-dark-400 text-xs">Labels Saved</p>
+            <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-4 text-center">
+              <p className="text-purple-300/50 text-xs">Labels Saved</p>
               <p className="text-2xl font-bold text-green-400">{config.poolSize - labeledCount}</p>
             </div>
           </div>
 
           <button onClick={() => { setPhase('config'); setResults(null); setAccuracyHistory([]); setIteration(0); }}
-            className="px-4 py-2 bg-dark-700 text-dark-300 rounded-lg hover:bg-dark-600">
+            className="px-4 py-2 bg-purple-500/15 text-purple-200/70 rounded-lg hover:bg-purple-500/20">
             ← Start Over
           </button>
         </div>

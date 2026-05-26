@@ -128,89 +128,89 @@ export default function Augmentation() {
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-white">Data Augmentation</h1>
-        <p className="text-dark-400 mt-1">Augment datasets with noise, SMOTE, rotation, and more</p>
+        <p className="text-purple-300/50 mt-1">Augment datasets with noise, SMOTE, rotation, and more</p>
       </div>
 
       {/* Data Type Selection */}
       <div className="flex items-center gap-3">
-        <button onClick={() => { setDataType('tabular'); setSampleData(null); setAugmentedPreview(null); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${dataType === 'tabular' ? 'bg-primary-500 text-white' : 'bg-dark-800 text-dark-300'}`}>
+        <button onClick={() => { setDataType('tabular'); setSampleData(null); setAugmentedPreview(null); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${dataType === 'tabular' ? 'bg-gradient-btn text-white' : 'bg-dark-800 text-purple-200/70'}`}>
           📊 Tabular Data
         </button>
-        <button onClick={() => { setDataType('image'); setSampleData(null); setAugmentedPreview(null); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${dataType === 'image' ? 'bg-primary-500 text-white' : 'bg-dark-800 text-dark-300'}`}>
+        <button onClick={() => { setDataType('image'); setSampleData(null); setAugmentedPreview(null); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${dataType === 'image' ? 'bg-gradient-btn text-white' : 'bg-dark-800 text-purple-200/70'}`}>
           🖼 Image-like Data
         </button>
-        <button onClick={generateSampleData} className="px-4 py-2 bg-dark-700 text-dark-300 hover:text-white rounded-lg text-sm transition-colors ml-auto">
+        <button onClick={generateSampleData} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm transition-colors ml-auto">
           Generate Sample Data
         </button>
       </div>
 
       {/* Augmentation Config */}
-      <div className="bg-dark-800 border border-dark-700 rounded-lg p-6">
+      <div className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6">
         <h3 className="text-lg font-semibold text-white mb-4">Augmentation Pipeline</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {dataType === 'tabular' ? (
             <>
               {/* Noise */}
-              <div className={`border rounded-lg p-4 transition-colors ${config.noise.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-dark-700'}`}>
+              <div className={`border rounded-lg p-4 transition-colors ${config.noise.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-purple-500/20'}`}>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-white text-sm font-medium">🎲 Add Noise</span>
-                  <input type="checkbox" checked={config.noise.enabled} onChange={(e) => setConfig(prev => ({ ...prev, noise: { ...prev.noise, enabled: e.target.checked } }))} className="rounded border-dark-600" />
+                  <input type="checkbox" checked={config.noise.enabled} onChange={(e) => setConfig(prev => ({ ...prev, noise: { ...prev.noise, enabled: e.target.checked } }))} className="rounded border-purple-500/30" />
                 </div>
-                <label className="text-xs text-dark-400">Factor: {config.noise.factor}</label>
+                <label className="text-xs text-purple-300/50">Factor: {config.noise.factor}</label>
                 <input type="range" min="0.01" max="1" step="0.01" value={config.noise.factor} onChange={(e) => setConfig(prev => ({ ...prev, noise: { ...prev.noise, factor: parseFloat(e.target.value) } }))} className="w-full mt-1" />
               </div>
 
               {/* SMOTE */}
-              <div className={`border rounded-lg p-4 transition-colors ${config.smote.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-dark-700'}`}>
+              <div className={`border rounded-lg p-4 transition-colors ${config.smote.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-purple-500/20'}`}>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-white text-sm font-medium">⚖️ SMOTE</span>
-                  <input type="checkbox" checked={config.smote.enabled} onChange={(e) => setConfig(prev => ({ ...prev, smote: { ...prev.smote, enabled: e.target.checked } }))} className="rounded border-dark-600" />
+                  <input type="checkbox" checked={config.smote.enabled} onChange={(e) => setConfig(prev => ({ ...prev, smote: { ...prev.smote, enabled: e.target.checked } }))} className="rounded border-purple-500/30" />
                 </div>
-                <label className="text-xs text-dark-400">K-Neighbors: {config.smote.neighbors}</label>
+                <label className="text-xs text-purple-300/50">K-Neighbors: {config.smote.neighbors}</label>
                 <input type="range" min="1" max="10" step="1" value={config.smote.neighbors} onChange={(e) => setConfig(prev => ({ ...prev, smote: { ...prev.smote, neighbors: parseInt(e.target.value) } }))} className="w-full mt-1" />
               </div>
 
               {/* Random Sampling */}
-              <div className={`border rounded-lg p-4 transition-colors ${config.sampling.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-dark-700'}`}>
+              <div className={`border rounded-lg p-4 transition-colors ${config.sampling.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-purple-500/20'}`}>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-white text-sm font-medium">🎯 Random Sampling</span>
-                  <input type="checkbox" checked={config.sampling.enabled} onChange={(e) => setConfig(prev => ({ ...prev, sampling: { ...prev.sampling, enabled: e.target.checked } }))} className="rounded border-dark-600" />
+                  <input type="checkbox" checked={config.sampling.enabled} onChange={(e) => setConfig(prev => ({ ...prev, sampling: { ...prev.sampling, enabled: e.target.checked } }))} className="rounded border-purple-500/30" />
                 </div>
-                <label className="text-xs text-dark-400">Ratio: {config.sampling.ratio}</label>
+                <label className="text-xs text-purple-300/50">Ratio: {config.sampling.ratio}</label>
                 <input type="range" min="0.1" max="2" step="0.1" value={config.sampling.ratio} onChange={(e) => setConfig(prev => ({ ...prev, sampling: { ...prev.sampling, ratio: parseFloat(e.target.value) } }))} className="w-full mt-1" />
               </div>
             </>
           ) : (
             <>
               {/* Rotation */}
-              <div className={`border rounded-lg p-4 transition-colors ${config.rotation.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-dark-700'}`}>
+              <div className={`border rounded-lg p-4 transition-colors ${config.rotation.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-purple-500/20'}`}>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-white text-sm font-medium">🔄 Rotation</span>
-                  <input type="checkbox" checked={config.rotation.enabled} onChange={(e) => setConfig(prev => ({ ...prev, rotation: { ...prev.rotation, enabled: e.target.checked } }))} className="rounded border-dark-600" />
+                  <input type="checkbox" checked={config.rotation.enabled} onChange={(e) => setConfig(prev => ({ ...prev, rotation: { ...prev.rotation, enabled: e.target.checked } }))} className="rounded border-purple-500/30" />
                 </div>
-                <label className="text-xs text-dark-400">Degrees: ±{config.rotation.degrees}°</label>
+                <label className="text-xs text-purple-300/50">Degrees: ±{config.rotation.degrees}°</label>
                 <input type="range" min="1" max="180" step="1" value={config.rotation.degrees} onChange={(e) => setConfig(prev => ({ ...prev, rotation: { ...prev.rotation, degrees: parseInt(e.target.value) } }))} className="w-full mt-1" />
               </div>
 
               {/* Flip */}
-              <div className={`border rounded-lg p-4 transition-colors ${config.flip.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-dark-700'}`}>
+              <div className={`border rounded-lg p-4 transition-colors ${config.flip.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-purple-500/20'}`}>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-white text-sm font-medium">↔️ Flip</span>
-                  <input type="checkbox" checked={config.flip.enabled} onChange={(e) => setConfig(prev => ({ ...prev, flip: { ...prev.flip, enabled: e.target.checked } }))} className="rounded border-dark-600" />
+                  <input type="checkbox" checked={config.flip.enabled} onChange={(e) => setConfig(prev => ({ ...prev, flip: { ...prev.flip, enabled: e.target.checked } }))} className="rounded border-purple-500/30" />
                 </div>
-                <div className="flex items-center gap-3 text-xs text-dark-400">
-                  <label className="flex items-center gap-1"><input type="checkbox" checked={config.flip.horizontal} onChange={(e) => setConfig(prev => ({ ...prev, flip: { ...prev.flip, horizontal: e.target.checked } }))} className="rounded border-dark-600" /> H</label>
-                  <label className="flex items-center gap-1"><input type="checkbox" checked={config.flip.vertical} onChange={(e) => setConfig(prev => ({ ...prev, flip: { ...prev.flip, vertical: e.target.checked } }))} className="rounded border-dark-600" /> V</label>
+                <div className="flex items-center gap-3 text-xs text-purple-300/50">
+                  <label className="flex items-center gap-1"><input type="checkbox" checked={config.flip.horizontal} onChange={(e) => setConfig(prev => ({ ...prev, flip: { ...prev.flip, horizontal: e.target.checked } }))} className="rounded border-purple-500/30" /> H</label>
+                  <label className="flex items-center gap-1"><input type="checkbox" checked={config.flip.vertical} onChange={(e) => setConfig(prev => ({ ...prev, flip: { ...prev.flip, vertical: e.target.checked } }))} className="rounded border-purple-500/30" /> V</label>
                 </div>
               </div>
 
               {/* Scale */}
-              <div className={`border rounded-lg p-4 transition-colors ${config.scale.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-dark-700'}`}>
+              <div className={`border rounded-lg p-4 transition-colors ${config.scale.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-purple-500/20'}`}>
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-white text-sm font-medium">🔍 Scale</span>
-                  <input type="checkbox" checked={config.scale.enabled} onChange={(e) => setConfig(prev => ({ ...prev, scale: { ...prev.scale, enabled: e.target.checked } }))} className="rounded border-dark-600" />
+                  <input type="checkbox" checked={config.scale.enabled} onChange={(e) => setConfig(prev => ({ ...prev, scale: { ...prev.scale, enabled: e.target.checked } }))} className="rounded border-purple-500/30" />
                 </div>
-                <label className="text-xs text-dark-400">Factor: ±{config.scale.factor}</label>
+                <label className="text-xs text-purple-300/50">Factor: ±{config.scale.factor}</label>
                 <input type="range" min="0.05" max="1" step="0.05" value={config.scale.factor} onChange={(e) => setConfig(prev => ({ ...prev, scale: { ...prev.scale, factor: parseFloat(e.target.value) } }))} className="w-full mt-1" />
               </div>
             </>
@@ -218,12 +218,12 @@ export default function Augmentation() {
         </div>
 
         <div className="flex items-center gap-3 mt-4">
-          <button onClick={applyAugmentation} disabled={!sampleData} className="px-4 py-2 bg-primary-500 text-white rounded-lg text-sm font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors">
+          <button onClick={applyAugmentation} disabled={!sampleData} className="px-4 py-2 bg-gradient-btn text-white rounded-lg text-sm font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors">
             ▶ Preview Augmentation
           </button>
           <div className="flex items-center gap-2 ml-auto">
-            <input type="text" value={pipelineName} onChange={(e) => setPipelineName(e.target.value)} placeholder="Pipeline name..." className="bg-dark-900 border border-dark-600 text-dark-200 rounded-lg px-3 py-2 text-sm" />
-            <button onClick={savePipeline} disabled={!pipelineName} className="px-4 py-2 bg-dark-700 text-dark-300 hover:text-white rounded-lg text-sm disabled:opacity-50 transition-colors">
+            <input type="text" value={pipelineName} onChange={(e) => setPipelineName(e.target.value)} placeholder="Pipeline name..." className="bg-dark-900 border border-purple-500/30 text-dark-200 rounded-lg px-3 py-2 text-sm" />
+            <button onClick={savePipeline} disabled={!pipelineName} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm disabled:opacity-50 transition-colors">
               💾 Save Pipeline
             </button>
           </div>
@@ -232,17 +232,17 @@ export default function Augmentation() {
 
       {/* Preview */}
       {augmentedPreview && (
-        <div className="bg-dark-800 border border-dark-700 rounded-lg p-6">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white">Augmented Preview</h3>
-            <div className="text-sm text-dark-400">
+            <div className="text-sm text-purple-300/50">
               Original: {sampleData.length} → Augmented: {augmentedPreview.length} (+{augmentedPreview.length - sampleData.length})
             </div>
           </div>
           <div className="overflow-x-auto max-h-64">
             <table className="w-full text-xs">
               <thead>
-                <tr className="text-dark-400 border-b border-dark-700">
+                <tr className="text-purple-300/50 border-b border-purple-500/20">
                   <th className="text-left py-2 px-2">ID</th>
                   {dataType === 'tabular' ? (
                     <>
@@ -263,7 +263,7 @@ export default function Augmentation() {
               </thead>
               <tbody>
                 {augmentedPreview.slice(0, 30).map((row, i) => (
-                  <tr key={i} className={`border-b border-dark-700/30 ${row.augType ? 'text-primary-300' : 'text-dark-300'}`}>
+                  <tr key={i} className={`border-b border-purple-500/20/30 ${row.augType ? 'text-purple-300' : 'text-purple-200/70'}`}>
                     <td className="py-1.5 px-2">{row.id}</td>
                     {dataType === 'tabular' ? (
                       <>
@@ -279,7 +279,7 @@ export default function Augmentation() {
                         <td className="py-1.5 px-2 font-mono">[{row.pixels.slice(0, 4).join(',')}...]</td>
                       </>
                     )}
-                    <td className="py-1.5 px-2"><span className={`px-1.5 py-0.5 rounded text-xs ${row.augType ? 'bg-primary-500/10 text-primary-400' : 'bg-dark-700 text-dark-400'}`}>{row.augType || 'original'}</span></td>
+                    <td className="py-1.5 px-2"><span className={`px-1.5 py-0.5 rounded text-xs ${row.augType ? 'bg-purple-500/10 text-purple-300' : 'bg-purple-500/15 text-purple-300/50'}`}>{row.augType || 'original'}</span></td>
                   </tr>
                 ))}
               </tbody>
@@ -290,18 +290,18 @@ export default function Augmentation() {
 
       {/* Saved Pipelines */}
       {savedPipelines.length > 0 && (
-        <div className="bg-dark-800 border border-dark-700 rounded-lg p-6">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-white mb-3">Saved Pipelines</h3>
           <div className="space-y-2">
             {savedPipelines.map((p, i) => (
               <div key={i} className="flex items-center justify-between bg-dark-900 rounded-lg p-3">
                 <div>
                   <span className="text-white text-sm font-medium">{p.name}</span>
-                  <span className="text-xs text-dark-500 ml-2">({p.dataType})</span>
+                  <span className="text-xs text-purple-300/40 ml-2">({p.dataType})</span>
                 </div>
                 <div className="flex items-center gap-2">
                   {p.steps.map((s, j) => (
-                    <span key={j} className="text-xs bg-primary-500/10 text-primary-400 px-2 py-0.5 rounded">{s.type}</span>
+                    <span key={j} className="text-xs bg-purple-500/10 text-purple-300 px-2 py-0.5 rounded">{s.type}</span>
                   ))}
                 </div>
               </div>

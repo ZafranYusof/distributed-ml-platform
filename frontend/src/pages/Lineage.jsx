@@ -5,7 +5,7 @@ import '@xyflow/react/dist/style.css';
 import { useToast } from '../components/ui/Toast';
 
 const nodeTypes = {
-  dataset: { color: '#f59e0b', icon: '📁' },
+  dataset: { color: '#6366F1', icon: '📁' },
   preprocessing: { color: '#8b5cf6', icon: '🔧' },
   feature: { color: '#10b981', icon: '🧮' },
   model: { color: '#06b6d4', icon: '🧠' },
@@ -13,9 +13,9 @@ const nodeTypes = {
 };
 
 function CustomNode({ data }) {
-  const typeInfo = nodeTypes[data.nodeType] || { color: '#64748b', icon: '⚙️' };
+  const typeInfo = nodeTypes[data.nodeType] || { color: '#6b5b95', icon: '⚙️' };
   return (
-    <div className="px-4 py-3 rounded-lg border-2 shadow-lg min-w-[150px]" style={{ borderColor: typeInfo.color, backgroundColor: '#1e293b' }}>
+    <div className="px-4 py-3 rounded-lg border-2 shadow-lg min-w-[150px]" style={{ borderColor: typeInfo.color, backgroundColor: '#1E1045' }}>
       <div className="flex items-center gap-2">
         <span>{typeInfo.icon}</span>
         <span className="text-sm font-medium text-white">{data.label}</span>
@@ -28,7 +28,7 @@ function CustomNode({ data }) {
 const customNodeTypes = { custom: CustomNode };
 
 export default function Lineage() {
-  const { user, token } = useAuth();
+  const { user, authFetch } = useAuth();
   const toast = useToast();
   const [graphs, setGraphs] = useState([]);
   const [selectedGraph, setSelectedGraph] = useState(null);
@@ -39,16 +39,13 @@ export default function Lineage() {
   const [showAddNode, setShowAddNode] = useState(false);
   const [newNode, setNewNode] = useState({ label: '', nodeType: 'dataset', details: '' });
 
-  const API = 'http://localhost:5005/api';
-  const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-
   useEffect(() => {
-    if (token) fetchGraphs();
-  }, [token]);
+    fetchGraphs();
+  }, []);
 
   const fetchGraphs = async () => {
     try {
-      const res = await fetch(`${API}/lineage`, { headers });
+      const res = await authFetch('/api/lineage');
       const data = await res.json();
       setGraphs(data);
     } catch (err) { }
@@ -69,7 +66,7 @@ export default function Lineage() {
       label: e.label || '',
       markerEnd: { type: MarkerType.ArrowClosed, color: '#06b6d4' },
       style: { stroke: '#06b6d4' },
-      labelStyle: { fill: '#94a3b8', fontSize: 11 }
+      labelStyle: { fill: '#A78BFA', fontSize: 11 }
     }));
     setNodes(loadedNodes);
     setEdges(loadedEdges);
@@ -86,8 +83,8 @@ export default function Lineage() {
 
   const handleCreateGraph = async () => {
     try {
-      const res = await fetch(`${API}/lineage`, {
-        method: 'POST', headers,
+      const res = await authFetch('/api/lineage', {
+        method: 'POST',
         body: JSON.stringify({ name: graphName || 'Untitled Pipeline', nodes: [], edges: [] })
       });
       const data = await res.json();
@@ -108,8 +105,8 @@ export default function Lineage() {
       id: e.id, source: e.source, target: e.target, label: e.label || ''
     }));
     try {
-      await fetch(`${API}/lineage/${selectedGraph._id}`, {
-        method: 'PUT', headers,
+      await authFetch(`/api/lineage/${selectedGraph._id}`, {
+        method: 'PUT',
         body: JSON.stringify({ nodes: saveNodes, edges: saveEdges })
       });
       fetchGraphs();
@@ -129,7 +126,7 @@ export default function Lineage() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`${API}/lineage/${id}`, { method: 'DELETE', headers });
+    await authFetch(`/api/lineage/${id}`, { method: 'DELETE' });
     if (selectedGraph?._id === id) {
       setSelectedGraph(null);
       setNodes([]);
@@ -157,17 +154,17 @@ export default function Lineage() {
     setEdges(sampleEdges);
   };
 
-  if (!user) return <div className="text-dark-400 text-center py-20">Sign in to access Data Lineage</div>;
+  if (!user) return <div className="text-purple-300/50 text-center py-20">Sign in to access Data Lineage</div>;
 
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Data Lineage & Provenance</h1>
-          <p className="text-dark-400 mt-1">Visual DAG showing full pipeline from raw data to predictions</p>
+          <p className="text-purple-300/50 mt-1">Visual DAG showing full pipeline from raw data to predictions</p>
         </div>
         <div className="flex gap-2">
-          <button onClick={() => setShowCreate(true)} className="px-4 py-2 bg-primary-500/10 text-primary-400 border border-primary-500/20 rounded-lg hover:bg-primary-500/20 text-sm">
+          <button onClick={() => setShowCreate(true)} className="px-4 py-2 bg-purple-500/10 text-purple-300 border border-primary-500/20 rounded-lg hover:bg-primary-500/20 text-sm">
             + New Graph
           </button>
         </div>
@@ -175,32 +172,32 @@ export default function Lineage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Sidebar - Graph list */}
-        <div className="bg-dark-800 border border-dark-700 rounded-xl p-4">
+        <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-4">
           <h3 className="text-white font-semibold mb-3 text-sm">Pipelines</h3>
           <div className="space-y-2">
             {graphs.map(g => (
-              <div key={g._id} className={`p-3 rounded-lg cursor-pointer transition-colors ${selectedGraph?._id === g._id ? 'bg-primary-500/10 border border-primary-500/30' : 'bg-dark-900 border border-dark-700 hover:border-dark-500'}`}>
+              <div key={g._id} className={`p-3 rounded-lg cursor-pointer transition-colors ${selectedGraph?._id === g._id ? 'bg-primary-500/10 border border-primary-500/30' : 'bg-dark-800/50 backdrop-blur-md border border-purple-500/20 hover:border-dark-500'}`}>
                 <div className="flex items-center justify-between">
                   <span onClick={() => loadGraph(g)} className="text-dark-200 text-sm flex-1">{g.name}</span>
                   <button onClick={() => handleDelete(g._id)} className="text-red-400 hover:text-red-300 text-xs ml-2">✕</button>
                 </div>
-                <p className="text-xs text-dark-500 mt-1">{g.nodes?.length || 0} nodes</p>
+                <p className="text-xs text-purple-300/40 mt-1">{g.nodes?.length || 0} nodes</p>
               </div>
             ))}
-            {graphs.length === 0 && <p className="text-dark-500 text-xs">No pipelines yet</p>}
+            {graphs.length === 0 && <p className="text-purple-300/40 text-xs">No pipelines yet</p>}
           </div>
         </div>
 
         {/* Main canvas */}
-        <div className="lg:col-span-3 bg-dark-800 border border-dark-700 rounded-xl overflow-hidden" style={{ height: '500px' }}>
+        <div className="lg:col-span-3 bg-dark-800/40 border border-purple-500/20 rounded-xl overflow-hidden" style={{ height: '500px' }}>
           {selectedGraph ? (
             <>
-              <div className="flex items-center justify-between p-3 border-b border-dark-700 bg-dark-900">
+              <div className="flex items-center justify-between p-3 border-b border-purple-500/20 bg-dark-900">
                 <span className="text-dark-200 text-sm font-medium">{selectedGraph.name}</span>
                 <div className="flex gap-2">
-                  <button onClick={() => setShowAddNode(true)} className="px-3 py-1 bg-dark-700 text-dark-300 rounded text-xs hover:bg-dark-600">+ Node</button>
-                  <button onClick={generateSamplePipeline} className="px-3 py-1 bg-dark-700 text-dark-300 rounded text-xs hover:bg-dark-600">Sample</button>
-                  <button onClick={handleSave} className="px-3 py-1 bg-primary-500/20 text-primary-400 rounded text-xs hover:bg-primary-500/30">Save</button>
+                  <button onClick={() => setShowAddNode(true)} className="px-3 py-1 bg-purple-500/15 text-purple-200/70 rounded text-xs hover:bg-purple-500/20">+ Node</button>
+                  <button onClick={generateSamplePipeline} className="px-3 py-1 bg-purple-500/15 text-purple-200/70 rounded text-xs hover:bg-purple-500/20">Sample</button>
+                  <button onClick={handleSave} className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded text-xs hover:bg-primary-500/30">Save</button>
                 </div>
               </div>
               <div style={{ height: 'calc(100% - 49px)' }}>
@@ -212,16 +209,16 @@ export default function Lineage() {
                   onConnect={onConnect}
                   nodeTypes={customNodeTypes}
                   fitView
-                  className="bg-dark-950"
+                  className="bg-transparent"
                 >
-                  <Background color="#334155" gap={20} />
-                  <Controls className="bg-dark-800 border-dark-600" />
+                  <Background color="#2d1b69" gap={20} />
+                  <Controls className="bg-dark-800/40 border-purple-500/30" />
                   <MiniMap className="bg-dark-900" nodeColor="#06b6d4" />
                 </ReactFlow>
               </div>
             </>
           ) : (
-            <div className="flex items-center justify-center h-full text-dark-400">
+            <div className="flex items-center justify-center h-full text-purple-300/50">
               <div className="text-center">
                 <p className="text-4xl mb-4">🔗</p>
                 <p>Select or create a pipeline to visualize lineage</p>
@@ -232,13 +229,13 @@ export default function Lineage() {
       </div>
 
       {/* Node type legend */}
-      <div className="bg-dark-800 border border-dark-700 rounded-xl p-4">
-        <p className="text-dark-400 text-sm mb-2">Node Types:</p>
+      <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-4">
+        <p className="text-purple-300/50 text-sm mb-2">Node Types:</p>
         <div className="flex flex-wrap gap-4">
           {Object.entries(nodeTypes).map(([type, info]) => (
             <span key={type} className="flex items-center gap-2 text-sm">
               <span className="w-3 h-3 rounded" style={{ backgroundColor: info.color }}></span>
-              <span className="text-dark-300">{info.icon} {type}</span>
+              <span className="text-purple-200/70">{info.icon} {type}</span>
             </span>
           ))}
         </div>
@@ -247,13 +244,13 @@ export default function Lineage() {
       {/* Create Graph Modal */}
       {showCreate && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-dark-800 border border-dark-700 rounded-xl p-6 w-full max-w-md">
+          <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6 w-full max-w-md">
             <h3 className="text-white font-semibold mb-4">New Lineage Graph</h3>
             <input value={graphName} onChange={e => setGraphName(e.target.value)} placeholder="Pipeline name"
-              className="w-full bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-dark-200 mb-4" />
+              className="w-full bg-dark-900 border border-purple-500/30 rounded-lg px-3 py-2 text-dark-200 mb-4" />
             <div className="flex gap-3">
-              <button onClick={handleCreateGraph} className="flex-1 bg-primary-500 text-white rounded-lg py-2 hover:bg-primary-600">Create</button>
-              <button onClick={() => setShowCreate(false)} className="flex-1 bg-dark-700 text-dark-300 rounded-lg py-2 hover:bg-dark-600">Cancel</button>
+              <button onClick={handleCreateGraph} className="flex-1 bg-gradient-btn text-white rounded-lg py-2 hover:bg-primary-600">Create</button>
+              <button onClick={() => setShowCreate(false)} className="flex-1 bg-purple-500/15 text-purple-200/70 rounded-lg py-2 hover:bg-purple-500/20">Cancel</button>
             </div>
           </div>
         </div>
@@ -262,21 +259,21 @@ export default function Lineage() {
       {/* Add Node Modal */}
       {showAddNode && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-dark-800 border border-dark-700 rounded-xl p-6 w-full max-w-md">
+          <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6 w-full max-w-md">
             <h3 className="text-white font-semibold mb-4">Add Node</h3>
             <div className="space-y-3">
               <input value={newNode.label} onChange={e => setNewNode({ ...newNode, label: e.target.value })} placeholder="Node label"
-                className="w-full bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-dark-200" />
+                className="w-full bg-dark-900 border border-purple-500/30 rounded-lg px-3 py-2 text-dark-200" />
               <select value={newNode.nodeType} onChange={e => setNewNode({ ...newNode, nodeType: e.target.value })}
-                className="w-full bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-dark-200">
+                className="w-full bg-dark-900 border border-purple-500/30 rounded-lg px-3 py-2 text-dark-200">
                 {Object.keys(nodeTypes).map(t => <option key={t} value={t}>{t}</option>)}
               </select>
               <input value={newNode.details} onChange={e => setNewNode({ ...newNode, details: e.target.value })} placeholder="Details (optional)"
-                className="w-full bg-dark-900 border border-dark-600 rounded-lg px-3 py-2 text-dark-200" />
+                className="w-full bg-dark-900 border border-purple-500/30 rounded-lg px-3 py-2 text-dark-200" />
             </div>
             <div className="flex gap-3 mt-4">
-              <button onClick={handleAddNode} className="flex-1 bg-primary-500 text-white rounded-lg py-2 hover:bg-primary-600">Add</button>
-              <button onClick={() => setShowAddNode(false)} className="flex-1 bg-dark-700 text-dark-300 rounded-lg py-2 hover:bg-dark-600">Cancel</button>
+              <button onClick={handleAddNode} className="flex-1 bg-gradient-btn text-white rounded-lg py-2 hover:bg-primary-600">Add</button>
+              <button onClick={() => setShowAddNode(false)} className="flex-1 bg-purple-500/15 text-purple-200/70 rounded-lg py-2 hover:bg-purple-500/20">Cancel</button>
             </div>
           </div>
         </div>
