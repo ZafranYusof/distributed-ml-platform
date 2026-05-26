@@ -17,7 +17,7 @@ import {
   Dna, Waves, Bug, FlaskRound, Clapperboard, Gamepad2,
   Github, Webhook,
   Shield, TrendingUp, Brain,
-  Sun, Moon, X, Menu, Search as SearchIcon, Command
+  Sun, Moon, X, Menu, Search as SearchIcon, Command, Palette
 } from 'lucide-react';
 
 export default function Layout() {
@@ -128,6 +128,12 @@ export default function Layout() {
       ]
     },
     {
+      label: 'Preferences',
+      items: [
+        { path: '/themes', label: 'Themes', icon: Palette },
+      ]
+    },
+    {
       label: 'Help',
       items: [
         { path: '/docs', label: 'Docs', icon: BookOpen },
@@ -148,7 +154,7 @@ export default function Layout() {
   };
 
   return (
-    <div className="min-h-screen flex" style={{ background: 'linear-gradient(180deg, #0D0221 0%, #1A0533 100%)' }}>
+    <div className="min-h-screen flex" style={{ background: 'linear-gradient(180deg, var(--theme-bg-deep) 0%, var(--theme-bg-surface) 100%)' }}>
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -163,14 +169,14 @@ export default function Layout() {
         w-64 flex flex-col
         transform transition-transform duration-200 ease-in-out
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-      `} style={{ background: 'linear-gradient(180deg, #1A0533 0%, #0D0221 100%)' }}>
+      `} style={{ background: 'linear-gradient(180deg, var(--theme-sidebar-bg) 0%, var(--theme-sidebar-bg-end) 100%)' }}>
         {/* Subtle grid pattern overlay */}
         <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
-          backgroundImage: 'linear-gradient(rgba(139,92,246,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.3) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(color-mix(in srgb, var(--theme-accent) 30%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--theme-accent) 30%, transparent) 1px, transparent 1px)',
           backgroundSize: '40px 40px'
         }} />
         
-        <div className="relative p-6 border-b border-purple-500/20">
+        <div className="relative p-6 border-b" style={{ borderColor: 'var(--theme-divider)' }}>
           <div className="flex items-center justify-between">
             <h1 className="text-xl font-bold flex items-center gap-2">
               <Brain className="w-6 h-6 text-purple-400" />
@@ -180,7 +186,8 @@ export default function Layout() {
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
-                className="p-1.5 text-purple-300/60 hover:text-white rounded-lg hover:bg-purple-500/10 transition-colors"
+                className="p-1.5 hover:text-white rounded-lg transition-colors"
+                style={{ color: 'var(--theme-text-muted)' }}
                 aria-label="Toggle theme"
                 title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
               >
@@ -189,25 +196,26 @@ export default function Layout() {
               {/* Close button on mobile */}
               <button
                 onClick={() => setSidebarOpen(false)}
-                className="p-1.5 text-purple-300/60 hover:text-white rounded-lg hover:bg-purple-500/10 transition-colors lg:hidden"
+                className="p-1.5 hover:text-white rounded-lg transition-colors lg:hidden"
+                style={{ color: 'var(--theme-text-muted)' }}
                 aria-label="Close sidebar"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
           </div>
-          <p className="text-xs text-purple-300/50 mt-1">Distributed Training Platform</p>
+          <p className="text-xs mt-1" style={{ color: 'var(--theme-text-muted)' }}>Distributed Training Platform</p>
           {connected && (
             <div className="flex items-center gap-2 mt-2">
               <div className="w-2 h-2 rounded-full bg-accent-green animate-pulse shadow-glow-green"></div>
-              <span className="text-xs text-purple-300/50">{liveUsers.length} online{trainingCount > 0 ? ` · ${trainingCount} training` : ''}</span>
+              <span className="text-xs" style={{ color: 'var(--theme-text-muted)' }}>{liveUsers.length} online{trainingCount > 0 ? ` · ${trainingCount} training` : ''}</span>
             </div>
           )}
         </div>
         <nav className="relative flex-1 p-4 space-y-4 overflow-y-auto">
           {navSections.map(section => (
             <div key={section.label}>
-              <p className="text-xs font-semibold text-purple-400/50 uppercase tracking-wider mb-1 px-3">{section.label}</p>
+              <p className="text-xs font-semibold uppercase tracking-wider mb-1 px-3" style={{ color: 'var(--theme-text-muted)' }}>{section.label}</p>
               <div className="space-y-0.5">
                 {section.items.map(item => {
                   const IconComponent = item.icon;
@@ -216,11 +224,33 @@ export default function Layout() {
                       key={item.path}
                       onClick={() => handleNavClick(item.path)}
                       data-tour={item.tourId}
-                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-left ${
-                        location.pathname === item.path
-                          ? 'bg-purple-500/15 text-white border border-purple-500/30 shadow-glow-purple'
-                          : 'text-purple-200/70 hover:text-white hover:bg-purple-500/10'
-                      }`}
+                      className="w-full flex items-center gap-3 px-3 py-2 transition-all text-left"
+                      style={{
+                        borderRadius: 'var(--theme-radius)',
+                        ...(location.pathname === item.path
+                          ? {
+                              background: 'var(--theme-sidebar-active-bg)',
+                              color: 'var(--theme-text-primary)',
+                              border: '1px solid var(--theme-sidebar-active-border)',
+                              boxShadow: 'var(--theme-shadow)',
+                            }
+                          : {
+                              color: 'var(--theme-text-muted)',
+                              border: '1px solid transparent',
+                            }),
+                      }}
+                      onMouseEnter={(e) => {
+                        if (location.pathname !== item.path) {
+                          e.currentTarget.style.background = 'var(--theme-sidebar-hover)';
+                          e.currentTarget.style.color = 'var(--theme-text-primary)';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (location.pathname !== item.path) {
+                          e.currentTarget.style.background = 'transparent';
+                          e.currentTarget.style.color = 'var(--theme-text-muted)';
+                        }
+                      }}
                     >
                       <IconComponent className="w-5 h-5 flex-shrink-0" />
                       <span className="text-sm font-medium">{item.label}</span>
@@ -241,23 +271,24 @@ export default function Layout() {
             </div>
           ))}
         </nav>
-        <div className="relative p-4 border-t border-purple-500/20">
+        <div className="relative p-4 border-t" style={{ borderColor: 'var(--theme-divider)' }}>
           {user ? (
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-neural flex items-center justify-center shadow-glow-purple">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, var(--theme-btn-primary-from), var(--theme-btn-primary-to))', boxShadow: 'var(--theme-shadow)' }}>
                   <span className="text-white text-sm font-bold">
                     {user.username?.[0]?.toUpperCase() || '?'}
                   </span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-white truncate">{user.username}</p>
-                  <p className="text-xs text-purple-300/50 truncate">{user.email}</p>
+                  <p className="text-sm truncate" style={{ color: 'var(--theme-text-primary)' }}>{user.username}</p>
+                  <p className="text-xs truncate" style={{ color: 'var(--theme-text-muted)' }}>{user.email}</p>
                 </div>
               </div>
               <button
                 onClick={handleLogout}
-                className="w-full text-left text-xs text-purple-300/50 hover:text-red-400 transition-colors px-2 py-1"
+                className="w-full text-left text-xs hover:text-red-400 transition-colors px-2 py-1"
+                style={{ color: 'var(--theme-text-muted)' }}
               >
                 Sign out
               </button>
@@ -266,14 +297,15 @@ export default function Layout() {
             <div className="space-y-2">
               <Link
                 to="/login"
-                className="block w-full text-center text-sm bg-gradient-btn text-white rounded-lg px-3 py-2 hover:shadow-glow-purple transition-all"
+                className="block w-full text-center text-sm text-white rounded-lg px-3 py-2 transition-all"
+                style={{ background: 'linear-gradient(135deg, var(--theme-btn-primary-from), var(--theme-btn-primary-to))', boxShadow: 'var(--theme-shadow)' }}
               >
                 Sign In
               </Link>
-              <p className="text-xs text-purple-300/50 text-center">Sign in to save training history</p>
+              <p className="text-xs text-center" style={{ color: 'var(--theme-text-muted)' }}>Sign in to save training history</p>
             </div>
           )}
-          <div className="text-xs text-purple-300/40 mt-3">
+          <div className="text-xs mt-3" style={{ color: 'var(--theme-text-muted)' }}>
             <p>TensorFlow.js + Web Workers</p>
             <p className="mt-1">In-Browser ML Training</p>
           </div>
@@ -283,11 +315,12 @@ export default function Layout() {
       {/* Main Content */}
       <main className="flex-1 overflow-auto min-w-0">
         {/* Top bar with hamburger, notifications */}
-        <div className="sticky top-0 z-30 bg-dark-950/80 backdrop-blur-md border-b border-purple-500/10 px-4 py-3 flex items-center justify-between lg:justify-end">
+        <div className="sticky top-0 z-30 backdrop-blur-md px-4 py-3 flex items-center justify-between lg:justify-end" style={{ background: 'color-mix(in srgb, var(--theme-bg-deep) 80%, transparent)', borderBottom: '1px solid var(--theme-divider)' }}>
           {/* Hamburger menu (mobile) */}
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-2 text-purple-300/60 hover:text-white rounded-lg hover:bg-purple-500/10 transition-colors lg:hidden"
+            className="p-2 hover:text-white rounded-lg transition-colors lg:hidden"
+            style={{ color: 'var(--theme-text-muted)' }}
             aria-label="Open menu"
           >
             <Menu className="w-5 h-5" />
@@ -297,11 +330,12 @@ export default function Layout() {
             {/* Command palette hint */}
             <button
               onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }))}
-              className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-dark-800/50 border border-purple-500/20 rounded-lg text-purple-300/60 text-sm hover:border-purple-500/40 hover:text-white transition-all"
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-all"
+              style={{ background: 'var(--theme-bg-card)', border: '1px solid var(--theme-border)', color: 'var(--theme-text-muted)' }}
             >
               <SearchIcon className="w-3.5 h-3.5" />
               <span>Search</span>
-              <kbd className="text-xs bg-purple-500/10 border border-purple-500/20 px-1 py-0.5 rounded">⌘K</kbd>
+              <kbd className="text-xs px-1 py-0.5 rounded" style={{ background: 'var(--theme-badge-bg)', border: '1px solid var(--theme-badge-border)' }}>⌘K</kbd>
             </button>
 
             {/* Notifications */}
@@ -315,7 +349,7 @@ export default function Layout() {
         </div>
 
         {/* Mobile bottom nav */}
-        <div className="fixed bottom-0 left-0 right-0 bg-dark-950/90 backdrop-blur-md border-t border-purple-500/10 flex items-center justify-around py-2 px-1 lg:hidden z-30">
+        <div className="fixed bottom-0 left-0 right-0 backdrop-blur-md flex items-center justify-around py-2 px-1 lg:hidden z-30" style={{ background: 'color-mix(in srgb, var(--theme-bg-deep) 90%, transparent)', borderTop: '1px solid var(--theme-divider)' }}>
           {[
             { path: '/', icon: LayoutDashboard, label: 'Home' },
             { path: '/experiments', icon: ExperimentsIcon, label: 'Experiments' },
@@ -328,9 +362,11 @@ export default function Layout() {
               <button
                 key={item.path}
                 onClick={() => navigate(item.path)}
-                className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg min-w-[44px] min-h-[44px] justify-center transition-all ${
-                  location.pathname === item.path ? 'text-white shadow-glow-purple' : 'text-purple-300/50'
-                }`}
+                className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg min-w-[44px] min-h-[44px] justify-center transition-all"
+                style={{
+                  color: location.pathname === item.path ? 'var(--theme-text-primary)' : 'var(--theme-text-muted)',
+                  boxShadow: location.pathname === item.path ? 'var(--theme-shadow)' : 'none',
+                }}
               >
                 <IconComponent className="w-5 h-5" />
                 <span className="text-[10px]">{item.label}</span>

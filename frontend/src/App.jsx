@@ -60,6 +60,7 @@ const DataCatalog = lazy(() => import('./pages/DataCatalog'));
 const GitHubIntegration = lazy(() => import('./pages/GitHubIntegration'));
 const Webhooks = lazy(() => import('./pages/Webhooks'));
 const Documentation = lazy(() => import('./pages/Documentation'));
+const Themes = lazy(() => import('./pages/Themes'));
 
 function PageFallback() {
   return (
@@ -165,6 +166,7 @@ export default function App() {
           <Route path="integrations/github" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><GitHubIntegration /></Suspense></ErrorBoundary>} />
           <Route path="integrations/webhooks" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><Webhooks /></Suspense></ErrorBoundary>} />
           <Route path="docs" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><Documentation /></Suspense></ErrorBoundary>} />
+          <Route path="themes" element={<ErrorBoundary><Suspense fallback={<PageFallback />}><Themes /></Suspense></ErrorBoundary>} />
         </Route>
       </Routes>
     </>

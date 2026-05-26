@@ -34,40 +34,26 @@
   }
 
   body {
-    @apply bg-dark-950 text-white antialiased;
-    background: linear-gradient(180deg, #0D0221 0%, #1A0533 100%);
+    @apply antialiased;
+    color: var(--theme-text-primary, #F8FAFC);
+    background: linear-gradient(180deg, var(--theme-bg-deep, #0D0221) 0%, var(--theme-bg-surface, #1A0533) 100%);
     min-height: 100vh;
   }
 
-  .light body {
-    @apply bg-white text-gray-900;
-    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-  }
-
-  /* Custom scrollbar */
+  /* Custom scrollbar - uses theme variables */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #0D0221;
+    background: var(--scrollbar-track, #0D0221);
   }
   ::-webkit-scrollbar-thumb {
-    background: #2d1b69;
+    background: var(--scrollbar-thumb, #2d1b69);
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #7C3AED;
-  }
-
-  .light ::-webkit-scrollbar-track {
-    background: #f1f5f9;
-  }
-  .light ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-  }
-  .light ::-webkit-scrollbar-thumb:hover {
-    background: #7C3AED;
+    background: var(--scrollbar-hover, #7C3AED);
   }
 
   /* Skip to content link for accessibility */
@@ -86,16 +72,29 @@
 
 @layer components {
   .card {
-    @apply bg-dark-800/50 backdrop-blur-md border border-purple-500/20 rounded-xl p-6 transition-all duration-200;
+    background: var(--theme-bg-card, rgba(30, 16, 69, 0.5));
+    border: 1px solid var(--theme-border, rgba(139, 92, 246, 0.2));
+    border-radius: var(--theme-radius, 0.75rem);
+    @apply backdrop-blur-md p-6 transition-all duration-200;
   }
   .card-hover:hover {
-    @apply -translate-y-0.5 shadow-glow-purple border-purple-500/40;
+    border-color: var(--theme-border-hover, rgba(139, 92, 246, 0.4));
+    box-shadow: var(--theme-shadow, 0 0 15px rgba(124, 58, 237, 0.25));
+    @apply -translate-y-0.5;
   }
   .btn-primary {
-    @apply bg-gradient-btn text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98] hover:shadow-glow-purple;
+    background: linear-gradient(135deg, var(--theme-btn-primary-from, #6366F1), var(--theme-btn-primary-to, #7C3AED));
+    @apply text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
+    box-shadow: var(--theme-shadow, 0 0 15px rgba(124, 58, 237, 0.25));
   }
   .btn-secondary {
-    @apply bg-dark-800/60 hover:bg-dark-700/60 text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98] border border-purple-500/20 hover:border-purple-500/40;
+    background: var(--theme-btn-secondary-bg, rgba(30, 16, 69, 0.6));
+    border: 1px solid var(--theme-btn-secondary-border, rgba(139, 92, 246, 0.2));
+    color: var(--theme-text-primary, #F8FAFC);
+    @apply font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
+  }
+  .btn-secondary:hover {
+    border-color: var(--theme-border-hover, rgba(139, 92, 246, 0.4));
   }
   .btn-danger {
     @apply bg-red-500 hover:bg-red-600 text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
@@ -104,27 +103,20 @@
     @apply px-3 py-1.5 text-sm;
   }
   .input-field {
-    @apply bg-dark-900/80 border border-purple-500/20 rounded-lg px-3 py-2 text-white placeholder-dark-400 focus:outline-none focus:border-purple-500/60 focus:ring-1 focus:ring-purple-500/40 focus:shadow-glow-purple transition-all duration-200;
+    background: var(--theme-input-bg, rgba(13, 2, 33, 0.8));
+    border: 1px solid var(--theme-input-border, rgba(139, 92, 246, 0.2));
+    color: var(--theme-text-primary, #F8FAFC);
+    @apply rounded-lg px-3 py-2 placeholder-dark-400 focus:outline-none transition-all duration-200;
+  }
+  .input-field:focus {
+    border-color: var(--theme-input-focus, #7C3AED);
+    box-shadow: 0 0 0 1px var(--theme-input-focus, #7C3AED), var(--theme-glow, rgba(124, 58, 237, 0.25));
   }
   .input-error {
     @apply border-red-500 focus:border-red-500 focus:ring-red-500;
   }
   .field-error {
     @apply text-red-400 text-xs mt-1;
-  }
-
-  /* Light mode overrides */
-  .light .card {
-    @apply bg-white/80 border-purple-200/50;
-  }
-  .light .card-hover:hover {
-    @apply shadow-lg shadow-purple-500/10 border-purple-300/60;
-  }
-  .light .btn-secondary {
-    @apply bg-purple-50 hover:bg-purple-100 text-purple-700 border-purple-200;
-  }
-  .light .input-field {
-    @apply bg-white border-purple-200 text-gray-900 placeholder-gray-400 focus:border-purple-500 focus:ring-purple-500/30;
   }
 }
 
