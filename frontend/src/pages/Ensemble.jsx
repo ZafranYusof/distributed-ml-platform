@@ -4,7 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { useToast } from '../components/ui/Toast';
 
 export default function Ensemble() {
-  const { user, token } = useAuth();
+  const { user, authFetch } = useAuth();
   const toast = useToast();
   const [experiments, setExperiments] = useState([]);
   const [selectedModels, setSelectedModels] = useState([]);
@@ -13,17 +13,14 @@ export default function Ensemble() {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const API = 'http://localhost:5005/api';
-  const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-
   useEffect(() => {
-    if (token) fetchExperiments();
-  }, [token]);
+    fetchExperiments();
+  }, []);
 
   const fetchExperiments = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/experiments?status=completed`, { headers });
+      const res = await authFetch('/api/experiments?status=completed');
       const data = await res.json();
       setExperiments(data);
     } catch (err) { }

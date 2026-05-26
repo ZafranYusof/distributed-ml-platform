@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: distributed-ml-backend
+    runtime: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && node src/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "5005"
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        value: distributed-ml-secret-2026

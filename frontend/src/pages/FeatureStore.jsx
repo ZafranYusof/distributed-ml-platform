@@ -6,7 +6,7 @@ import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import EmptyState from '../components/ui/EmptyState';
 
 export default function FeatureStore() {
-  const { user, token } = useAuth();
+  const { user, authFetch } = useAuth();
   const toast = useToast();
   const { confirm, ConfirmDialog } = useConfirmDialog();
   const [features, setFeatures] = useState([]);
@@ -16,19 +16,16 @@ export default function FeatureStore() {
   const [form, setForm] = useState({ name: '', description: '', code: '', datasetId: '', datasetName: '', tags: '' });
   const [selectedFeature, setSelectedFeature] = useState(null);
 
-  const API = 'http://localhost:5005/api';
-  const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-
   useEffect(() => {
-    if (token) fetchFeatures();
-  }, [token, search]);
+    fetchFeatures();
+  }, [search]);
 
   const fetchFeatures = async () => {
     setLoading(true);
     try {
-      let url = `${API}/feature-store?`;
+      let url = '/api/feature-store?';
       if (search) url += `search=${search}&`;
-      const res = await fetch(url, { headers });
+      const res = await authFetch(url);
       const data = await res.json();
       setFeatures(data);
     } catch (err) {
@@ -40,8 +37,8 @@ export default function FeatureStore() {
   const handleCreate = async (e) => {
     e.preventDefault();
     try {
-      await fetch(`${API}/feature-store`, {
-        method: 'POST', headers,
+      await authFetch('/api/feature-store', {
+        method: 'POST',
         body: JSON.stringify({
           name: form.name,
           description: form.description,
@@ -69,7 +66,7 @@ export default function FeatureStore() {
     });
     if (!confirmed) return;
     try {
-      await fetch(`${API}/feature-store/${id}`, { method: 'DELETE', headers });
+      await authFetch(`/api/feature-store/${id}`, { method: 'DELETE' });
       fetchFeatures();
       toast.success('Feature deleted');
     } catch (err) {

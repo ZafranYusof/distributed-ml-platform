@@ -7,7 +7,7 @@ import 'prismjs/components/prism-javascript';
 import { useToast } from '../components/ui/Toast';
 
 export default function CustomLoss() {
-  const { user, token } = useAuth();
+  const { user, authFetch } = useAuth();
   const toast = useToast();
   const [losses, setLosses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,17 +20,14 @@ export default function CustomLoss() {
   const [validation, setValidation] = useState(null);
   const [testResult, setTestResult] = useState(null);
 
-  const API = 'http://localhost:5005/api';
-  const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-
   useEffect(() => {
-    if (token) fetchLosses();
-  }, [token]);
+    fetchLosses();
+  }, []);
 
   const fetchLosses = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/custom-loss`, { headers });
+      const res = await authFetch('/api/custom-loss');
       const data = await res.json();
       setLosses(data);
     } catch (err) { }
@@ -39,7 +36,7 @@ export default function CustomLoss() {
 
   const handleValidate = async () => {
     try {
-      const res = await fetch(`${API}/custom-loss/validate`, { method: 'POST', headers, body: JSON.stringify({ code: form.code }) });
+      const res = await authFetch('/api/custom-loss/validate', { method: 'POST', body: JSON.stringify({ code: form.code }) });
       const data = await res.json();
       setValidation(data);
     } catch (err) { setValidation({ valid: false, error: err.message }); }
@@ -71,9 +68,9 @@ export default function CustomLoss() {
   const handleSave = async () => {
     try {
       if (editing) {
-        await fetch(`${API}/custom-loss/${editing}`, { method: 'PUT', headers, body: JSON.stringify(form) });
+        await authFetch(`/api/custom-loss/${editing}`, { method: 'PUT', body: JSON.stringify(form) });
       } else {
-        await fetch(`${API}/custom-loss`, { method: 'POST', headers, body: JSON.stringify(form) });
+        await authFetch('/api/custom-loss', { method: 'POST', body: JSON.stringify(form) });
       }
       setEditing(null);
       setForm({ name: '', description: '', code: form.code });

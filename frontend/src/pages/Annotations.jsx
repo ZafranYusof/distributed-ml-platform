@@ -6,7 +6,7 @@ import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import EmptyState from '../components/ui/EmptyState';
 
 export default function Annotations() {
-  const { user, token } = useAuth();
+  const { user, authFetch } = useAuth();
   const toast = useToast();
   const { confirm, ConfirmDialog } = useConfirmDialog();
   const [projects, setProjects] = useState([]);
@@ -19,20 +19,15 @@ export default function Annotations() {
   const [annotator, setAnnotator] = useState('');
   const [formErrors, setFormErrors] = useState({});
 
-  const API = 'http://localhost:5005/api';
-  const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-
   useEffect(() => {
-    if (token) {
-      fetchProjects();
-      setAnnotator(user?.username || 'annotator1');
-    }
-  }, [token]);
+    fetchProjects();
+    setAnnotator(user?.username || 'annotator1');
+  }, []);
 
   const fetchProjects = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/annotations`, { headers });
+      const res = await authFetch('/api/annotations');
       const data = await res.json();
       setProjects(data);
     } catch (err) {
@@ -63,7 +58,7 @@ export default function Annotations() {
     if (!validateForm()) return;
     try {
       const labels = form.labels.split(',').map(l => l.trim()).filter(Boolean);
-      await fetch(`${API}/annotations`, { method: 'POST', headers, body: JSON.stringify({ name: form.name, labels, data: form.data }) });
+      await authFetch('/api/annotations', { method: 'POST', body: JSON.stringify({ name: form.name, labels, data: form.data }) });
       setShowCreate(false);
       setForm({ name: '', labels: 'positive,negative,neutral', data: '' });
       setFormErrors({});
@@ -78,8 +73,8 @@ export default function Annotations() {
     setSelectedProject(id);
     try {
       const [dataRes, statsRes] = await Promise.all([
-        fetch(`${API}/annotations/${id}`, { headers }),
-        fetch(`${API}/annotations/${id}/stats`, { headers })
+        authFetch(`/api/annotations/${id}`),
+        authFetch(`/api/annotations/${id}/stats`)
       ]);
       const data = await dataRes.json();
       const statsData = await statsRes.json();
@@ -92,13 +87,13 @@ export default function Annotations() {
 
   const handleAnnotate = async (rowIndex, label) => {
     try {
-      await fetch(`${API}/annotations/${selectedProject}/annotate`, {
-        method: 'POST', headers, body: JSON.stringify({ rowIndex, label, annotator })
+      await authFetch(`/api/annotations/${selectedProject}/annotate`, {
+        method: 'POST', body: JSON.stringify({ rowIndex, label, annotator })
       });
-      const statsRes = await fetch(`${API}/annotations/${selectedProject}/stats`, { headers });
+      const statsRes = await authFetch(`/api/annotations/${selectedProject}/stats`);
       const statsData = await statsRes.json();
       setStats(statsData);
-      const dataRes = await fetch(`${API}/annotations/${selectedProject}`, { headers });
+      const dataRes = await authFetch(`/api/annotations/${selectedProject}`);
       const data = await dataRes.json();
       setProjectData(data);
     } catch (err) {
@@ -108,7 +103,7 @@ export default function Annotations() {
 
   const handleExport = async () => {
     try {
-      const res = await fetch(`${API}/annotations/${selectedProject}/export`, { headers });
+      const res = await authFetch(`/api/annotations/${selectedProject}/export`);
       const data = await res.json();
       const blob = new Blob([data.csv], { type: 'text/csv' });
       const url = URL.createObjectURL(blob);
@@ -132,7 +127,7 @@ export default function Annotations() {
     });
     if (!confirmed) return;
     try {
-      await fetch(`${API}/annotations/${id}`, { method: 'DELETE', headers });
+      await authFetch(`/api/annotations/${id}`, { method: 'DELETE' });
       if (selectedProject === id) { setSelectedProject(null); setProjectData(null); setStats(null); }
       fetchProjects();
       toast.success('Project deleted');

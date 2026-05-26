@@ -4,7 +4,7 @@ import { ResponsiveContainer, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid
 import { useToast } from '../components/ui/Toast';
 
 export default function HyperparamViz() {
-  const { user, token } = useAuth();
+  const { user, authFetch } = useAuth();
   const toast = useToast();
   const [data, setData] = useState({ experiments: [], importance: {} });
   const [loading, setLoading] = useState(true);
@@ -12,19 +12,16 @@ export default function HyperparamViz() {
   const [selectedParams, setSelectedParams] = useState([]);
   const [selectedMetric, setSelectedMetric] = useState('');
 
-  const API = 'http://localhost:5005/api';
-  const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-
   useEffect(() => {
-    if (token) fetchData();
-  }, [token, tagFilter]);
+    fetchData();
+  }, [tagFilter]);
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      let url = `${API}/hyperparam-viz?`;
+      let url = '/api/hyperparam-viz?';
       if (tagFilter) url += `tags=${tagFilter}`;
-      const res = await fetch(url, { headers });
+      const res = await authFetch(url);
       const result = await res.json();
       setData(result);
 

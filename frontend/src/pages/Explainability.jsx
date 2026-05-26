@@ -4,7 +4,7 @@ import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Responsive
 import { useToast } from '../components/ui/Toast';
 
 export default function Explainability() {
-  const { user, token } = useAuth();
+  const { user, authFetch } = useAuth();
   const toast = useToast();
   const [experiments, setExperiments] = useState([]);
   const [selectedExp, setSelectedExp] = useState(null);
@@ -15,16 +15,13 @@ export default function Explainability() {
   const [loading, setLoading] = useState(false);
   const [featurePair, setFeaturePair] = useState([0, 1]);
 
-  const API = 'http://localhost:5005/api';
-  const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-
   useEffect(() => {
-    if (token) fetchExperiments();
-  }, [token]);
+    fetchExperiments();
+  }, []);
 
   const fetchExperiments = async () => {
     try {
-      const res = await fetch(`${API}/experiments?status=completed`, { headers });
+      const res = await authFetch('/api/experiments?status=completed');
       const data = await res.json();
       setExperiments(data);
     } catch (err) { }

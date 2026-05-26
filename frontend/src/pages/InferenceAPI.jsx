@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 
 export default function InferenceAPI() {
-  const { user, token } = useAuth();
+  const { user, authFetch } = useAuth();
   const toast = useToast();
   const [endpoints, setEndpoints] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,17 +13,14 @@ export default function InferenceAPI() {
   const [testInput, setTestInput] = useState('[[1, 2, 3, 4]]');
   const [testResult, setTestResult] = useState(null);
 
-  const API = 'http://localhost:5005/api';
-  const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-
   useEffect(() => {
-    if (token) fetchEndpoints();
-  }, [token]);
+    fetchEndpoints();
+  }, []);
 
   const fetchEndpoints = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/inference-endpoints`, { headers });
+      const res = await authFetch('/api/inference-endpoints');
       const data = await res.json();
       setEndpoints(data);
     } catch (err) { }
@@ -40,7 +37,7 @@ export default function InferenceAPI() {
         weights: null,
         normalization: null
       };
-      await fetch(`${API}/inference-endpoints`, { method: 'POST', headers, body: JSON.stringify(body) });
+      await authFetch('/api/inference-endpoints', { method: 'POST', body: JSON.stringify(body) });
       setShowDeploy(false);
       setForm({ modelName: '', rateLimit: 100 });
       fetchEndpoints();
@@ -48,21 +45,21 @@ export default function InferenceAPI() {
   };
 
   const handleToggleActive = async (ep) => {
-    await fetch(`${API}/inference-endpoints/${ep._id}`, {
-      method: 'PUT', headers, body: JSON.stringify({ active: !ep.active, rateLimit: ep.rateLimit })
+    await authFetch(`/api/inference-endpoints/${ep._id}`, {
+      method: 'PUT', body: JSON.stringify({ active: !ep.active, rateLimit: ep.rateLimit })
     });
     fetchEndpoints();
   };
 
   const handleRegenerateKey = async (ep) => {
-    const res = await fetch(`${API}/inference-endpoints/${ep._id}/regenerate-key`, { method: 'POST', headers });
+    const res = await authFetch(`/api/inference-endpoints/${ep._id}/regenerate-key`, { method: 'POST' });
     const data = await res.json();
     setEndpoints(prev => prev.map(e => e._id === ep._id ? data : e));
   };
 
   const handleDelete = async (id) => {
     if (!confirm('Delete this endpoint?')) return;
-    await fetch(`${API}/inference-endpoints/${id}`, { method: 'DELETE', headers });
+    await authFetch(`/api/inference-endpoints/${id}`, { method: 'DELETE' });
     fetchEndpoints();
     if (selectedEndpoint?._id === id) setSelectedEndpoint(null);
   };
@@ -72,7 +69,7 @@ export default function InferenceAPI() {
     try {
       let input;
       try { input = JSON.parse(testInput); } catch { input = testInput; }
-      const res = await fetch(`http://localhost:5005/api/inference/${selectedEndpoint.modelId}`, {
+      const res = await fetch(`/api/inference/${selectedEndpoint.modelId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-API-Key': selectedEndpoint.apiKey },
         body: JSON.stringify({ input })
