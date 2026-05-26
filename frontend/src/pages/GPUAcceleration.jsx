@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Search, Loader, Monitor, CheckCircle2, AlertTriangle, Settings, Gamepad2, Gauge, Rocket } from 'lucide-react';
 
 export default function GPUAcceleration() {
   const [gpuAvailable, setGpuAvailable] = useState(null);
@@ -132,7 +133,7 @@ export default function GPUAcceleration() {
 
       {/* Detection */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-white mb-4">🔍 Hardware Detection</h3>
+        <h3 className="text-lg font-semibold text-white mb-4"><Search className="w-5 h-5 inline mr-1" /> Hardware Detection</h3>
         
         {gpuAvailable === null ? (
           <div className="text-center py-8">
@@ -143,12 +144,12 @@ export default function GPUAcceleration() {
             >
               {checking ? (
                 <>
-                  <span className="animate-spin">⏳</span>
+                  <Loader className="w-4 h-4 animate-spin" />
                   <span>Detecting...</span>
                 </>
               ) : (
                 <>
-                  <span>🖥️</span>
+                  <Monitor className="w-4 h-4" />
                   <span>Detect GPU Capabilities</span>
                 </>
               )}
@@ -158,7 +159,7 @@ export default function GPUAcceleration() {
           <div className="space-y-4">
             <div className={`p-4 rounded-lg border ${gpuAvailable ? 'bg-green-500/5 border-green-500/20' : 'bg-yellow-500/5 border-yellow-500/20'}`}>
               <div className="flex items-center gap-3">
-                <span className="text-2xl">{gpuAvailable ? '✅' : '⚠️'}</span>
+                <span className="text-2xl">{gpuAvailable ? <CheckCircle2 className="w-6 h-6 text-green-400" /> : <AlertTriangle className="w-6 h-6 text-yellow-400" />}</span>
                 <div>
                   <p className={`font-medium ${gpuAvailable ? 'text-green-400' : 'text-yellow-400'}`}>
                     {gpuAvailable ? 'WebGPU Available' : 'WebGPU Not Available'}
@@ -202,7 +203,7 @@ export default function GPUAcceleration() {
 
       {/* Backend Toggle */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-white mb-4">⚙️ Training Backend</h3>
+        <h3 className="text-lg font-semibold text-white mb-4"><Settings className="w-5 h-5 inline mr-1" /> Training Backend</h3>
         <div className="flex gap-4">
           <button
             onClick={() => setBackend('cpu')}
@@ -212,7 +213,7 @@ export default function GPUAcceleration() {
                 : 'bg-dark-800 border-purple-500/30 text-purple-200/70 hover:border-dark-400'
             }`}
           >
-            <div className="text-2xl mb-2">🖥️</div>
+            <Monitor className="w-6 h-6 text-purple-400 mx-auto mb-2" />
             <p className="font-medium">CPU (Web Workers)</p>
             <p className="text-xs mt-1 opacity-70">Distributed across multiple workers</p>
           </button>
@@ -224,11 +225,11 @@ export default function GPUAcceleration() {
                 : 'bg-dark-800 border-purple-500/30 text-purple-200/70 hover:border-dark-400'
             }`}
           >
-            <div className="text-2xl mb-2">🎮</div>
+            <Gamepad2 className="w-6 h-6 text-purple-400 mx-auto mb-2" />
             <p className="font-medium">GPU (WebGL/WebGPU)</p>
             <p className="text-xs mt-1 opacity-70">Hardware accelerated on GPU</p>
             {!gpuAvailable && gpuAvailable !== null && (
-              <p className="text-xs text-yellow-400 mt-2">⚠️ Not available on this device</p>
+              <p className="text-xs text-yellow-400 mt-2"><AlertTriangle className="w-3 h-3 inline mr-1" /> Not available on this device</p>
             )}
           </button>
         </div>
@@ -240,7 +241,7 @@ export default function GPUAcceleration() {
 
       {/* Benchmark */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-white mb-4">🏎️ Speed Comparison</h3>
+        <h3 className="text-lg font-semibold text-white mb-4"><Gauge className="w-5 h-5 inline mr-1" /> Speed Comparison</h3>
         <p className="text-sm text-purple-300/50 mb-4">
           Run a matrix multiplication benchmark to compare CPU vs GPU performance on your hardware.
         </p>
@@ -252,12 +253,12 @@ export default function GPUAcceleration() {
         >
           {benchmarkRunning ? (
             <>
-              <span className="animate-spin">⏳</span>
+              <Loader className="w-4 h-4 animate-spin" />
               <span>Running Benchmark...</span>
             </>
           ) : (
             <>
-              <span>🚀</span>
+              <Rocket className="w-4 h-4" />
               <span>Run Benchmark</span>
             </>
           )}

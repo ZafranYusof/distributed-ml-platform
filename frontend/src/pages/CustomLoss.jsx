@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Editor from 'react-simple-code-editor';
+import { CheckCircle2, XCircle, Save, Ruler } from 'lucide-react';
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
@@ -128,10 +129,10 @@ export default function CustomLoss() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button onClick={handleValidate} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm transition-colors">✓ Validate Syntax</button>
+          <button onClick={handleValidate} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm transition-colors"><CheckCircle2 className="w-4 h-4 inline mr-1" /> Validate Syntax</button>
           <button onClick={handleTest} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm transition-colors">▶ Test with Sample</button>
           <button onClick={handleSave} disabled={!form.name} className="px-4 py-2 bg-gradient-btn text-white rounded-lg text-sm font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors">
-            {editing ? '💾 Update' : '💾 Save to Library'}
+                        {editing ? <><Save className="w-4 h-4 inline mr-1" /> Update</> : <><Save className="w-4 h-4 inline mr-1" /> Save to Library</>}
           </button>
           {editing && <button onClick={() => { setEditing(null); setForm({ name: '', description: '', code: form.code }); }} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 rounded-lg text-sm">Cancel Edit</button>}
         </div>
@@ -139,14 +140,14 @@ export default function CustomLoss() {
         {/* Validation Result */}
         {validation && (
           <div className={`p-3 rounded-lg text-sm ${validation.valid ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
-            {validation.valid ? '✓ Syntax is valid' : `✗ Syntax error: ${validation.error}`}
+                        {validation.valid ? <><CheckCircle2 className="w-4 h-4 inline mr-1" /> Syntax is valid</> : <><XCircle className="w-4 h-4 inline mr-1" /> Syntax error: {validation.error}</>}
           </div>
         )}
 
         {/* Test Result */}
         {testResult && (
           <div className={`p-3 rounded-lg text-sm ${testResult.success ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
-            {testResult.success ? `✓ Test passed. Output: ${testResult.output}` : `✗ Test failed: ${testResult.error}`}
+                        {testResult.success ? <><CheckCircle2 className="w-4 h-4 inline mr-1" /> Test passed. Output: {testResult.output}</> : <><XCircle className="w-4 h-4 inline mr-1" /> Test failed: {testResult.error}</>}
           </div>
         )}
       </div>
@@ -158,7 +159,7 @@ export default function CustomLoss() {
           <div className="text-purple-300/50 text-center py-6"><div class="animate-pulse space-y-3"><div class="h-4 bg-purple-500/15 rounded w-3/4"></div><div class="h-4 bg-purple-500/15 rounded w-1/2"></div></div></div>
         ) : losses.length === 0 ? (
           <div className="text-center py-10 text-purple-300/50 bg-dark-800/40 border border-purple-500/20 rounded-lg">
-            <p className="text-3xl mb-2">📐</p>
+            <Ruler className="w-8 h-8 text-purple-400 mx-auto mb-2" />
             <p>No custom loss functions saved yet.</p>
           </div>
         ) : (

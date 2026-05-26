@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
+import { BarChart3 } from 'lucide-react';
 
 export default function Analytics() {
   const { authFetch } = useAuth();
@@ -37,7 +38,7 @@ export default function Analytics() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center gap-3">
-        <span className="text-2xl">📊</span>
+                <BarChart3 className="w-6 h-6 text-purple-400" />
         <div>
           <h1 className="text-2xl font-bold text-white">Usage Analytics</h1>
           <p className="text-purple-300/50 text-sm">Track your usage and platform-wide statistics</p>

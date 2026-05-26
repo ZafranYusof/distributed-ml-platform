@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
+import { CheckCircle2 } from 'lucide-react';
 
 export default function ActiveLearning() {
   const { user } = useAuth();
@@ -209,7 +210,7 @@ export default function ActiveLearning() {
       {phase === 'complete' && (
         <div className="space-y-6">
           <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-6 text-center">
-            <p className="text-4xl mb-2">✅</p>
+            <CheckCircle2 className="w-10 h-10 text-green-400 mx-auto mb-2" />
             <h3 className="text-green-400 font-semibold text-lg">Active Learning Complete</h3>
             <p className="text-purple-300/50 mt-2">Achieved target accuracy with {labeledCount} labeled samples ({((labeledCount / config.poolSize) * 100).toFixed(0)}% of pool)</p>
           </div>

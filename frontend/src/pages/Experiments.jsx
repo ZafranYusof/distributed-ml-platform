@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { useConfirmDialog } from '../components/ui/ConfirmDialog';
 import { TableSkeleton } from '../components/ui/SkeletonLoader';
+import { X, Trash2 } from 'lucide-react';
 import { FlaskConical } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
 import SearchFilterBar from '../components/ui/SearchFilterBar';
@@ -216,7 +217,7 @@ export default function Experiments() {
         <div className="bg-dark-800/40 border border-purple-500/20 rounded-lg p-6 animate-fade-in">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-white">Experiment Comparison</h3>
-            <button onClick={() => { setCompareData(null); setCompareIds([]); }} className="text-sm text-purple-300/50 hover:text-white" aria-label="Close comparison">✕ Close</button>
+            <button onClick={() => { setCompareData(null); setCompareIds([]); }} className="text-sm text-purple-300/50 hover:text-white" aria-label="Close comparison"><X className="w-4 h-4 inline mr-1" /> Close</button>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm" role="table">
@@ -303,7 +304,7 @@ export default function Experiments() {
                       className="text-purple-300/40 hover:text-red-400 text-xs transition-colors"
                       aria-label={`Delete ${exp.name}`}
                     >
-                      🗑
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </td>
                 </tr>

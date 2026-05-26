@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import Papa from 'papaparse';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ScatterChart, Scatter, Cell } from 'recharts';
 import { useToast } from '../components/ui/Toast';
+import { BarChart3, Upload, Flower2, Home, TrendingUp, Link2, HelpCircle, AlertTriangle } from 'lucide-react';
 
 export default function DataExplorer() {
   const toast = useToast();
@@ -161,7 +162,7 @@ export default function DataExplorer() {
             }`}
             onClick={() => document.getElementById('explorer-file-input').click()}
           >
-            <div className="text-4xl mb-3">📊</div>
+            <Upload className="w-10 h-10 text-purple-400 mx-auto mb-3" />
             <p className="text-dark-200 font-medium">Drop CSV file here to explore</p>
             <p className="text-purple-300/40 text-sm mt-1">Supports .csv files</p>
             <input
@@ -179,13 +180,13 @@ export default function DataExplorer() {
           </div>
           <div className="grid grid-cols-3 gap-3">
             <button onClick={() => loadSample('iris')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-white">🌸 Iris</div>
+              <div className="text-sm font-medium text-white"><Flower2 className="w-4 h-4 inline mr-1" /> Iris</div>
             </button>
             <button onClick={() => loadSample('housing')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-white">🏠 Housing</div>
+              <div className="text-sm font-medium text-white"><Home className="w-4 h-4 inline mr-1" /> Housing</div>
             </button>
             <button onClick={() => loadSample('sequence')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-white">📈 Sine Wave</div>
+              <div className="text-sm font-medium text-white"><TrendingUp className="w-4 h-4 inline mr-1" /> Sine Wave</div>
             </button>
           </div>
         </div>
@@ -195,7 +196,7 @@ export default function DataExplorer() {
           <div className="card">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">📊</span>
+                <BarChart3 className="w-6 h-6 text-purple-400" />
                 <div>
                   <p className="font-medium text-white">{dataset.name}</p>
                   <p className="text-sm text-purple-300/50">{dataset.rows} rows · {dataset.columns.length} columns</p>
@@ -210,7 +211,7 @@ export default function DataExplorer() {
           {/* Basic Stats */}
           {stats && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-white mb-4">📈 Basic Statistics</h3>
+              <h3 className="text-lg font-semibold text-white mb-4"><TrendingUp className="w-5 h-5 inline mr-1" /> Basic Statistics</h3>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
@@ -245,7 +246,7 @@ export default function DataExplorer() {
           {/* Histogram */}
           {stats && stats.numericFields.length > 0 && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-white mb-4">📊 Distribution</h3>
+              <h3 className="text-lg font-semibold text-white mb-4"><BarChart3 className="w-5 h-5 inline mr-1" /> Distribution</h3>
               <div className="flex gap-2 mb-4 flex-wrap">
                 {stats.numericFields.map(col => (
                   <button
@@ -281,7 +282,7 @@ export default function DataExplorer() {
           {/* Correlation Matrix */}
           {correlations && stats && stats.numericFields.length > 1 && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-white mb-4">🔗 Correlation Matrix</h3>
+              <h3 className="text-lg font-semibold text-white mb-4"><Link2 className="w-5 h-5 inline mr-1" /> Correlation Matrix</h3>
               <div className="overflow-x-auto">
                 <table className="text-xs">
                   <thead>
@@ -320,7 +321,7 @@ export default function DataExplorer() {
           {/* Missing Values */}
           {stats && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-white mb-4">❓ Missing Values</h3>
+              <h3 className="text-lg font-semibold text-white mb-4"><HelpCircle className="w-5 h-5 inline mr-1" /> Missing Values</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {dataset.columns.map(col => (
                   <div key={col} className="bg-dark-800/40 rounded-lg p-3 border border-purple-500/30">
@@ -340,7 +341,7 @@ export default function DataExplorer() {
           {/* Outliers */}
           {outliers && Object.keys(outliers).length > 0 && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-white mb-4">⚠️ Outlier Detection (IQR Method)</h3>
+              <h3 className="text-lg font-semibold text-white mb-4"><AlertTriangle className="w-5 h-5 inline mr-1" /> Outlier Detection (IQR Method)</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {Object.entries(outliers).map(([col, info]) => (
                   <div key={col} className="bg-dark-800/40 rounded-lg p-3 border border-purple-500/30">

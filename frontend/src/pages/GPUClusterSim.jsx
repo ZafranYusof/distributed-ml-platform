@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { Skull, PlusCircle, MinusCircle, RefreshCw, Monitor, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 export default function GPUCluster() {
   const [clusterConfig, setClusterConfig] = useState({ machines: 4, workersPerMachine: 2 });
@@ -93,7 +94,7 @@ export default function GPUCluster() {
       };
       return updated;
     });
-    addLog(`⚠️ Worker ${target.id} FAILED! Auto-recovering...`);
+    addLog(`Worker ${target.id} FAILED! Auto-recovering...`);
     
     // Auto-recover after 2 seconds
     setTimeout(() => {
@@ -120,7 +121,7 @@ export default function GPUCluster() {
           };
           return updated;
         });
-        addLog(`✅ Worker ${target.id} recovered`);
+        addLog(`Worker ${target.id} recovered`);
       }, 1500);
     }, 2000);
   };
@@ -133,14 +134,14 @@ export default function GPUCluster() {
       workers.push({ id: `m${newId}-w${j}`, status: 'active', progress: 0, assignedWork: null });
     }
     setCluster(prev => [...prev, { id: `machine-${newId}`, status: 'active', workers }]);
-    addLog(`➕ Added machine-${newId} with ${clusterConfig.workersPerMachine} workers`);
+    addLog(`Added machine-${newId} with ${clusterConfig.workersPerMachine} workers`);
   };
 
   const removeNode = () => {
     if (!cluster || cluster.length <= 1) return;
     const removed = cluster[cluster.length - 1];
     setCluster(prev => prev.slice(0, -1));
-    addLog(`➖ Removed ${removed.id}`);
+    addLog(`Removed ${removed.id}`);
   };
 
   const resumeFromCheckpoint = () => {
@@ -148,7 +149,7 @@ export default function GPUCluster() {
     if (intervalRef.current) clearInterval(intervalRef.current);
     const cp = checkpoints[checkpoints.length - 1];
     setEpoch(cp.epoch);
-    addLog(`🔄 Resumed from checkpoint at epoch ${cp.epoch}`);
+    addLog(`Resumed from checkpoint at epoch ${cp.epoch}`);
     setTraining(true);
     let currentEpoch = cp.epoch;
     intervalRef.current = setInterval(() => {
@@ -243,14 +244,14 @@ export default function GPUCluster() {
       {/* Controls */}
       {cluster && (
         <div className="flex gap-3 flex-wrap">
-          <button onClick={killRandomWorker} disabled={!training} className="px-3 py-1.5 text-sm bg-red-600/20 text-red-400 rounded-lg hover:bg-red-600/30 border border-red-500/30 disabled:opacity-50">
-            💀 Kill Random Worker
+          <button onClick={killRandomWorker} disabled={!training} className="px-3 py-1.5 text-sm bg-red-600/20 text-red-400 rounded-lg hover:bg-red-600/30 border border-red-500/30 disabled:opacity-50 flex items-center gap-1">
+            <Skull className="w-4 h-4" /> Kill Random Worker
           </button>
-          <button onClick={addNode} className="px-3 py-1.5 text-sm bg-green-600/20 text-green-400 rounded-lg hover:bg-green-600/30 border border-green-500/30">
-            ➕ Add Node
+          <button onClick={addNode} className="px-3 py-1.5 text-sm bg-green-600/20 text-green-400 rounded-lg hover:bg-green-600/30 border border-green-500/30 flex items-center gap-1">
+            <PlusCircle className="w-4 h-4" /> Add Node
           </button>
-          <button onClick={removeNode} disabled={cluster.length <= 1} className="px-3 py-1.5 text-sm bg-yellow-600/20 text-yellow-400 rounded-lg hover:bg-yellow-600/30 border border-yellow-500/30 disabled:opacity-50">
-            ➖ Remove Node
+          <button onClick={removeNode} disabled={cluster.length <= 1} className="px-3 py-1.5 text-sm bg-yellow-600/20 text-yellow-400 rounded-lg hover:bg-yellow-600/30 border border-yellow-500/30 disabled:opacity-50 flex items-center gap-1">
+            <MinusCircle className="w-4 h-4" /> Remove Node
           </button>
           <div className="ml-auto flex items-center gap-4 text-sm">
             <span className="text-purple-300/50">Epoch: <span className="text-white font-mono">{epoch}/{totalEpochs}</span></span>
@@ -267,7 +268,7 @@ export default function GPUCluster() {
             {cluster.map(machine => (
               <div key={machine.id} className="bg-dark-900 rounded-lg p-4 border border-purple-500/30">
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="text-lg">🖥️</span>
+                  <Monitor className="w-5 h-5 text-purple-400" />
                   <span className="text-sm text-white font-medium">{machine.id}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-2">

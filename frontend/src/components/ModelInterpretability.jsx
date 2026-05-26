@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Search, BarChart3, TrendingUp } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 
 export default function ModelInterpretability({ weights, featureNames, predictions, testData }) {
@@ -84,7 +85,7 @@ export default function ModelInterpretability({ weights, featureNames, predictio
   if (!featureNames || featureNames.length === 0) {
     return (
       <div className="card">
-        <h3 className="text-lg font-semibold text-white mb-4">🔍 Model Interpretability</h3>
+        <h3 className="text-lg font-semibold text-white mb-4"><Search className="w-5 h-5 inline mr-1" /> Model Interpretability</h3>
         <p className="text-purple-300/50 text-sm">Train a model first to see interpretability results.</p>
       </div>
     );
@@ -94,7 +95,7 @@ export default function ModelInterpretability({ weights, featureNames, predictio
     <div className="space-y-6">
       {/* Feature Importance */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-white mb-4">📊 Feature Importance</h3>
+        <h3 className="text-lg font-semibold text-white mb-4"><BarChart3 className="w-5 h-5 inline mr-1" /> Feature Importance</h3>
         <p className="text-xs text-purple-300/40 mb-4">Relative importance of each feature based on model weights (permutation importance approximation)</p>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
@@ -114,7 +115,7 @@ export default function ModelInterpretability({ weights, featureNames, predictio
 
       {/* Partial Dependence Plots */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-white mb-4">📈 Partial Dependence Plot</h3>
+        <h3 className="text-lg font-semibold text-white mb-4"><TrendingUp className="w-5 h-5 inline mr-1" /> Partial Dependence Plot</h3>
         <p className="text-xs text-purple-300/40 mb-4">Shows how a feature affects the model prediction while averaging out other features</p>
 
         <div className="flex gap-2 mb-4 flex-wrap">

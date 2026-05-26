@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../components/ui/Toast';
 import { useConfirmDialog } from '../components/ui/ConfirmDialog';
-import { History as HistoryIcon } from 'lucide-react';
+import { History as HistoryIcon, CheckCircle2, RefreshCw, XCircle, Loader, BarChart3, TrendingDown, TrendingUp, ClipboardList, Wand2, Trash2 } from 'lucide-react';
 import { TableSkeleton } from '../components/ui/SkeletonLoader';
 import EmptyState from '../components/ui/EmptyState';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
@@ -98,10 +98,10 @@ export default function History() {
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case 'completed': return '✅';
-      case 'training': return '🔄';
-      case 'failed': return '❌';
-      default: return '⏳';
+      case 'completed': return <CheckCircle2 className="w-4 h-4 text-green-400" />;
+      case 'training': return <RefreshCw className="w-4 h-4 text-blue-400 animate-spin" />;
+      case 'failed': return <XCircle className="w-4 h-4 text-red-400" />;
+      default: return <Loader className="w-4 h-4 text-purple-300" />;
     }
   };
 
@@ -130,7 +130,7 @@ export default function History() {
         <div className="flex gap-3">
           {selectedSessions.length >= 2 && (
             <button onClick={startCompare} className="btn-primary flex items-center gap-2">
-              <span>📊</span>
+              <BarChart3 className="w-4 h-4" />
               <span>Compare ({selectedSessions.length})</span>
             </button>
           )}
@@ -149,7 +149,7 @@ export default function History() {
       {compareMode && compareData && (
         <div className="space-y-6 animate-fade-in">
           <div className="card">
-            <h3 className="text-lg font-semibold text-white mb-4">📉 Loss Comparison</h3>
+            <h3 className="text-lg font-semibold text-white mb-4"><TrendingDown className="w-5 h-5 inline mr-1" /> Loss Comparison</h3>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart>
@@ -178,7 +178,7 @@ export default function History() {
 
           {compareData.some(s => s.config?.taskType === 'classification') && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-white mb-4">📈 Accuracy Comparison</h3>
+              <h3 className="text-lg font-semibold text-white mb-4"><TrendingUp className="w-5 h-5 inline mr-1" /> Accuracy Comparison</h3>
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart>
@@ -207,7 +207,7 @@ export default function History() {
           )}
 
           <div className="card">
-            <h3 className="text-lg font-semibold text-white mb-4">📋 Configuration Comparison</h3>
+            <h3 className="text-lg font-semibold text-white mb-4"><ClipboardList className="w-5 h-5 inline mr-1" /> Configuration Comparison</h3>
             <div className="overflow-x-auto">
               <table className="w-full text-sm" role="table" aria-label="Configuration comparison">
                 <thead>
@@ -292,7 +292,7 @@ export default function History() {
                         className="text-xs px-3 py-1.5 bg-purple-500/15 hover:bg-purple-500/20 text-dark-200 rounded-lg transition-colors"
                         aria-label="Run inference with this model"
                       >
-                        🔮 Inference
+                        <Wand2 className="w-3 h-3 inline mr-1" /> Inference
                       </button>
                     )}
                     <button
@@ -300,7 +300,7 @@ export default function History() {
                       className="text-xs px-3 py-1.5 bg-purple-500/15 hover:bg-red-500/20 text-purple-300/50 hover:text-red-400 rounded-lg transition-colors"
                       aria-label={`Delete session ${session.name || session._id.slice(0, 8)}`}
                     >
-                      🗑️
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>

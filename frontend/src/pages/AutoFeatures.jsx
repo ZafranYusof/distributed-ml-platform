@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { Calculator } from 'lucide-react';
 
 export default function AutoFeatures() {
   const { user } = useAuth();
@@ -325,7 +326,7 @@ export default function AutoFeatures() {
           ) : (
             <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6 flex items-center justify-center h-64">
               <div className="text-center text-purple-300/50">
-                <p className="text-4xl mb-4">🧮</p>
+                <Calculator className="w-10 h-10 text-purple-400 mx-auto mb-4" />
                 <p>Load a dataset and generate features to see results</p>
               </div>
             </div>

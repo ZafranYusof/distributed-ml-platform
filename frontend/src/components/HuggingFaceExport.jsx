@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Upload, CheckCircle2 } from 'lucide-react';
 
 export default function HuggingFaceExport({ modelName = 'my-model' }) {
   const [config, setConfig] = useState({
@@ -29,7 +30,7 @@ export default function HuggingFaceExport({ modelName = 'my-model' }) {
   return (
     <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-5">
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-xl">🤗</span>
+        <Upload className="w-5 h-5 text-yellow-400" />
         <h3 className="text-lg font-semibold text-white">Push to HuggingFace</h3>
       </div>
 
@@ -37,7 +38,7 @@ export default function HuggingFaceExport({ modelName = 'my-model' }) {
         <div className="space-y-4">
           <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-green-400">✓</span>
+              <CheckCircle2 className="w-4 h-4 text-green-400" />
               <p className="text-sm text-green-400 font-medium">Model pushed successfully!</p>
             </div>
             <p className="text-sm text-purple-200/70">Your model is now available at:</p>
@@ -110,7 +111,7 @@ export default function HuggingFaceExport({ modelName = 'my-model' }) {
                 Pushing...
               </>
             ) : (
-              <>🤗 Push to Hub</>
+              <><Upload className="w-4 h-4" /> Push to Hub</>
             )}
           </button>
         </form>

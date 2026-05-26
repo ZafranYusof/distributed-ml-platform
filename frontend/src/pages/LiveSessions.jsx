@@ -1,4 +1,5 @@
 import { useSocket } from '../context/SocketContext';
+import { Flame, Users, Ghost } from 'lucide-react';
 
 export default function LiveSessions() {
   const { liveUsers, connected } = useSocket();
@@ -39,7 +40,7 @@ export default function LiveSessions() {
       {/* Active Training Sessions */}
       {trainingUsers.length > 0 && (
         <div className="card">
-          <h3 className="text-lg font-semibold text-white mb-4">🔥 Active Training</h3>
+          <h3 className="text-lg font-semibold text-white mb-4"><Flame className="w-5 h-5 inline mr-1 text-orange-400" /> Active Training</h3>
           <div className="space-y-3">
             {trainingUsers.map((user, i) => (
               <div key={i} className="bg-dark-800/40 rounded-lg p-4 border border-purple-500/30">
@@ -86,7 +87,7 @@ export default function LiveSessions() {
       {/* Idle Users */}
       {idleUsers.length > 0 && (
         <div className="card">
-          <h3 className="text-lg font-semibold text-white mb-4">👥 Online Users</h3>
+          <h3 className="text-lg font-semibold text-white mb-4"><Users className="w-5 h-5 inline mr-1" /> Online Users</h3>
           <div className="flex flex-wrap gap-3">
             {idleUsers.map((user, i) => (
               <div key={i} className="flex items-center gap-2 bg-dark-800/40 rounded-lg px-3 py-2 border border-purple-500/30">
@@ -106,7 +107,7 @@ export default function LiveSessions() {
       {/* Empty State */}
       {liveUsers.length === 0 && (
         <div className="card text-center py-12">
-          <div className="text-4xl mb-3">👻</div>
+          <Ghost className="w-10 h-10 text-purple-400 mx-auto mb-3" />
           <p className="text-purple-200/70 font-medium">No one is online right now</p>
           <p className="text-purple-300/40 text-sm mt-1">Start a training session to appear here</p>
         </div>

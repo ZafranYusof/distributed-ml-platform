@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Hash, Scissors, FlaskConical, Loader, Minimize2 } from 'lucide-react';
 
 export default function Compression() {
   const [technique, setTechnique] = useState('quantization');
@@ -135,16 +136,16 @@ export default function Compression() {
       {/* Technique Selection */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {[
-          { id: 'quantization', name: 'Quantization', icon: '🔢', desc: 'Reduce precision (float32 → int8)' },
-          { id: 'pruning', name: 'Pruning', icon: '✂️', desc: 'Zero out small weights' },
-          { id: 'distillation', name: 'Knowledge Distillation', icon: '🧪', desc: 'Train smaller student model' },
+          { id: 'quantization', name: 'Quantization', icon: Hash, desc: 'Reduce precision (float32 → int8)' },
+          { id: 'pruning', name: 'Pruning', icon: Scissors, desc: 'Zero out small weights' },
+          { id: 'distillation', name: 'Knowledge Distillation', icon: FlaskConical, desc: 'Train smaller student model' },
         ].map(t => (
           <div
             key={t.id}
             onClick={() => { setTechnique(t.id); setResults(null); }}
             className={`bg-dark-800/40 border rounded-lg p-4 cursor-pointer transition-colors ${technique === t.id ? 'border-primary-500 bg-primary-500/5' : 'border-purple-500/20 hover:border-purple-500/30'}`}
           >
-            <div className="text-2xl mb-2">{t.icon}</div>
+            <div className="text-2xl mb-2">{(() => { const Icon = t.icon; return <Icon className="w-6 h-6 text-purple-400" />; })()}</div>
             <h3 className="text-white font-medium">{t.name}</h3>
             <p className="text-purple-300/50 text-xs mt-1">{t.desc}</p>
           </div>
@@ -203,7 +204,7 @@ export default function Compression() {
         )}
 
         <button onClick={handleRun} disabled={running} className="mt-4 px-6 py-3 bg-gradient-btn text-white rounded-lg font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors">
-          {running ? '⏳ Compressing...' : '🗜 Run Compression'}
+                    {running ? <><Loader className="w-4 h-4 inline animate-spin mr-1" /> Compressing...</> : <><Minimize2 className="w-4 h-4 inline mr-1" /> Run Compression</>}
         </button>
       </div>
 

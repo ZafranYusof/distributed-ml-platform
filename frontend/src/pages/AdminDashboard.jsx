@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
+import { Crown, Users, Dumbbell, BarChart3, FolderOpen } from 'lucide-react';
 
 export default function AdminDashboard() {
   const { authFetch } = useAuth();
@@ -40,7 +41,7 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center gap-3">
-        <span className="text-2xl">👑</span>
+                <Crown className="w-6 h-6 text-yellow-400" />
         <div>
           <h1 className="text-2xl font-bold text-white">Admin Dashboard</h1>
           <p className="text-purple-300/50 text-sm">Platform overview and management</p>
@@ -50,10 +51,10 @@ export default function AdminDashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Total Users" value={stats?.totalUsers || 0} icon="👥" color="blue" />
-        <StatCard title="Training Jobs Today" value={stats?.todaySessions || 0} icon="🏋️" color="green" />
-        <StatCard title="Total Sessions" value={stats?.totalSessions || 0} icon="📊" color="purple" />
-        <StatCard title="Total Datasets" value={stats?.totalDatasets || 0} icon="📁" color="orange" />
+        <StatCard title="Total Users" value={stats?.totalUsers || 0} icon={Users} color="blue" />
+        <StatCard title="Training Jobs Today" value={stats?.todaySessions || 0} icon={Dumbbell} color="green" />
+        <StatCard title="Total Sessions" value={stats?.totalSessions || 0} icon={BarChart3} color="purple" />
+        <StatCard title="Total Datasets" value={stats?.totalDatasets || 0} icon={FolderOpen} color="orange" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -146,7 +147,7 @@ export default function AdminDashboard() {
   );
 }
 
-function StatCard({ title, value, icon, color }) {
+function StatCard({ title, value, icon: Icon, color }) {
   const colors = {
     blue: 'bg-blue-500/10 border-blue-500/20 text-blue-400',
     green: 'bg-green-500/10 border-green-500/20 text-green-400',
@@ -157,7 +158,7 @@ function StatCard({ title, value, icon, color }) {
   return (
     <div className={`rounded-xl border p-4 ${colors[color]}`}>
       <div className="flex items-center justify-between">
-        <span className="text-2xl">{icon}</span>
+        <Icon className="w-6 h-6" />
         <span className="text-2xl font-bold">{value}</span>
       </div>
       <p className="text-sm mt-2 opacity-80">{title}</p>

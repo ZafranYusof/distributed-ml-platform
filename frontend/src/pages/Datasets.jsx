@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { useConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
+import { Link2, Lock } from 'lucide-react';
 import { Database } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
 import SearchFilterBar from '../components/ui/SearchFilterBar';
@@ -245,7 +246,7 @@ export default function Datasets() {
                   className={`text-xs px-2 py-1 rounded ${ds.shared ? 'bg-green-500/10 text-green-400' : 'bg-purple-500/15 text-purple-300/50'}`}
                   aria-label={ds.shared ? 'Make private' : 'Share dataset'}
                 >
-                  {ds.shared ? '🔗 Shared' : '🔒 Private'}
+                  {ds.shared ? <><Link2 className="w-3 h-3 inline mr-1" /> Shared</> : <><Lock className="w-3 h-3 inline mr-1" /> Private</>}
                 </button>
                 <button
                   onClick={() => handleDelete(ds._id)}

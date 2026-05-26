@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { Brain } from 'lucide-react';
 import { useToast } from '../components/ui/Toast';
 
 export default function Register() {
@@ -59,7 +60,7 @@ export default function Register() {
       <div className="w-full max-w-md animate-fade-in relative z-10">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold flex items-center justify-center gap-2">
-            <span className="text-4xl" aria-hidden="true">🧠</span>
+            <Brain className="w-10 h-10 text-purple-400" aria-hidden="true" />
             <span className="text-gradient">DistML</span>
           </h1>
           <p className="text-purple-300/60 mt-2">Distributed Training Platform</p>

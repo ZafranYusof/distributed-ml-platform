@@ -2,6 +2,7 @@ import { useState, useCallback, useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import Papa from 'papaparse';
 import { useToast } from '../components/ui/Toast';
+import { FolderOpen, Upload, Flower2, Home, BarChart3, Settings, X, RefreshCw, Flag, Loader } from 'lucide-react';
 
 export default function Compare() {
   const toast = useToast();
@@ -277,7 +278,7 @@ export default function Compare() {
       {/* Dataset Selection */}
       {!dataset ? (
         <div className="card">
-          <h3 className="text-lg font-semibold text-white mb-4">📁 Select Dataset</h3>
+          <h3 className="text-lg font-semibold text-white mb-4"><FolderOpen className="w-5 h-5 inline mr-1" /> Select Dataset</h3>
           <div
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
@@ -288,7 +289,7 @@ export default function Compare() {
             }`}
             onClick={() => document.getElementById('compare-file-input').click()}
           >
-            <div className="text-3xl mb-2">📂</div>
+            <Upload className="w-8 h-8 text-purple-400 mx-auto mb-2" />
             <p className="text-dark-200 font-medium">Drop CSV or click to browse</p>
             <input id="compare-file-input" type="file" accept=".csv" onChange={handleFileInput} className="hidden" />
           </div>
@@ -299,11 +300,11 @@ export default function Compare() {
           </div>
           <div className="grid grid-cols-2 gap-3 mt-4">
             <button onClick={() => loadSample('iris')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-white">🌸 Iris Dataset</div>
+              <div className="text-sm font-medium text-white"><Flower2 className="w-4 h-4 inline mr-1" /> Iris Dataset</div>
               <div className="text-xs text-purple-300/50 mt-1">Classification · 150 samples</div>
             </button>
             <button onClick={() => loadSample('housing')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-white">🏠 Housing Prices</div>
+              <div className="text-sm font-medium text-white"><Home className="w-4 h-4 inline mr-1" /> Housing Prices</div>
               <div className="text-xs text-purple-300/50 mt-1">Regression · 200 samples</div>
             </button>
           </div>
@@ -314,7 +315,7 @@ export default function Compare() {
           <div className="card">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">📊</span>
+                <BarChart3 className="w-6 h-6 text-purple-400" />
                 <div>
                   <p className="font-medium text-white">{dataset.name}</p>
                   <p className="text-sm text-purple-300/50">{dataset.rows} rows · {dataset.columns.length} columns</p>
@@ -329,7 +330,7 @@ export default function Compare() {
           {/* Configurations */}
           <div className="card">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-white">⚙️ Configurations</h3>
+              <h3 className="text-lg font-semibold text-white"><Settings className="w-5 h-5 inline mr-1" /> Configurations</h3>
               <button onClick={addConfig} className="btn-secondary text-sm" disabled={configs.length >= 6}>
                 + Add Config
               </button>
@@ -349,7 +350,7 @@ export default function Compare() {
                       />
                     </div>
                     {configs.length > 2 && (
-                      <button onClick={() => removeConfig(config.id)} className="text-purple-300/40 hover:text-red-400 text-xs">✕</button>
+                      <button onClick={() => removeConfig(config.id)} className="text-purple-300/40 hover:text-red-400 text-xs"><X className="w-3 h-3" /></button>
                     )}
                   </div>
 
@@ -405,12 +406,12 @@ export default function Compare() {
               >
                 {training ? (
                   <>
-                    <span>🔄</span>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
                     <span>Training Config {currentConfig + 1}/{configs.length}...</span>
                   </>
                 ) : (
                   <>
-                    <span>🏁</span>
+                    <Flag className="w-4 h-4" />
                     <span>Start Comparison</span>
                   </>
                 )}
@@ -421,7 +422,7 @@ export default function Compare() {
           {/* Progress */}
           {training && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-white mb-4">⏳ Training Progress</h3>
+              <h3 className="text-lg font-semibold text-white mb-4"><Loader className="w-5 h-5 inline mr-1 animate-spin" /> Training Progress</h3>
               <div className="space-y-3">
                 {configs.map((config, idx) => (
                   <div key={config.id} className="space-y-1">

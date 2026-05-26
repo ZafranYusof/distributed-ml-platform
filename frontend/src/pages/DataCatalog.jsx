@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
 import EmptyState from '../components/ui/EmptyState';
+import { FolderOpen, FlaskConical, Package, FolderKanban } from 'lucide-react';
 import { Search } from 'lucide-react';
 
 export default function DataCatalog() {
@@ -30,21 +31,21 @@ export default function DataCatalog() {
       if (datasetsRes.ok) {
         const datasets = await datasetsRes.json();
         (Array.isArray(datasets) ? datasets : []).forEach(d => {
-          catalogItems.push({ ...d, catalogType: 'dataset', icon: '📁' });
+          catalogItems.push({ ...d, catalogType: 'dataset', icon: 'folder' });
         });
       }
 
       if (experimentsRes.ok) {
         const experiments = await experimentsRes.json();
         (Array.isArray(experiments) ? experiments : []).forEach(e => {
-          catalogItems.push({ ...e, catalogType: 'experiment', icon: '🧪' });
+          catalogItems.push({ ...e, catalogType: 'experiment', icon: 'flask' });
         });
       }
 
       if (modelsRes.ok) {
         const models = await modelsRes.json();
         (Array.isArray(models) ? models : []).forEach(m => {
-          catalogItems.push({ ...m, catalogType: 'model', icon: '📦' });
+          catalogItems.push({ ...m, catalogType: 'model', icon: 'package' });
         });
       }
 
@@ -70,7 +71,7 @@ export default function DataCatalog() {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-3">
-          <span className="text-2xl" aria-hidden="true">🗂️</span>
+          <FolderKanban className="w-6 h-6 text-purple-400" aria-hidden="true" />
           <div>
             <h1 className="text-2xl font-bold text-white">Data Catalog</h1>
             <p className="text-purple-300/50 text-sm">Search and browse all datasets, models, and experiments</p>
@@ -84,7 +85,7 @@ export default function DataCatalog() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <span className="text-2xl" aria-hidden="true">🗂️</span>
+        <FolderKanban className="w-6 h-6 text-purple-400" aria-hidden="true" />
         <div>
           <h1 className="text-2xl font-bold text-white">Data Catalog</h1>
           <p className="text-purple-300/50 text-sm">Search and browse all datasets, models, and experiments</p>
@@ -137,7 +138,11 @@ export default function DataCatalog() {
           {filtered.map((item, i) => (
             <div key={i} className="card card-hover p-4 animate-fade-in">
               <div className="flex items-start justify-between mb-2">
-                <span className="text-xl" aria-hidden="true">{item.icon}</span>
+                {(() => {
+                  const iconMap = { folder: FolderOpen, flask: FlaskConical, package: Package };
+                  const Icon = iconMap[item.icon] || FolderOpen;
+                  return <Icon className="w-5 h-5 text-purple-400" aria-hidden="true" />;
+                })()}
                 <span className={`text-xs px-2 py-0.5 rounded-full ${
                   item.catalogType === 'dataset' ? 'bg-blue-500/20 text-blue-400' :
                   item.catalogType === 'experiment' ? 'bg-green-500/20 text-green-400' :

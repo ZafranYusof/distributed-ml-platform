@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { Loader, Rocket } from 'lucide-react';
 
 export default function DistributedInference() {
   const { user } = useAuth();
@@ -117,7 +118,7 @@ export default function DistributedInference() {
         disabled={running}
         className="px-6 py-3 bg-gradient-btn text-white rounded-lg font-medium hover:bg-primary-600 disabled:opacity-50 transition-colors"
       >
-        {running ? '⏳ Running Inference...' : '🚀 Run Distributed Inference'}
+                {running ? <><Loader className="w-4 h-4 inline animate-spin mr-1" /> Running Inference...</> : <><Rocket className="w-4 h-4 inline mr-1" /> Run Distributed Inference</>}
       </button>
 
       {/* Worker Stats */}

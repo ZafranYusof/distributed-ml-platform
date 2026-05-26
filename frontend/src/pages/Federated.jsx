@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { Shield } from 'lucide-react';
 
 export default function Federated() {
   const { user } = useAuth();
@@ -260,7 +261,7 @@ export default function Federated() {
           {!results && !running && (
             <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-6 flex items-center justify-center h-64">
               <div className="text-center text-purple-300/50">
-                <p className="text-4xl mb-4">🔒</p>
+                <Shield className="w-10 h-10 text-purple-400 mx-auto mb-4" />
                 <p>Configure and start federated training to see results</p>
                 <p className="text-xs mt-2">Each client trains locally, only gradients are shared</p>
               </div>

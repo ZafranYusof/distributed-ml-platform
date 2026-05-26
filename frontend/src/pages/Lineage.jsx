@@ -3,21 +3,32 @@ import { useAuth } from '../context/AuthContext';
 import { ReactFlow, Background, Controls, MiniMap, useNodesState, useEdgesState, addEdge, MarkerType } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useToast } from '../components/ui/Toast';
+import { FolderOpen, Wrench, Calculator, Brain, BarChart3, Settings, X, GitBranch } from 'lucide-react';
 
 const nodeTypes = {
-  dataset: { color: '#6366F1', icon: '📁' },
-  preprocessing: { color: '#8b5cf6', icon: '🔧' },
-  feature: { color: '#10b981', icon: '🧮' },
-  model: { color: '#06b6d4', icon: '🧠' },
-  prediction: { color: '#ec4899', icon: '📊' }
+  dataset: { color: '#6366F1', icon: 'folder' },
+  preprocessing: { color: '#8b5cf6', icon: 'wrench' },
+  feature: { color: '#10b981', icon: 'calculator' },
+  model: { color: '#06b6d4', icon: 'brain' },
+  prediction: { color: '#ec4899', icon: 'chart' }
+};
+
+const iconComponents = {
+  folder: FolderOpen,
+  wrench: Wrench,
+  calculator: Calculator,
+  brain: Brain,
+  chart: BarChart3,
+  settings: Settings
 };
 
 function CustomNode({ data }) {
-  const typeInfo = nodeTypes[data.nodeType] || { color: '#6b5b95', icon: '⚙️' };
+  const typeInfo = nodeTypes[data.nodeType] || { color: '#6b5b95', icon: 'settings' };
+  const Icon = iconComponents[typeInfo.icon] || Settings;
   return (
     <div className="px-4 py-3 rounded-lg border-2 shadow-lg min-w-[150px]" style={{ borderColor: typeInfo.color, backgroundColor: '#1E1045' }}>
       <div className="flex items-center gap-2">
-        <span>{typeInfo.icon}</span>
+        <Icon className="w-4 h-4" style={{ color: typeInfo.color }} />
         <span className="text-sm font-medium text-white">{data.label}</span>
       </div>
       {data.details && <p className="text-xs text-gray-400 mt-1">{data.details}</p>}
@@ -179,7 +190,7 @@ export default function Lineage() {
               <div key={g._id} className={`p-3 rounded-lg cursor-pointer transition-colors ${selectedGraph?._id === g._id ? 'bg-primary-500/10 border border-primary-500/30' : 'bg-dark-800/50 backdrop-blur-md border border-purple-500/20 hover:border-dark-500'}`}>
                 <div className="flex items-center justify-between">
                   <span onClick={() => loadGraph(g)} className="text-dark-200 text-sm flex-1">{g.name}</span>
-                  <button onClick={() => handleDelete(g._id)} className="text-red-400 hover:text-red-300 text-xs ml-2">✕</button>
+                  <button onClick={() => handleDelete(g._id)} className="text-red-400 hover:text-red-300 text-xs ml-2"><X className="w-3 h-3" /></button>
                 </div>
                 <p className="text-xs text-purple-300/40 mt-1">{g.nodes?.length || 0} nodes</p>
               </div>
@@ -220,7 +231,7 @@ export default function Lineage() {
           ) : (
             <div className="flex items-center justify-center h-full text-purple-300/50">
               <div className="text-center">
-                <p className="text-4xl mb-4">🔗</p>
+                <GitBranch className="w-10 h-10 text-purple-400 mx-auto mb-4" />
                 <p>Select or create a pipeline to visualize lineage</p>
               </div>
             </div>

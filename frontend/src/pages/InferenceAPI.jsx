@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
+import { Globe } from 'lucide-react';
 
 export default function InferenceAPI() {
   const { user, authFetch } = useAuth();
@@ -119,7 +120,7 @@ export default function InferenceAPI() {
         <div className="text-purple-300/50 text-center py-10">Loading endpoints...</div>
       ) : endpoints.length === 0 ? (
         <div className="text-center py-20 text-purple-300/50">
-          <p className="text-4xl mb-4">🌐</p>
+          <Globe className="w-10 h-10 text-purple-400 mx-auto mb-4" />
           <p>No endpoints deployed yet. Deploy a model to create your first API.</p>
         </div>
       ) : (

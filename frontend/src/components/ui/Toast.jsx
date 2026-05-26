@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback, useRef, useEffect, useMemo, memo } from 'react';
+import { CheckCircle2, XCircle, AlertTriangle, Info, X } from 'lucide-react';
 
 const ToastContext = createContext(null);
 
@@ -70,10 +71,10 @@ const typeStyles = {
 };
 
 const typeIcons = {
-  success: '✓',
-  error: '✕',
-  warning: '⚠',
-  info: 'ℹ',
+  success: CheckCircle2,
+  error: XCircle,
+  warning: AlertTriangle,
+  info: Info,
 };
 
 const typeIconColors = {
@@ -111,9 +112,7 @@ function ToastItem({ toast, onRemove }) {
       aria-live="polite"
     >
       <div className="flex items-center gap-2">
-        <span className={`text-sm font-bold ${typeIconColors[toast.type]}`}>
-          {typeIcons[toast.type]}
-        </span>
+        {(() => { const Icon = typeIcons[toast.type]; return <Icon className={`w-4 h-4 ${typeIconColors[toast.type]}`} />; })()}
         <p className="text-sm text-white">{toast.message}</p>
       </div>
       <button
@@ -121,7 +120,7 @@ function ToastItem({ toast, onRemove }) {
         className="absolute top-2 right-2 text-purple-300/50 hover:text-white text-xs"
         aria-label="Dismiss notification"
       >
-        ✕
+        <X className="w-3 h-3" />
       </button>
       {toast.duration > 0 && (
         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-dark-800/50">

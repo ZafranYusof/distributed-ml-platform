@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import HuggingFaceExport from '../components/HuggingFaceExport';
 import { useToast } from '../components/ui/Toast';
+import { Save, Bot, FileText, Wand2, Target, Tag, BarChart3, Package } from 'lucide-react';
 
 export default function Inference() {
   const { user, authFetch } = useAuth();
@@ -250,7 +251,7 @@ export default function Inference() {
               disabled={exporting}
               className="btn-secondary flex items-center gap-2"
             >
-              <span>💾</span>
+              <Save className="w-4 h-4" />
               <span>{exporting ? 'Exporting...' : 'Export Model'}</span>
             </button>
           </div>
@@ -259,7 +260,7 @@ export default function Inference() {
 
       {sessions.length === 0 ? (
         <div className="card text-center py-12">
-          <div className="text-4xl mb-3">🤖</div>
+          <Bot className="w-10 h-10 text-purple-400 mx-auto mb-3" />
           <p className="text-dark-200 font-medium">No trained models available</p>
           <p className="text-purple-300/50 text-sm mt-1">Train a model first from the Dashboard</p>
         </div>
@@ -284,7 +285,7 @@ export default function Inference() {
           {/* Input Form */}
           {normData && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-white mb-4">📝 Input Features</h3>
+              <h3 className="text-lg font-semibold text-white mb-4"><FileText className="w-5 h-5 inline mr-1" /> Input Features</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {normData.featureCols.map((col, idx) => (
                   <div key={col}>
@@ -314,7 +315,7 @@ export default function Inference() {
                   disabled={!modelReady}
                   className="btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span>🔮</span>
+                  <Wand2 className="w-4 h-4" />
                   <span>{modelReady ? 'Predict' : 'Loading model...'}</span>
                 </button>
               </div>
@@ -324,11 +325,11 @@ export default function Inference() {
           {/* Prediction Result */}
           {prediction && (
             <div className="card border-primary-500/30">
-              <h3 className="text-lg font-semibold text-white mb-4">🎯 Prediction Result</h3>
+              <h3 className="text-lg font-semibold text-white mb-4"><Target className="w-5 h-5 inline mr-1" /> Prediction Result</h3>
               {prediction.type === 'classification' ? (
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl">🏷️</span>
+                    <Tag className="w-8 h-8 text-purple-400" />
                     <div>
                       <p className="text-2xl font-bold text-purple-400">{prediction.label}</p>
                       <p className="text-purple-300/50 text-sm">Confidence: {prediction.confidence}%</p>
@@ -352,7 +353,7 @@ export default function Inference() {
                 </div>
               ) : (
                 <div className="flex items-center gap-3">
-                  <span className="text-3xl">📊</span>
+                  <BarChart3 className="w-8 h-8 text-purple-400" />
                   <div>
                     <p className="text-2xl font-bold text-purple-400">{prediction.value}</p>
                     <p className="text-purple-300/50 text-sm">Predicted value</p>
@@ -365,7 +366,7 @@ export default function Inference() {
           {/* Export Info */}
           {modelReady && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-white mb-3">📦 Export Formats</h3>
+              <h3 className="text-lg font-semibold text-white mb-3"><Package className="w-5 h-5 inline mr-1" /> Export Formats</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="bg-dark-800/40 rounded-lg p-3">
                   <p className="text-sm font-medium text-white">JSON</p>

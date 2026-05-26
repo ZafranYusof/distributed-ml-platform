@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { useConfirmDialog } from '../components/ui/ConfirmDialog';
 import { CardSkeleton } from '../components/ui/SkeletonLoader';
+import { Trash2, Download } from 'lucide-react';
 import { Tag, MousePointer } from 'lucide-react';
 import EmptyState from '../components/ui/EmptyState';
 
@@ -232,7 +233,7 @@ export default function Annotations() {
                     className="text-purple-300/40 hover:text-red-400 text-xs transition-colors"
                     aria-label={`Delete ${p.name}`}
                   >
-                    🗑
+                    <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
                 <div className="flex items-center gap-2 mt-1 text-xs text-purple-300/40">
@@ -287,7 +288,7 @@ export default function Annotations() {
                   className="input-field text-sm"
                 />
                 <button onClick={handleExport} className="ml-auto btn-secondary btn-sm" aria-label="Export annotations as CSV">
-                  📥 Export CSV
+                  <Download className="w-4 h-4 inline mr-1" /> Export CSV
                 </button>
               </div>
 

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Trophy, CheckCircle2 } from 'lucide-react';
 
 const KAGGLE_DATASETS = [
   { id: 'titanic', name: 'Titanic - Machine Learning from Disaster', author: 'Kaggle', size: '34 KB', downloads: '250K', tags: ['classification', 'tabular'] },
@@ -34,7 +35,7 @@ export default function KaggleImport({ onImport }) {
     <div className="bg-dark-800/40 border border-purple-500/20 rounded-xl p-5">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <span className="text-xl">🏆</span>
+          <Trophy className="w-5 h-5 text-yellow-400" />
           <h3 className="text-lg font-semibold text-white">Import from Kaggle</h3>
         </div>
       </div>
@@ -81,7 +82,7 @@ export default function KaggleImport({ onImport }) {
                     : 'bg-primary-500/10 border-primary-500/30 text-purple-400 hover:bg-primary-500/20'
               }`}
             >
-              {imported.includes(dataset.id) ? '✓ Imported' : importing === dataset.id ? 'Importing...' : 'Import'}
+              {imported.includes(dataset.id) ? <><CheckCircle2 className="w-3 h-3 inline" /> Imported</> : importing === dataset.id ? 'Importing...' : 'Import'}
             </button>
           </div>
         ))}

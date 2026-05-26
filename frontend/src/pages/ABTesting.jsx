@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useToast } from '../components/ui/Toast';
+import { FlaskConical, Loader, Play, Pause, Trash2 } from 'lucide-react';
 
 export default function ABTesting() {
   const { authFetch } = useAuth();
@@ -150,14 +151,14 @@ export default function ABTesting() {
           <p className="text-purple-300/50 mt-1">Compare model performance with traffic splitting</p>
         </div>
         <button onClick={() => setShowCreate(!showCreate)} className="btn-primary flex items-center gap-2">
-          <span>🔬</span> New A/B Test
+          <FlaskConical className="w-4 h-4" /> New A/B Test
         </button>
       </div>
 
       {/* Create Form */}
       {showCreate && (
         <div className="card border-primary-500/20">
-          <h3 className="text-lg font-semibold text-white mb-4">🔬 Create A/B Test</h3>
+          <h3 className="text-lg font-semibold text-white mb-4"><FlaskConical className="w-5 h-5 inline mr-1" /> Create A/B Test</h3>
           <form onSubmit={handleCreate} className="space-y-4">
             <div>
               <label className="block text-sm text-purple-200/70 mb-1">Test Name</label>
@@ -224,12 +225,12 @@ export default function ABTesting() {
       {/* Tests List */}
       {loading ? (
         <div className="text-center py-12">
-          <div className="text-4xl animate-pulse">⏳</div>
+          <div className="text-4xl animate-pulse"><Loader className="w-8 h-8 text-purple-400 animate-spin mx-auto" /></div>
           <p className="text-purple-300/50 mt-2">Loading tests...</p>
         </div>
       ) : tests.length === 0 ? (
         <div className="card text-center py-12">
-          <div className="text-4xl mb-3">🔬</div>
+          <FlaskConical className="w-10 h-10 text-purple-400 mx-auto mb-3" />
           <p className="text-purple-200/70 font-medium">No A/B tests yet</p>
           <p className="text-purple-300/40 text-sm mt-1">Create a test to compare model performance</p>
         </div>
@@ -253,7 +254,7 @@ export default function ABTesting() {
                     disabled={simulating || test.status !== 'active'}
                     className="text-xs bg-purple-500/10 text-purple-300 border border-primary-500/20 px-3 py-1 rounded-lg hover:bg-primary-500/20 transition-colors disabled:opacity-50"
                   >
-                    {simulating ? '⏳' : '▶️'} Simulate
+                    {simulating ? <Loader className="w-3 h-3 inline animate-spin" /> : <Play className="w-3 h-3 inline" />} Simulate
                   </button>
                   <button
                     onClick={() => {
@@ -267,9 +268,9 @@ export default function ABTesting() {
                   {test.status === 'active' ? (
                     <button onClick={() => updateStatus(test._id, 'paused')} className="text-xs text-yellow-400 hover:text-yellow-300">⏸</button>
                   ) : test.status === 'paused' ? (
-                    <button onClick={() => updateStatus(test._id, 'active')} className="text-xs text-green-400 hover:text-green-300">▶️</button>
+                    <button onClick={() => updateStatus(test._id, 'active')} className="text-xs text-green-400 hover:text-green-300"><Play className="w-3 h-3" /></button>
                   ) : null}
-                  <button onClick={() => deleteTest(test._id)} className="text-xs text-purple-300/40 hover:text-red-400">🗑️</button>
+                  <button onClick={() => deleteTest(test._id)} className="text-xs text-purple-300/40 hover:text-red-400"><Trash2 className="w-3 h-3" /></button>
                 </div>
               </div>
 

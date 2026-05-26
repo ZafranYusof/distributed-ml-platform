@@ -16,7 +16,7 @@ import {
   Users, Server, Network, Rocket,
   Dna, Waves, Bug, FlaskRound, Clapperboard, Gamepad2,
   Github, Webhook,
-  Shield, TrendingUp,
+  Shield, TrendingUp, Brain,
   Sun, Moon, X, Menu, Search as SearchIcon, Command
 } from 'lucide-react';
 
@@ -167,7 +167,7 @@ export default function Layout() {
         <div className="relative p-6 border-b border-purple-500/20">
           <div className="flex items-center justify-between">
             <h1 className="text-xl font-bold flex items-center gap-2">
-              <span className="text-2xl">🧠</span>
+              <Brain className="w-6 h-6 text-purple-400" />
               <span className="text-gradient">DistML</span>
             </h1>
             <div className="flex items-center gap-1">

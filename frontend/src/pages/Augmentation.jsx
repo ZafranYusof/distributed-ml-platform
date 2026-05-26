@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BarChart3, Image, Dice5, Scale, Target, RotateCw, FlipHorizontal, ZoomIn, Save } from 'lucide-react';
 
 export default function Augmentation() {
   const [dataType, setDataType] = useState('tabular');
@@ -134,10 +135,10 @@ export default function Augmentation() {
       {/* Data Type Selection */}
       <div className="flex items-center gap-3">
         <button onClick={() => { setDataType('tabular'); setSampleData(null); setAugmentedPreview(null); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${dataType === 'tabular' ? 'bg-gradient-btn text-white' : 'bg-dark-800 text-purple-200/70'}`}>
-          📊 Tabular Data
+          <BarChart3 className="w-4 h-4 inline mr-1" /> Tabular Data
         </button>
         <button onClick={() => { setDataType('image'); setSampleData(null); setAugmentedPreview(null); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${dataType === 'image' ? 'bg-gradient-btn text-white' : 'bg-dark-800 text-purple-200/70'}`}>
-          🖼 Image-like Data
+          <Image className="w-4 h-4 inline mr-1" /> Image-like Data
         </button>
         <button onClick={generateSampleData} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm transition-colors ml-auto">
           Generate Sample Data
@@ -153,7 +154,7 @@ export default function Augmentation() {
               {/* Noise */}
               <div className={`border rounded-lg p-4 transition-colors ${config.noise.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-purple-500/20'}`}>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-white text-sm font-medium">🎲 Add Noise</span>
+                  <span className="text-white text-sm font-medium"><Dice5 className="w-4 h-4 inline mr-1" /> Add Noise</span>
                   <input type="checkbox" checked={config.noise.enabled} onChange={(e) => setConfig(prev => ({ ...prev, noise: { ...prev.noise, enabled: e.target.checked } }))} className="rounded border-purple-500/30" />
                 </div>
                 <label className="text-xs text-purple-300/50">Factor: {config.noise.factor}</label>
@@ -163,7 +164,7 @@ export default function Augmentation() {
               {/* SMOTE */}
               <div className={`border rounded-lg p-4 transition-colors ${config.smote.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-purple-500/20'}`}>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-white text-sm font-medium">⚖️ SMOTE</span>
+                  <span className="text-white text-sm font-medium"><Scale className="w-4 h-4 inline mr-1" /> SMOTE</span>
                   <input type="checkbox" checked={config.smote.enabled} onChange={(e) => setConfig(prev => ({ ...prev, smote: { ...prev.smote, enabled: e.target.checked } }))} className="rounded border-purple-500/30" />
                 </div>
                 <label className="text-xs text-purple-300/50">K-Neighbors: {config.smote.neighbors}</label>
@@ -173,7 +174,7 @@ export default function Augmentation() {
               {/* Random Sampling */}
               <div className={`border rounded-lg p-4 transition-colors ${config.sampling.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-purple-500/20'}`}>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-white text-sm font-medium">🎯 Random Sampling</span>
+                  <span className="text-white text-sm font-medium"><Target className="w-4 h-4 inline mr-1" /> Random Sampling</span>
                   <input type="checkbox" checked={config.sampling.enabled} onChange={(e) => setConfig(prev => ({ ...prev, sampling: { ...prev.sampling, enabled: e.target.checked } }))} className="rounded border-purple-500/30" />
                 </div>
                 <label className="text-xs text-purple-300/50">Ratio: {config.sampling.ratio}</label>
@@ -185,7 +186,7 @@ export default function Augmentation() {
               {/* Rotation */}
               <div className={`border rounded-lg p-4 transition-colors ${config.rotation.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-purple-500/20'}`}>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-white text-sm font-medium">🔄 Rotation</span>
+                  <span className="text-white text-sm font-medium"><RotateCw className="w-4 h-4 inline mr-1" /> Rotation</span>
                   <input type="checkbox" checked={config.rotation.enabled} onChange={(e) => setConfig(prev => ({ ...prev, rotation: { ...prev.rotation, enabled: e.target.checked } }))} className="rounded border-purple-500/30" />
                 </div>
                 <label className="text-xs text-purple-300/50">Degrees: ±{config.rotation.degrees}°</label>
@@ -195,7 +196,7 @@ export default function Augmentation() {
               {/* Flip */}
               <div className={`border rounded-lg p-4 transition-colors ${config.flip.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-purple-500/20'}`}>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-white text-sm font-medium">↔️ Flip</span>
+                  <span className="text-white text-sm font-medium"><FlipHorizontal className="w-4 h-4 inline mr-1" /> Flip</span>
                   <input type="checkbox" checked={config.flip.enabled} onChange={(e) => setConfig(prev => ({ ...prev, flip: { ...prev.flip, enabled: e.target.checked } }))} className="rounded border-purple-500/30" />
                 </div>
                 <div className="flex items-center gap-3 text-xs text-purple-300/50">
@@ -207,7 +208,7 @@ export default function Augmentation() {
               {/* Scale */}
               <div className={`border rounded-lg p-4 transition-colors ${config.scale.enabled ? 'border-primary-500/30 bg-primary-500/5' : 'border-purple-500/20'}`}>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-white text-sm font-medium">🔍 Scale</span>
+                  <span className="text-white text-sm font-medium"><ZoomIn className="w-4 h-4 inline mr-1" /> Scale</span>
                   <input type="checkbox" checked={config.scale.enabled} onChange={(e) => setConfig(prev => ({ ...prev, scale: { ...prev.scale, enabled: e.target.checked } }))} className="rounded border-purple-500/30" />
                 </div>
                 <label className="text-xs text-purple-300/50">Factor: ±{config.scale.factor}</label>
@@ -224,7 +225,7 @@ export default function Augmentation() {
           <div className="flex items-center gap-2 ml-auto">
             <input type="text" value={pipelineName} onChange={(e) => setPipelineName(e.target.value)} placeholder="Pipeline name..." className="bg-dark-900 border border-purple-500/30 text-dark-200 rounded-lg px-3 py-2 text-sm" />
             <button onClick={savePipeline} disabled={!pipelineName} className="px-4 py-2 bg-purple-500/15 text-purple-200/70 hover:text-white rounded-lg text-sm disabled:opacity-50 transition-colors">
-              💾 Save Pipeline
+              <Save className="w-4 h-4 inline mr-1" /> Save Pipeline
             </button>
           </div>
         </div>

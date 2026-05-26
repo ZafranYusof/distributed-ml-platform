@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
+import { Search, RefreshCw, Map } from 'lucide-react';
 import { useToast } from '../components/ui/Toast';
 
 export default function Explainability() {
@@ -117,13 +118,13 @@ export default function Explainability() {
       {/* Tabs */}
       <div className="flex gap-2">
         {[
-          { id: 'lime', label: '🔍 LIME Explanations' },
-          { id: 'counterfactual', label: '🔄 Counterfactuals' },
-          { id: 'boundary', label: '🗺️ Decision Boundary' }
+          { id: 'lime', label: 'LIME Explanations', icon: Search },
+          { id: 'counterfactual', label: 'Counterfactuals', icon: RefreshCw },
+          { id: 'boundary', label: 'Decision Boundary', icon: Map }
         ].map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === t.id ? 'bg-purple-500/20 text-purple-300' : 'text-purple-300/50 hover:text-dark-200'}`}>
-            {t.label}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1 ${tab === t.id ? 'bg-purple-500/20 text-purple-300' : 'text-purple-300/50 hover:text-dark-200'}`}>
+            <t.icon className="w-4 h-4" /> {t.label}
           </button>
         ))}
       </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
+import { Github } from 'lucide-react';
 
 export default function GitHubIntegration() {
   const { authFetch } = useAuth();
@@ -76,7 +77,7 @@ export default function GitHubIntegration() {
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center gap-3">
-        <span className="text-2xl">🐙</span>
+                <Github className="w-6 h-6 text-purple-400" />
         <div>
           <h1 className="text-2xl font-bold text-white">GitHub Integration</h1>
           <p className="text-purple-300/50 text-sm">Connect your repository to version models with commits</p>

@@ -4,6 +4,7 @@ import Papa from 'papaparse';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { useFormValidation } from '../components/ui/hooks';
+import { FolderOpen, Upload, Flower2, Home, TrendingUp, BarChart3, Settings, Wrench, Rocket } from 'lucide-react';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -155,7 +156,7 @@ export default function Dashboard() {
 
       {/* Dataset Upload */}
       <div className="card">
-        <h2 className="text-lg font-semibold text-white mb-4">📁 Dataset</h2>
+        <h2 className="text-lg font-semibold text-white mb-4"><FolderOpen className="w-5 h-5 inline mr-1" /> Dataset</h2>
 
         {!dataset ? (
           <div className="space-y-4">
@@ -175,7 +176,7 @@ export default function Dashboard() {
               aria-label="Upload CSV file by dropping or clicking"
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') document.getElementById('file-input').click(); }}
             >
-              <div className="text-4xl mb-3" aria-hidden="true">📂</div>
+              <Upload className="w-10 h-10 text-purple-400 mx-auto mb-3" aria-hidden="true" />
               <p className="text-dark-200 font-medium">Drop CSV file here or click to browse</p>
               <p className="text-purple-300/40 text-sm mt-1">Supports .csv files up to 50MB</p>
               <input
@@ -200,7 +201,7 @@ export default function Dashboard() {
                 disabled={loading}
                 className="card card-hover text-left"
               >
-                <div className="text-sm font-medium text-white">🌸 Iris Dataset</div>
+                <div className="text-sm font-medium text-white"><Flower2 className="w-4 h-4 inline mr-1" /> Iris Dataset</div>
                 <div className="text-xs text-purple-300/50 mt-1">Classification · 150 samples · 4 features</div>
               </button>
               <button
@@ -208,7 +209,7 @@ export default function Dashboard() {
                 disabled={loading}
                 className="card card-hover text-left"
               >
-                <div className="text-sm font-medium text-white">🏠 Housing Prices</div>
+                <div className="text-sm font-medium text-white"><Home className="w-4 h-4 inline mr-1" /> Housing Prices</div>
                 <div className="text-xs text-purple-300/50 mt-1">Regression · 200 samples · 4 features</div>
               </button>
               <button
@@ -216,7 +217,7 @@ export default function Dashboard() {
                 disabled={loading}
                 className="card card-hover text-left"
               >
-                <div className="text-sm font-medium text-white">📈 Sine Wave</div>
+                <div className="text-sm font-medium text-white"><TrendingUp className="w-4 h-4 inline mr-1" /> Sine Wave</div>
                 <div className="text-xs text-purple-300/50 mt-1">Sequence · 500 samples · RNN ready</div>
               </button>
             </div>
@@ -225,7 +226,7 @@ export default function Dashboard() {
           <div className="space-y-3 animate-fade-in">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="text-2xl" aria-hidden="true">📊</span>
+                <BarChart3 className="w-6 h-6 text-purple-400" aria-hidden="true" />
                 <div>
                   <p className="font-medium text-white">{dataset.name}</p>
                   <p className="text-sm text-purple-300/50">{dataset.rows} rows · {dataset.columns.length} columns</p>
@@ -253,7 +254,7 @@ export default function Dashboard() {
       {/* Model Configuration */}
       {dataset && (
         <div className="card animate-fade-in">
-          <h2 className="text-lg font-semibold text-white mb-4">⚙️ Model Configuration</h2>
+          <h2 className="text-lg font-semibold text-white mb-4"><Settings className="w-5 h-5 inline mr-1" /> Model Configuration</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm text-purple-200/70 mb-1" htmlFor="model-type">Model Architecture</label>
@@ -474,7 +475,7 @@ export default function Dashboard() {
               aria-expanded={showPreprocessing}
             >
               <span aria-hidden="true">{showPreprocessing ? '▼' : '▶'}</span>
-              <span className="font-medium">🔧 Preprocessing Options</span>
+              <span className="font-medium"><Wrench className="w-4 h-4 inline mr-1" /> Preprocessing Options</span>
             </button>
 
             {showPreprocessing && (
@@ -540,7 +541,7 @@ export default function Dashboard() {
 
           <div className="mt-6 flex justify-end">
             <button onClick={startTraining} className="btn-primary flex items-center gap-2">
-              <span aria-hidden="true">🚀</span>
+              <Rocket className="w-4 h-4" aria-hidden="true" />
               <span>Start Distributed Training</span>
             </button>
           </div>

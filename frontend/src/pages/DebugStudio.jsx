@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ScatterChart, Scatter, Cell } from 'recharts';
+import { CheckCircle2, XCircle } from 'lucide-react';
 
 export default function DebugStudio() {
   const [modelConfig, setModelConfig] = useState({ layers: [4, 16, 8, 3], activation: 'relu' });
@@ -195,7 +196,7 @@ export default function DebugStudio() {
                     <div className={`mt-2 px-3 py-1.5 rounded text-center text-sm ${
                       current.trueLabel === current.predicted ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
                     }`}>
-                      {current.trueLabel === current.predicted ? '✓ Correct' : '✗ Misclassified'}
+                      {current.trueLabel === current.predicted ? <><CheckCircle2 className="w-4 h-4 inline mr-1" /> Correct</> : <><XCircle className="w-4 h-4 inline mr-1" /> Misclassified</>}
                     </div>
                   </div>
                 </div>

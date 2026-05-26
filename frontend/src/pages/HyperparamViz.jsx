@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { ResponsiveContainer, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, BarChart, Bar, Cell } from 'recharts';
+import { TrendingDown } from 'lucide-react';
 import { useToast } from '../components/ui/Toast';
 
 export default function HyperparamViz() {
@@ -106,7 +107,7 @@ export default function HyperparamViz() {
         <div className="text-center py-16 text-purple-300/50"><div class="animate-pulse space-y-3"><div class="h-4 bg-purple-500/15 rounded w-3/4"></div><div class="h-4 bg-purple-500/15 rounded w-1/2"></div></div></div>
       ) : data.experiments.length === 0 ? (
         <div className="text-center py-16 text-purple-300/50">
-          <p className="text-4xl mb-4">📉</p>
+          <TrendingDown className="w-10 h-10 text-purple-400 mx-auto mb-4" />
           <p>No completed experiments found. Run some experiments with hyperparameters to visualize.</p>
         </div>
       ) : (

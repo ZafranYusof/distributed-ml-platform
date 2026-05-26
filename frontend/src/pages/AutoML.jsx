@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import Papa from 'papaparse';
 import { useToast } from '../components/ui/Toast';
+import { FolderOpen, Upload, Flower2, Home, TrendingUp, BarChart3, Search, Loader, CheckCircle2, Trophy, ClipboardList } from 'lucide-react';
 
 export default function AutoML() {
   const toast = useToast();
@@ -213,12 +214,12 @@ export default function AutoML() {
       {/* Dataset Selection */}
       {!dataset ? (
         <div className="card space-y-4">
-          <h3 className="text-lg font-semibold text-white">📁 Select Dataset</h3>
+          <h3 className="text-lg font-semibold text-white"><FolderOpen className="w-5 h-5 inline mr-1" /> Select Dataset</h3>
           <div
             className="border-2 border-dashed rounded-xl p-8 text-center border-purple-500/30 hover:border-dark-400 cursor-pointer transition-colors"
             onClick={() => document.getElementById('automl-file-input').click()}
           >
-            <div className="text-3xl mb-2">📂</div>
+            <Upload className="w-8 h-8 text-purple-400 mx-auto mb-2" />
             <p className="text-dark-200">Drop CSV or click to browse</p>
             <input
               id="automl-file-input"
@@ -230,13 +231,13 @@ export default function AutoML() {
           </div>
           <div className="grid grid-cols-3 gap-3">
             <button onClick={() => loadSample('iris')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-white">🌸 Iris</div>
+              <div className="text-sm font-medium text-white"><Flower2 className="w-4 h-4 inline mr-1" /> Iris</div>
             </button>
             <button onClick={() => loadSample('housing')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-white">🏠 Housing</div>
+              <div className="text-sm font-medium text-white"><Home className="w-4 h-4 inline mr-1" /> Housing</div>
             </button>
             <button onClick={() => loadSample('sequence')} className="card hover:border-primary-500/50 transition-colors text-left">
-              <div className="text-sm font-medium text-white">📈 Sine Wave</div>
+              <div className="text-sm font-medium text-white"><TrendingUp className="w-4 h-4 inline mr-1" /> Sine Wave</div>
             </button>
           </div>
         </div>
@@ -246,7 +247,7 @@ export default function AutoML() {
           <div className="card">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">📊</span>
+                <BarChart3 className="w-6 h-6 text-purple-400" />
                 <div>
                   <p className="font-medium text-white">{dataset.name}</p>
                   <p className="text-sm text-purple-300/50">{dataset.rows} rows · {dataset.columns.length} columns</p>
@@ -273,7 +274,7 @@ export default function AutoML() {
               <div className="flex items-end">
                 {!running ? (
                   <button onClick={startSearch} className="btn-primary w-full flex items-center justify-center gap-2">
-                    <span>🔍</span> Start Hyperparameter Search
+                    <Search className="w-4 h-4" /> Start Hyperparameter Search
                   </button>
                 ) : (
                   <button onClick={stopSearch} className="w-full bg-red-500/20 text-red-400 border border-red-500/30 font-medium px-4 py-2 rounded-lg hover:bg-red-500/30 transition-colors">
@@ -298,7 +299,7 @@ export default function AutoML() {
           {(running || results.length > 0) && (
             <div className="card">
               <h3 className="text-lg font-semibold text-white mb-4">
-                {running ? '⏳ Search Progress' : '✅ Search Complete'}
+                                {running ? <><Loader className="w-4 h-4 inline animate-spin mr-1" /> Search Progress</> : <><CheckCircle2 className="w-4 h-4 inline mr-1" /> Search Complete</>}
               </h3>
               <div className="mb-4">
                 <div className="flex justify-between text-sm text-purple-300/50 mb-1">
@@ -323,7 +324,7 @@ export default function AutoML() {
           {/* Best Result */}
           {bestResult && (
             <div className="card border-primary-500/30">
-              <h3 className="text-lg font-semibold text-purple-400 mb-3">🏆 Best Configuration</h3>
+              <h3 className="text-lg font-semibold text-purple-400 mb-3"><Trophy className="w-5 h-5 inline mr-1" /> Best Configuration</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-dark-800/40 rounded-lg p-3">
                   <p className="text-xs text-purple-300/50">Learning Rate</p>
@@ -348,7 +349,7 @@ export default function AutoML() {
           {/* Results Table */}
           {results.length > 0 && (
             <div className="card">
-              <h3 className="text-lg font-semibold text-white mb-4">📋 All Results (Ranked)</h3>
+              <h3 className="text-lg font-semibold text-white mb-4"><ClipboardList className="w-5 h-5 inline mr-1" /> All Results (Ranked)</h3>
               <div className="overflow-x-auto max-h-96 overflow-y-auto">
                 <table className="w-full text-sm">
                   <thead className="sticky top-0 bg-dark-900">
