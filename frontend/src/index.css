@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './theme-overrides.css';
-
 @layer base {
   :root {
     /* Legacy variables - now mapped from theme CSS vars */

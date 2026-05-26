@@ -8,6 +8,8 @@ import { NotificationProvider } from './context/NotificationContext';
 import { ToastProvider } from './components/ui/Toast';
 import App from './App';
 import './index.css';
+import './theme-overrides.css';
+import './light-theme-overrides.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
