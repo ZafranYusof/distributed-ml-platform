@@ -1,3 +1,5 @@
+@import './light-theme-overrides.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -58,7 +60,8 @@
 
   /* Skip to content link for accessibility */
   .skip-to-content {
-    @apply absolute -top-10 left-4 z-[99999] bg-neural-primary text-white px-4 py-2 rounded-lg text-sm font-medium transition-all;
+    @apply absolute -top-10 left-4 z-[99999] bg-neural-primary px-4 py-2 rounded-lg text-sm font-medium transition-all;
+    color: #ffffff;
   }
   .skip-to-content:focus {
     @apply top-4;
@@ -84,7 +87,8 @@
   }
   .btn-primary {
     background: linear-gradient(135deg, var(--theme-btn-primary-from, #6366F1), var(--theme-btn-primary-to, #7C3AED));
-    @apply text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
+    @apply font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
+    color: #ffffff;
     box-shadow: var(--theme-shadow, 0 0 15px rgba(124, 58, 237, 0.25));
   }
   .btn-secondary {
@@ -97,7 +101,8 @@
     border-color: var(--theme-border-hover, rgba(139, 92, 246, 0.4));
   }
   .btn-danger {
-    @apply bg-red-500 hover:bg-red-600 text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
+    @apply bg-red-500 hover:bg-red-600 font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-[0.98];
+    color: #ffffff;
   }
   .btn-sm {
     @apply px-3 py-1.5 text-sm;
@@ -173,3 +178,5 @@
     @apply bg-clip-text text-transparent bg-gradient-header;
   }
 }
+
+
