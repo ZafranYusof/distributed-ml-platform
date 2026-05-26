@@ -47,15 +47,15 @@ export default {
         }
       },
       backgroundImage: {
-        'gradient-neural': 'linear-gradient(135deg, #4F46E5, #7C3AED)',
-        'gradient-sidebar': 'linear-gradient(180deg, #1A0533, #0D0221)',
-        'gradient-header': 'linear-gradient(90deg, #4F46E5, #7C3AED, #3B82F6)',
-        'gradient-btn': 'linear-gradient(135deg, #6366F1, #7C3AED)',
-        'gradient-login': 'linear-gradient(135deg, #0D0221 0%, #1A0533 30%, #2d1b69 60%, #4F46E5 100%)',
+        'gradient-neural': 'linear-gradient(135deg, var(--theme-btn-primary-from, #4F46E5), var(--theme-btn-primary-to, #7C3AED))',
+        'gradient-sidebar': 'linear-gradient(180deg, var(--theme-sidebar-bg, #1A0533), var(--theme-sidebar-bg-end, #0D0221))',
+        'gradient-header': 'linear-gradient(90deg, var(--theme-btn-primary-from, #4F46E5), var(--theme-accent, #7C3AED), var(--theme-accent-secondary, #3B82F6))',
+        'gradient-btn': 'linear-gradient(135deg, var(--theme-btn-primary-from, #6366F1), var(--theme-btn-primary-to, #7C3AED))',
+        'gradient-login': 'linear-gradient(135deg, var(--theme-bg-deep, #0D0221) 0%, var(--theme-bg-surface, #1A0533) 30%, var(--theme-bg-card-solid, #2d1b69) 60%, var(--theme-accent, #4F46E5) 100%)',
       },
       boxShadow: {
-        'glow-purple': '0 0 15px rgba(124, 58, 237, 0.25)',
-        'glow-purple-lg': '0 0 30px rgba(124, 58, 237, 0.35)',
+        'glow-purple': 'var(--theme-shadow, 0 0 15px rgba(124, 58, 237, 0.25))',
+        'glow-purple-lg': '0 0 30px var(--theme-glow, rgba(124, 58, 237, 0.35))',
         'glow-blue': '0 0 15px rgba(59, 130, 246, 0.25)',
         'glow-green': '0 0 15px rgba(16, 185, 129, 0.25)',
       },

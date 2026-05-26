@@ -1,0 +1,500 @@
+/* ============================================================
+   UNIVERSAL THEME COLOR OVERRIDES
+   
+   Remaps ALL hardcoded Tailwind color classes to use CSS variables
+   set by ThemeContext. This ensures every theme (dark AND light,
+   purple AND non-purple) displays correctly.
+   
+   Strategy: Use the --theme-* CSS variables that ThemeContext
+   applies to :root for every theme. This single file handles
+   all 30 themes automatically.
+   ============================================================ */
+
+/* ===========================================
+   SECTION 1: TEXT COLORS - PRIMARY (headings)
+   =========================================== */
+
+/* text-white: On dark themes it's fine as-is, but on light themes
+   it must become dark. We use --theme-text-primary which is already
+   set correctly for every theme. */
+.light .text-white {
+  color: var(--theme-text-primary, #1e293b) !important;
+}
+
+/* Preserve white text inside colored/gradient backgrounds */
+.light .btn-primary,
+.light .btn-danger,
+.light [class*="bg-gradient-btn"],
+.light .bg-gradient-btn,
+.light .bg-gradient-neural {
+  color: #ffffff !important;
+}
+.light .bg-red-500 .text-white,
+.light .bg-red-500.text-white,
+.light .bg-green-600 .text-white,
+.light .bg-green-600.text-white,
+.light .bg-yellow-600 .text-white,
+.light .bg-yellow-500\/80.text-white,
+.light .bg-purple-600 .text-white,
+.light .bg-purple-600.text-white,
+.light .bg-purple-500.text-white,
+.light .bg-primary-500.text-white,
+.light .bg-primary-600.text-white,
+.light a[style*="background: linear-gradient"],
+.light button[style*="background: linear-gradient"],
+.light [style*="background: linear-gradient"] .text-white,
+.light [style*="background: linear-gradient"] > .text-white {
+  color: #ffffff !important;
+}
+
+/* ===========================================
+   SECTION 2: TEXT COLORS - ACCENT (purple-400, cyan-400, etc)
+   These should use the theme's accent color on ALL themes.
+   =========================================== */
+
+/* Purple accent text → theme accent (affects ALL themes, not just light) */
+.text-purple-400 {
+  color: var(--theme-text-secondary, #A78BFA) !important;
+}
+.text-purple-300 {
+  color: var(--theme-text-secondary, #A78BFA) !important;
+  opacity: 0.85;
+}
+.text-purple-200 {
+  color: var(--theme-text-secondary, #A78BFA) !important;
+  opacity: 0.75;
+}
+
+/* Cyan accent text → theme accent-secondary */
+.text-cyan-400 {
+  color: var(--theme-accent-secondary, #06b6d4) !important;
+}
+.text-cyan-300 {
+  color: var(--theme-accent-secondary, #06b6d4) !important;
+}
+
+/* ===========================================
+   SECTION 3: TEXT COLORS - MUTED/SECONDARY
+   =========================================== */
+
+/* Muted purple text → theme muted */
+.text-purple-300\/50,
+.text-purple-300\/40,
+.text-purple-300\/60 {
+  color: var(--theme-text-muted, rgba(167, 139, 250, 0.6)) !important;
+}
+
+/* Label text */
+.text-purple-200\/70 {
+  color: var(--theme-text-muted, rgba(167, 139, 250, 0.6)) !important;
+  opacity: 0.9;
+}
+
+/* Gray text variants - use theme muted on all themes */
+.text-gray-300 {
+  color: var(--theme-text-primary, #e2e8f0) !important;
+  opacity: 0.8;
+}
+.text-gray-400 {
+  color: var(--theme-text-muted, rgba(167, 139, 250, 0.6)) !important;
+}
+.text-gray-500 {
+  color: var(--theme-text-muted, rgba(167, 139, 250, 0.6)) !important;
+  opacity: 0.8;
+}
+
+/* Dark utility text */
+.text-dark-200 {
+  color: var(--theme-text-primary, #F8FAFC) !important;
+  opacity: 0.85;
+}
+.text-dark-300 {
+  color: var(--theme-text-muted, rgba(167, 139, 250, 0.6)) !important;
+}
+.text-dark-400 {
+  color: var(--theme-text-muted, rgba(167, 139, 250, 0.6)) !important;
+}
+
+/* White with opacity */
+.text-white\/80 {
+  color: var(--theme-text-primary, #F8FAFC) !important;
+  opacity: 0.8;
+}
+
+/* ===========================================
+   SECTION 4: SEMANTIC STATUS COLORS
+   These should remain semantic (red=error, green=success, etc)
+   but adjusted for light themes.
+   =========================================== */
+
+.light .text-red-400 { color: #dc2626 !important; }
+.light .text-green-400 { color: #059669 !important; }
+.light .text-yellow-400 { color: #d97706 !important; }
+.light .text-blue-400 { color: #2563eb !important; }
+.light .text-orange-400 { color: #ea580c !important; }
+.light .text-emerald-400 { color: #059669 !important; }
+
+/* Dark themes keep semantic colors as-is (they're already readable on dark) */
+
+/* ===========================================
+   SECTION 5: BACKGROUND COLORS
+   =========================================== */
+
+/* Purple card backgrounds → theme card bg */
+.bg-purple-900\/80,
+.bg-purple-900\/30,
+.bg-purple-900\/20,
+.bg-purple-900\/10 {
+  background-color: var(--theme-bg-card, rgba(30, 16, 69, 0.5)) !important;
+}
+
+/* Dark backgrounds used in cards/inputs */
+.bg-dark-700,
+.bg-dark-800,
+.bg-dark-900 {
+  background-color: var(--theme-bg-card-solid, #1E1045) !important;
+}
+.bg-dark-800\/40 {
+  background-color: var(--theme-bg-card, rgba(30, 16, 69, 0.5)) !important;
+}
+
+/* Badge/pill backgrounds */
+.bg-purple-500\/10,
+.bg-purple-500\/15,
+.bg-purple-500\/20 {
+  background-color: var(--theme-badge-bg, rgba(124, 58, 237, 0.2)) !important;
+}
+.bg-primary-500\/10,
+.bg-primary-500\/20 {
+  background-color: var(--theme-badge-bg, rgba(124, 58, 237, 0.2)) !important;
+}
+
+/* Cyan badge backgrounds */
+.bg-cyan-500\/10,
+.bg-cyan-500\/20 {
+  background-color: var(--theme-badge-bg, rgba(124, 58, 237, 0.2)) !important;
+}
+
+/* Documentation specific dark bg */
+.bg-\[\#0a0a1a\] {
+  background-color: var(--theme-bg-deep, #0D0221) !important;
+}
+
+/* Light mode specific bg overrides */
+.light .bg-dark-700,
+.light .bg-dark-800,
+.light .bg-dark-900,
+.light .bg-dark-800\/40 {
+  background-color: var(--theme-bg-card-solid, #f8fafc) !important;
+}
+
+/* ===========================================
+   SECTION 6: BORDER COLORS
+   =========================================== */
+
+/* Purple borders → theme border */
+.border-purple-500\/20,
+.border-purple-500\/30,
+.border-purple-500\/40,
+.border-primary-500\/20,
+.border-primary-500\/30 {
+  border-color: var(--theme-border, rgba(139, 92, 246, 0.2)) !important;
+}
+
+/* Dark borders */
+.border-dark-600,
+.border-dark-500,
+.border-dark-400,
+.border-dark-800 {
+  border-color: var(--theme-border, rgba(139, 92, 246, 0.2)) !important;
+}
+
+/* ===========================================
+   SECTION 7: SHADOWS
+   =========================================== */
+
+.shadow-purple-500\/25,
+.shadow-purple-500\/20 {
+  --tw-shadow-color: var(--theme-glow, rgba(124, 58, 237, 0.25)) !important;
+  box-shadow: var(--theme-shadow, 0 0 15px rgba(124, 58, 237, 0.25)) !important;
+}
+
+/* ===========================================
+   SECTION 8: GRADIENTS
+   =========================================== */
+
+/* Gradient text (from-cyan-400 to-purple-400, etc) → use theme colors */
+.bg-gradient-to-r.from-cyan-400.to-purple-400,
+.bg-gradient-to-r.from-cyan-400.via-purple-400.to-pink-400 {
+  --tw-gradient-from: var(--theme-accent-secondary, #06b6d4) !important;
+  --tw-gradient-to: var(--theme-accent, #7C3AED) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+/* Generic gradient text utility - use theme colors */
+.text-gradient,
+.bg-gradient-header {
+  background-image: linear-gradient(90deg, var(--theme-accent-secondary, #6366F1), var(--theme-accent, #7C3AED)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* Light mode gradient text needs darker colors for contrast */
+.light .text-gradient,
+.light .bg-gradient-header {
+  background-image: linear-gradient(90deg, var(--theme-accent, #4F46E5), var(--theme-accent-secondary, #7C3AED)) !important;
+}
+
+/* ===========================================
+   SECTION 9: HOVER STATES
+   =========================================== */
+
+.hover\:text-white:hover {
+  color: var(--theme-text-primary, #F8FAFC) !important;
+}
+.hover\:text-purple-400:hover,
+.hover\:text-purple-300:hover {
+  color: var(--theme-accent, #7C3AED) !important;
+}
+.hover\:text-red-400:hover {
+  color: #f87171 !important;
+}
+.light .hover\:text-red-400:hover {
+  color: #dc2626 !important;
+}
+.light .hover\:text-white:hover {
+  color: var(--theme-text-primary, #1e293b) !important;
+}
+
+/* Hover backgrounds */
+.hover\:bg-purple-500\/10:hover,
+.hover\:bg-purple-500\/15:hover,
+.hover\:bg-purple-500\/20:hover,
+.hover\:bg-primary-500\/20:hover {
+  background-color: var(--theme-sidebar-hover, rgba(124, 58, 237, 0.1)) !important;
+}
+
+/* ===========================================
+   SECTION 10: INPUT FIELDS
+   =========================================== */
+
+/* All inputs/selects/textareas use theme variables */
+input, textarea, select {
+  color: var(--theme-text-primary, #F8FAFC);
+}
+
+.light input,
+.light textarea,
+.light select {
+  color: var(--theme-text-primary, #1e293b) !important;
+  background-color: var(--theme-input-bg, #ffffff) !important;
+}
+
+/* Placeholder colors */
+.placeholder-dark-400::placeholder {
+  color: var(--theme-text-muted, rgba(167, 139, 250, 0.6)) !important;
+}
+
+/* ===========================================
+   SECTION 11: LIGHT THEME SPECIFIC OVERRIDES
+   (Things that only need fixing on light themes)
+   =========================================== */
+
+/* Light mode: text-sm.text-white (toast text etc) */
+.light .text-sm.text-white {
+  color: var(--theme-text-primary, #1e293b) !important;
+}
+
+/* Light mode: code blocks */
+.light pre,
+.light code {
+  color: var(--theme-text-primary, #1e293b) !important;
+}
+
+/* Light mode: font-mono */
+.light .font-mono {
+  color: var(--theme-text-primary, #1e293b);
+}
+
+/* Light mode: scrollbar */
+.light ::-webkit-scrollbar-track {
+  background: var(--scrollbar-track, #f1f5f9) !important;
+}
+.light ::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb, #cbd5e1) !important;
+}
+.light ::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-hover, #94a3b8) !important;
+}
+
+/* Light mode: disabled states */
+.light .disabled\:opacity-50:disabled {
+  opacity: 0.5;
+}
+
+/* Light mode: links */
+.light a.text-purple-400,
+.light a.text-primary-300 {
+  color: var(--theme-accent, #6d28d9) !important;
+}
+.light a.text-purple-400:hover,
+.light a:hover.text-purple-300 {
+  color: var(--theme-accent-secondary, #4f46e5) !important;
+}
+
+/* Light mode: confusion matrix cells */
+.light .bg-green-500\/30 .text-green-400,
+.light .bg-green-500\/30.text-green-400 {
+  color: #047857 !important;
+}
+.light .bg-red-500\/30 .text-red-400,
+.light .bg-red-500\/30.text-red-400 {
+  color: #b91c1c !important;
+}
+
+/* Light mode: BackToTop button */
+.light .bg-purple-600 {
+  background-color: var(--theme-accent, #6d28d9) !important;
+  color: #ffffff !important;
+}
+.light .hover\:bg-purple-500:hover {
+  background-color: var(--theme-accent-secondary, #7c3aed) !important;
+}
+
+/* Light mode: notification dots */
+.light .bg-red-500 .text-white,
+.light .bg-red-500.text-white,
+.light span.bg-red-500 {
+  color: #ffffff !important;
+}
+
+/* Light mode: active tab states */
+.light .bg-gradient-btn.text-white {
+  color: #ffffff !important;
+}
+
+/* ===========================================
+   SECTION 12: DOCUMENTATION PAGE SPECIFICS
+   =========================================== */
+
+/* Doc nav active state - use theme accent instead of cyan */
+.bg-purple-500\/20.text-cyan-400 {
+  color: var(--theme-accent-secondary, #06b6d4) !important;
+  background-color: var(--theme-sidebar-active-bg, rgba(124, 58, 237, 0.15)) !important;
+  border-color: var(--theme-border, rgba(139, 92, 246, 0.2)) !important;
+}
+
+/* Doc page purple-600 button */
+.bg-purple-600 {
+  background-color: var(--theme-accent, #7C3AED) !important;
+}
+.hover\:bg-purple-500:hover {
+  background-color: var(--theme-accent-secondary, #a78bfa) !important;
+}
+
+/* ===========================================
+   SECTION 13: FOCUS STATES
+   =========================================== */
+
+.focus\:border-primary-500:focus,
+.focus\:border-purple-500:focus {
+  border-color: var(--theme-input-focus, #7C3AED) !important;
+}
+
+/* ===========================================
+   SECTION 14: DIVIDERS AND SEPARATORS
+   =========================================== */
+
+.divide-purple-500\/20 > :not([hidden]) ~ :not([hidden]),
+.divide-dark-600 > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--theme-divider, rgba(139, 92, 246, 0.2)) !important;
+}
+
+/* ===========================================
+   SECTION 15: RING/OUTLINE COLORS
+   =========================================== */
+
+.ring-purple-500\/20,
+.ring-purple-500\/30,
+.ring-primary-500\/20 {
+  --tw-ring-color: var(--theme-border, rgba(139, 92, 246, 0.2)) !important;
+}
+
+/* ===========================================
+   SECTION 16: BADGE TEXT COLORS
+   =========================================== */
+
+/* Badge text that uses purple → theme badge text */
+.text-purple-300.font-medium,
+.text-purple-400.font-medium {
+  color: var(--theme-badge-text, #c4b5fd) !important;
+}
+
+/* ===========================================
+   SECTION 17: PROGRESS BARS AND INDICATORS
+   =========================================== */
+
+/* bg-gradient-btn is already theme-aware via index.css btn-primary styles,
+   but ensure standalone usage also works */
+.bg-gradient-btn {
+  background: linear-gradient(135deg, var(--theme-btn-primary-from, #6366F1), var(--theme-btn-primary-to, #7C3AED)) !important;
+}
+
+/* ===========================================
+   SECTION 18: CHART AND DATA VIZ
+   =========================================== */
+
+/* Chart grid lines */
+.chart-grid,
+[class*="chart-grid"] {
+  stroke: var(--theme-chart-grid, #2d1b69) !important;
+}
+
+/* ===========================================
+   SECTION 19: SIDEBAR SPECIFIC
+   =========================================== */
+
+/* Sidebar active states that use hardcoded purple */
+.bg-purple-500\/20 {
+  background-color: var(--theme-sidebar-active-bg, rgba(124, 58, 237, 0.15)) !important;
+}
+.bg-purple-500\/10 {
+  background-color: var(--theme-sidebar-hover, rgba(124, 58, 237, 0.1)) !important;
+}
+
+/* ===========================================
+   SECTION 20: SPECIAL COMPONENT OVERRIDES
+   =========================================== */
+
+/* Breadcrumb links */
+.text-purple-300\/50 a:hover {
+  color: var(--theme-accent, #7C3AED) !important;
+}
+
+/* Empty state icons */
+[role="img"] .text-purple-300\/40,
+.text-purple-300\/40[role="img"] {
+  color: var(--theme-text-muted, rgba(167, 139, 250, 0.6)) !important;
+}
+
+/* Table headers */
+th.text-purple-300\/50,
+th.text-purple-300 {
+  color: var(--theme-text-muted, rgba(167, 139, 250, 0.6)) !important;
+}
+.light th.text-purple-300\/50,
+.light th.text-purple-300 {
+  color: #475569 !important;
+}
+
+/* Animated pulse indicators keep their semantic colors */
+.bg-accent-green,
+.bg-green-500 {
+  background-color: #10b981 !important;
+}
+
+/* Keep red backgrounds semantic */
+.bg-red-500 {
+  background-color: #ef4444 !important;
+}

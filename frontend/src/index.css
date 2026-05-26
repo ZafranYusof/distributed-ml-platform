@@ -1,38 +1,24 @@
-@import './light-theme-overrides.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@import './theme-overrides.css';
+
 @layer base {
   :root {
-    --neural-primary: #6366F1;
-    --neural-secondary: #7C3AED;
-    --neural-glow: #a78bfa;
-    --bg-deep: #0D0221;
-    --bg-surface: #1A0533;
-    --bg-card: #1E1045;
-    --accent-blue: #3B82F6;
+    /* Legacy variables - now mapped from theme CSS vars */
+    --neural-primary: var(--theme-btn-primary-from, #6366F1);
+    --neural-secondary: var(--theme-accent, #7C3AED);
+    --neural-glow: var(--theme-glow, rgba(124, 58, 237, 0.25));
+    --bg-deep: var(--theme-bg-deep, #0D0221);
+    --bg-surface: var(--theme-bg-surface, #1A0533);
+    --bg-card: var(--theme-bg-card-solid, #1E1045);
+    --accent-blue: var(--theme-accent-secondary, #3B82F6);
     --accent-green: #10B981;
     --accent-green-light: #34D399;
-    --text-primary: #F8FAFC;
-    --text-secondary: #A78BFA;
-    --border-glow: rgba(139, 92, 246, 0.2);
-  }
-
-  .light {
-    --neural-primary: #6366F1;
-    --neural-secondary: #7C3AED;
-    --neural-glow: #a78bfa;
-    --bg-deep: #f8fafc;
-    --bg-surface: #ffffff;
-    --bg-card: #f1f5f9;
-    --accent-blue: #3B82F6;
-    --accent-green: #10B981;
-    --accent-green-light: #34D399;
-    --text-primary: #1e293b;
-    --text-secondary: #6d28d9;
-    --border-glow: rgba(139, 92, 246, 0.15);
+    --text-primary: var(--theme-text-primary, #F8FAFC);
+    --text-secondary: var(--theme-text-secondary, #A78BFA);
+    --border-glow: var(--theme-border, rgba(139, 92, 246, 0.2));
   }
 
   body {
@@ -166,8 +152,8 @@
 
   /* Neural glow pulse */
   @keyframes glow-pulse {
-    0%, 100% { box-shadow: 0 0 10px rgba(124, 58, 237, 0.2); }
-    50% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.4); }
+    0%, 100% { box-shadow: var(--theme-shadow, 0 0 10px rgba(124, 58, 237, 0.2)); }
+    50% { box-shadow: 0 0 20px var(--theme-glow, rgba(124, 58, 237, 0.4)); }
   }
   .animate-glow-pulse {
     animation: glow-pulse 2s ease-in-out infinite;
@@ -176,6 +162,38 @@
   /* Gradient text utility */
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-header;
+  }
+
+  /* Theme-aware utility classes */
+  .text-theme-primary {
+    color: var(--theme-text-primary, #F8FAFC);
+  }
+  .text-theme-secondary {
+    color: var(--theme-text-secondary, #A78BFA);
+  }
+  .text-theme-muted {
+    color: var(--theme-text-muted, rgba(167, 139, 250, 0.6));
+  }
+  .text-theme-accent {
+    color: var(--theme-accent, #7C3AED);
+  }
+  .bg-theme-card {
+    background-color: var(--theme-bg-card, rgba(30, 16, 69, 0.5));
+  }
+  .bg-theme-card-solid {
+    background-color: var(--theme-bg-card-solid, #1E1045);
+  }
+  .bg-theme-surface {
+    background-color: var(--theme-bg-surface, #1A0533);
+  }
+  .border-theme {
+    border-color: var(--theme-border, rgba(139, 92, 246, 0.2));
+  }
+  .border-theme-hover {
+    border-color: var(--theme-border-hover, rgba(139, 92, 246, 0.4));
+  }
+  .shadow-theme {
+    box-shadow: var(--theme-shadow, 0 0 15px rgba(124, 58, 237, 0.25));
   }
 }
 
